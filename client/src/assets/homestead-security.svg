@@ -1,0 +1,144 @@
+<svg viewBox="0 0 320 180" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="skyGradient" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" style="stop-color:#87CEEB;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#98D8E8;stop-opacity:1" />
+    </linearGradient>
+  </defs>
+  
+  <!-- Sky background -->
+  <rect width="320" height="120" fill="url(#skyGradient)"/>
+  
+  <!-- Ground -->
+  <rect x="0" y="120" width="320" height="60" fill="#D2B48C"/>
+  
+  <!-- Homestead house -->
+  <rect x="120" y="70" width="80" height="50" fill="#8B4513"/>
+  <polygon points="120,70 160,45 200,70" fill="#DC143C"/>
+  
+  <!-- Security fence -->
+  <rect x="30" y="100" width="3" height="30" fill="#8B4513"/>
+  <rect x="50" y="100" width="3" height="30" fill="#8B4513"/>
+  <rect x="70" y="100" width="3" height="30" fill="#8B4513"/>
+  <rect x="90" y="100" width="3" height="30" fill="#8B4513"/>
+  <rect x="210" y="100" width="3" height="30" fill="#8B4513"/>
+  <rect x="230" y="100" width="3" height="30" fill="#8B4513"/>
+  <rect x="250" y="100" width="3" height="30" fill="#8B4513"/>
+  <rect x="270" y="100" width="3" height="30" fill="#8B4513"/>
+  <rect x="290" y="100" width="3" height="30" fill="#8B4513"/>
+  
+  <!-- Fence horizontals -->
+  <rect x="30" y="110" width="63" height="2" fill="#8B4513"/>
+  <rect x="30" y="120" width="63" height="2" fill="#8B4513"/>
+  <rect x="210" y="110" width="83" height="2" fill="#8B4513"/>
+  <rect x="210" y="120" width="83" height="2" fill="#8B4513"/>
+  
+  <!-- Security gate -->
+  <rect x="93" y="100" width="20" height="30" fill="#708090"/>
+  <circle cx="108" cy="115" r="2" fill="#FFD700"/>
+  <rect x="98" y="105" width="10" height="2" fill="#8B4513"/>
+  <rect x="98" y="115" width="10" height="2" fill="#8B4513"/>
+  <rect x="98" y="125" width="10" height="2" fill="#8B4513"/>
+  
+  <!-- Security cameras -->
+  <rect x="115" y="65" width="8" height="5" fill="#2F4F4F"/>
+  <circle cx="119" cy="67" r="2" fill="#000"/>
+  <line x1="119" y1="65" x2="119" y2="60" stroke="#000" stroke-width="1"/>
+  
+  <rect x="195" y="65" width="8" height="5" fill="#2F4F4F"/>
+  <circle cx="199" cy="67" r="2" fill="#000"/>
+  <line x1="199" y1="65" x2="199" y2="60" stroke="#000" stroke-width="1"/>
+  
+  <!-- Motion sensor lights -->
+  <rect x="140" y="75" width="6" height="4" fill="#FFD700"/>
+  <rect x="174" y="75" width="6" height="4" fill="#FFD700"/>
+  
+  <!-- Dog house -->
+  <rect x="60" y="140" width="20" height="15" fill="#8B4513"/>
+  <polygon points="60,140 70,130 80,140" fill="#DC143C"/>
+  <rect x="68" y="145" width="6" height="10" fill="#000"/>
+  
+  <!-- Dog -->
+  <ellipse cx="85" cy="150" rx="8" ry="5" fill="#8B4513"/>
+  <circle cx="90" cy="145" r="4" fill="#8B4513"/>
+  <polygon points="94,145 96,142 94,139" fill="#FFB6C1"/>
+  <circle cx="92" cy="143" r="1" fill="#000"/>
+  <polygon points="89,139 87,136 89,133" fill="#654321"/>
+  <polygon points="95,139 93,136 95,133" fill="#654321"/>
+  
+  <!-- Security alarm box -->
+  <rect x="110" y="85" width="8" height="6" fill="#DC143C"/>
+  <circle cx="114" cy="88" r="1" fill="#32CD32"/>
+  <rect x="112" y="86" width="4" height="1" fill="#000"/>
+  
+  <!-- Warning signs -->
+  <rect x="40" y="135" width="12" height="8" fill="#FFD700"/>
+  <polygon points="46,135 48,133 50,135" fill="#DC143C"/>
+  <rect x="44" y="137" width="4" height="1" fill="#000"/>
+  <rect x="44" y="139" width="4" height="1" fill="#000"/>
+  
+  <rect x="240" y="135" width="12" height="8" fill="#FFD700"/>
+  <circle cx="246" cy="139" r="3" fill="#DC143C"/>
+  <line x1="244" y1="137" x2="248" y2="141" stroke="#FFFFFF" stroke-width="1"/>
+  <line x1="248" y1="137" x2="244" y2="141" stroke="#FFFFFF" stroke-width="1"/>
+  
+  <!-- Solar security light -->
+  <rect x="20" y="110" width="8" height="5" fill="#191970"/>
+  <line x1="22" y1="110" x2="22" y2="115" stroke="#000" stroke-width="0.5"/>
+  <line x1="24" y1="110" x2="24" y2="115" stroke="#000" stroke-width="0.5"/>
+  <line x1="26" y1="110" x2="26" y2="115" stroke="#000" stroke-width="0.5"/>
+  <rect x="22" y="115" width="4" height="8" fill="#FFD700"/>
+  
+  <!-- Driveway sensor -->
+  <rect x="100" y="160" width="20" height="2" fill="#708090"/>
+  <circle cx="105" cy="158" r="1" fill="#DC143C"/>
+  <circle cx="115" cy="158" r="1" fill="#DC143C"/>
+  
+  <!-- Security control panel -->
+  <rect x="125" y="85" width="10" height="8" fill="#2F4F4F"/>
+  <circle cx="128" cy="87" r="1" fill="#32CD32"/>
+  <circle cx="132" cy="87" r="1" fill="#DC143C"/>
+  <rect x="127" y="90" width="6" height="1" fill="#000"/>
+  
+  <!-- Radio antenna -->
+  <line x1="160" y1="45" x2="160" y2="30" stroke="#C0C0C0" stroke-width="2"/>
+  <line x1="155" y1="32" x2="165" y2="32" stroke="#C0C0C0" stroke-width="1"/>
+  <line x1="157" y1="35" x2="163" y2="35" stroke="#C0C0C0" stroke-width="1"/>
+  
+  <!-- Emergency supply shed -->
+  <rect x="280" y="130" width="30" height="25" fill="#654321"/>
+  <polygon points="280,130 295,120 310,130" fill="#8B4513"/>
+  <rect x="290" y="140" width="8" height="15" fill="#2F4F4F"/>
+  <circle cx="296" cy="147" r="1" fill="#FFD700"/>
+  
+  <!-- Perimeter lighting -->
+  <rect x="10" y="125" width="3" height="8" fill="#8B4513"/>
+  <circle cx="11.5" cy="123" r="2" fill="#FFD700"/>
+  
+  <rect x="305" y="125" width="3" height="8" fill="#8B4513"/>
+  <circle cx="306.5" cy="123" r="2" fill="#FFD700"/>
+  
+  <!-- Communication tower -->
+  <rect x="300" y="80" width="3" height="40" fill="#C0C0C0"/>
+  <line x1="295" y1="85" x2="305" y2="85" stroke="#C0C0C0" stroke-width="1"/>
+  <line x1="297" y1="90" x2="303" y2="90" stroke="#C0C0C0" stroke-width="1"/>
+  <line x1="299" y1="95" x2="301" y2="95" stroke="#C0C0C0" stroke-width="1"/>
+  
+  <!-- Vehicle -->
+  <rect x="140" y="150" width="25" height="10" fill="#4169E1"/>
+  <circle cx="145" cy="163" r="4" fill="#000"/>
+  <circle cx="160" cy="163" r="4" fill="#000"/>
+  <rect x="142" y="145" width="6" height="5" fill="#87CEEB"/>
+  <rect x="155" y="145" width="6" height="5" fill="#87CEEB"/>
+  
+  <!-- Tire tracks -->
+  <rect x="120" y="165" width="50" height="2" fill="#A0522D" opacity="0.5"/>
+  <rect x="120" y="169" width="50" height="2" fill="#A0522D" opacity="0.5"/>
+  
+  <!-- Sun -->
+  <circle cx="40" cy="30" r="20" fill="#FFD700"/>
+  
+  <!-- Moon (partial, for night security) -->
+  <circle cx="280" cy="25" r="12" fill="#E6E6FA"/>
+  <circle cx="275" cy="20" r="12" fill="#87CEEB"/>
+</svg>

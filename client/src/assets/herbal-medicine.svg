@@ -1,0 +1,106 @@
+<svg viewBox="0 0 320 180" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="skyGradient" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" style="stop-color:#87CEEB;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#98D8E8;stop-opacity:1" />
+    </linearGradient>
+  </defs>
+  
+  <!-- Sky background -->
+  <rect width="320" height="120" fill="url(#skyGradient)"/>
+  
+  <!-- Ground -->
+  <rect x="0" y="120" width="320" height="60" fill="#90EE90"/>
+  
+  <!-- Herb garden beds -->
+  <rect x="20" y="130" width="80" height="40" fill="#654321" rx="5"/>
+  <rect x="120" y="130" width="80" height="40" fill="#654321" rx="5"/>
+  <rect x="220" y="130" width="80" height="40" fill="#654321" rx="5"/>
+  
+  <!-- Medicinal plants -->
+  <!-- Lavender -->
+  <rect x="30" y="135" width="2" height="15" fill="#228B22"/>
+  <ellipse cx="31" cy="133" rx="3" ry="6" fill="#9370DB"/>
+  <rect x="40" y="138" width="2" height="12" fill="#228B22"/>
+  <ellipse cx="41" cy="136" rx="3" ry="6" fill="#9370DB"/>
+  <rect x="50" y="140" width="2" height="10" fill="#228B22"/>
+  <ellipse cx="51" cy="138" rx="3" ry="6" fill="#9370DB"/>
+  
+  <!-- Echinacea -->
+  <rect x="130" y="138" width="2" height="12" fill="#228B22"/>
+  <circle cx="131" cy="136" r="4" fill="#FF69B4"/>
+  <circle cx="131" cy="136" r="2" fill="#FFD700"/>
+  <rect x="145" y="140" width="2" height="10" fill="#228B22"/>
+  <circle cx="146" cy="138" r="4" fill="#FF69B4"/>
+  <circle cx="146" cy="138" r="2" fill="#FFD700"/>
+  
+  <!-- Rosemary -->
+  <rect x="230" y="135" width="2" height="15" fill="#8B4513"/>
+  <ellipse cx="231" cy="133" rx="2" ry="8" fill="#228B22"/>
+  <rect x="245" y="138" width="2" height="12" fill="#8B4513"/>
+  <ellipse cx="246" cy="136" rx="2" ry="8" fill="#228B22"/>
+  
+  <!-- Sage -->
+  <rect x="260" y="140" width="2" height="10" fill="#228B22"/>
+  <ellipse cx="261" cy="138" rx="4" ry="5" fill="#9ACD32"/>
+  <rect x="275" y="142" width="2" height="8" fill="#228B22"/>
+  <ellipse cx="276" cy="140" rx="4" ry="5" fill="#9ACD32"/>
+  
+  <!-- Drying herbs -->
+  <rect x="50" y="80" width="80" height="30" fill="#8B4513"/>
+  <rect x="50" y="80" width="80" height="5" fill="#654321"/>
+  
+  <!-- Hanging herb bundles -->
+  <line x1="60" y1="80" x2="60" y2="95" stroke="#8B4513" stroke-width="1"/>
+  <ellipse cx="60" cy="98" rx="4" ry="6" fill="#228B22"/>
+  
+  <line x1="80" y1="80" x2="80" y2="95" stroke="#8B4513" stroke-width="1"/>
+  <ellipse cx="80" cy="98" rx="4" ry="6" fill="#9370DB"/>
+  
+  <line x1="100" y1="80" x2="100" y2="95" stroke="#8B4513" stroke-width="1"/>
+  <ellipse cx="100" cy="98" rx="4" ry="6" fill="#9ACD32"/>
+  
+  <line x1="120" y1="80" x2="120" y2="95" stroke="#8B4513" stroke-width="1"/>
+  <ellipse cx="120" cy="98" rx="4" ry="6" fill="#8B4513"/>
+  
+  <!-- Mortar and pestle -->
+  <ellipse cx="170" cy="100" rx="12" ry="8" fill="#708090"/>
+  <ellipse cx="170" cy="96" rx="10" ry="6" fill="#2F4F4F"/>
+  <rect x="185" y="85" width="4" height="15" fill="#708090"/>
+  <ellipse cx="187" cy="83" rx="3" ry="5" fill="#708090"/>
+  <circle cx="170" cy="96" r="2" fill="#228B22"/> <!-- Ground herbs -->
+  
+  <!-- Essential oil bottles -->
+  <rect x="200" y="95" width="6" height="12" fill="#E6F3FF" rx="1"/>
+  <rect x="200" y="95" width="6" height="2" fill="#8B4513"/>
+  <rect x="200" y="100" width="6" height="5" fill="#9370DB" opacity="0.7"/>
+  
+  <rect x="210" y="97" width="6" height="10" fill="#E6F3FF" rx="1"/>
+  <rect x="210" y="97" width="6" height="2" fill="#8B4513"/>
+  <rect x="210" y="102" width="6" height="3" fill="#32CD32" opacity="0.7"/>
+  
+  <rect x="220" y="99" width="6" height="8" fill="#E6F3FF" rx="1"/>
+  <rect x="220" y="99" width="6" height="2" fill="#8B4513"/>
+  <rect x="220" y="103" width="6" height="2" fill="#FFD700" opacity="0.7"/>
+  
+  <!-- Tea preparation -->
+  <ellipse cx="260" cy="100" rx="15" ry="10" fill="#8B4513"/>
+  <ellipse cx="260" cy="95" rx="12" ry="8" fill="#F4A460"/>
+  <circle cx="260" cy="95" r="2" fill="#228B22"/> <!-- Tea leaves -->
+  
+  <!-- Steam from tea -->
+  <path d="M255,90 Q252,85 255,80 Q258,75 255,70" fill="none" stroke="#E0E0E0" stroke-width="1" opacity="0.7"/>
+  <path d="M265,90 Q268,85 265,80 Q262,75 265,70" fill="none" stroke="#E0E0E0" stroke-width="1" opacity="0.7"/>
+  
+  <!-- Garden tools -->
+  <line x1="300" y1="120" x2="300" y2="140" stroke="#8B4513" stroke-width="2"/>
+  <ellipse cx="300" cy="118" rx="3" ry="6" fill="#C0C0C0"/>
+  
+  <!-- Sun -->
+  <circle cx="40" cy="30" r="20" fill="#FFD700"/>
+  
+  <!-- Butterfly -->
+  <ellipse cx="180" cy="60" rx="4" ry="2" fill="#FFB6C1" transform="rotate(20 180 60)"/>
+  <ellipse cx="180" cy="60" rx="4" ry="2" fill="#DA70D6" transform="rotate(-20 180 60)"/>
+  <line x1="180" y1="60" x2="180" y2="65" stroke="#000" stroke-width="1"/>
+</svg>

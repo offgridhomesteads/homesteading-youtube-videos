@@ -1,0 +1,73 @@
+<svg viewBox="0 0 320 180" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="skyGradient" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" style="stop-color:#87CEEB;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#98D8E8;stop-opacity:1" />
+    </linearGradient>
+  </defs>
+  
+  <!-- Sky background -->
+  <rect width="320" height="120" fill="url(#skyGradient)"/>
+  
+  <!-- Ground -->
+  <rect x="0" y="120" width="320" height="60" fill="#90EE90"/>
+  
+  <!-- Compost bin structure -->
+  <rect x="100" y="80" width="120" height="60" fill="none" stroke="#8B4513" stroke-width="4"/>
+  <rect x="105" y="85" width="110" height="5" fill="#654321"/>
+  <rect x="105" y="95" width="110" height="5" fill="#654321"/>
+  <rect x="105" y="105" width="110" height="5" fill="#654321"/>
+  <rect x="105" y="115" width="110" height="5" fill="#654321"/>
+  <rect x="105" y="125" width="110" height="5" fill="#654321"/>
+  
+  <!-- Compost layers -->
+  <rect x="110" y="120" width="100" height="15" fill="#8B4513"/> <!-- Brown materials -->
+  <rect x="110" y="110" width="100" height="10" fill="#228B22"/> <!-- Green materials -->
+  <rect x="110" y="95" width="100" height="15" fill="#654321"/> <!-- Decomposing -->
+  
+  <!-- Compost ingredients around bin -->
+  <!-- Leaves -->
+  <ellipse cx="70" cy="130" rx="8" ry="4" fill="#8B4513" transform="rotate(20 70 130)"/>
+  <ellipse cx="65" cy="135" rx="6" ry="3" fill="#A0522D" transform="rotate(-15 65 135)"/>
+  <ellipse cx="75" cy="140" rx="7" ry="4" fill="#8B4513" transform="rotate(45 75 140)"/>
+  
+  <!-- Kitchen scraps -->
+  <circle cx="250" cy="135" r="4" fill="#FF6B6B"/> <!-- Apple core -->
+  <ellipse cx="260" cy="140" rx="6" ry="3" fill="#FFA500"/> <!-- Carrot peel -->
+  <circle cx="270" cy="138" r="3" fill="#90EE90"/> <!-- Lettuce -->
+  
+  <!-- Grass clippings -->
+  <rect x="40" y="145" width="25" height="8" fill="#32CD32" rx="4"/>
+  <rect x="280" y="150" width="20" height="6" fill="#32CD32" rx="3"/>
+  
+  <!-- Pitchfork for turning -->
+  <line x1="180" y1="50" x2="180" y2="80" stroke="#8B4513" stroke-width="3"/>
+  <line x1="175" y1="50" x2="185" y2="50" stroke="#C0C0C0" stroke-width="2"/>
+  <line x1="177" y1="47" x2="183" y2="47" stroke="#C0C0C0" stroke-width="2"/>
+  <line x1="179" y1="44" x2="181" y2="44" stroke="#C0C0C0" stroke-width="2"/>
+  
+  <!-- Steam/decomposition activity -->
+  <path d="M130,90 Q127,85 130,80 Q133,75 130,70" fill="none" stroke="#E0E0E0" stroke-width="2" opacity="0.7"/>
+  <path d="M160,90 Q163,85 160,80 Q157,75 160,70" fill="none" stroke="#E0E0E0" stroke-width="2" opacity="0.7"/>
+  <path d="M190,90 Q187,85 190,80 Q193,75 190,70" fill="none" stroke="#E0E0E0" stroke-width="2" opacity="0.7"/>
+  
+  <!-- Thermometer -->
+  <rect x="225" y="85" width="3" height="25" fill="#DC143C"/>
+  <circle cx="226.5" cy="112" r="4" fill="#DC143C"/>
+  
+  <!-- Wheelbarrow with materials -->
+  <ellipse cx="50" cy="160" rx="15" ry="8" fill="#708090"/>
+  <circle cx="35" cy="165" r="8" fill="#2F4F4F"/>
+  <line x1="65" y1="155" x2="80" y2="145" stroke="#8B4513" stroke-width="3"/>
+  <rect x="45" y="150" width="10" height="8" fill="#654321"/>
+  
+  <!-- Finished compost pile -->
+  <ellipse cx="280" cy="125" rx="20" ry="10" fill="#654321"/>
+  
+  <!-- Sun -->
+  <circle cx="40" cy="30" r="20" fill="#FFD700"/>
+  
+  <!-- Worms -->
+  <path d="M140,130 Q145,128 150,130 Q155,132 160,130" fill="none" stroke="#8B4513" stroke-width="2"/>
+  <path d="M170,125 Q175,123 180,125 Q185,127 190,125" fill="none" stroke="#8B4513" stroke-width="2"/>
+</svg>

@@ -1,0 +1,157 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Import fonts */
+@import url('https://fonts.googleapis.com/css2?family=Lora:wght@400;600;700&family=Open+Sans:wght@300;400;500;600&display=swap');
+
+:root {
+  /* Navajo County inspired color scheme */
+  --navajo-white: hsl(34, 47%, 90%);
+  --dark-blue: hsl(220, 100%, 26%);
+  --accent-red: hsl(350, 71%, 38%);
+  --text-gray: hsl(0, 0%, 29%);
+  --border-green: hsl(78, 67%, 21%);
+  
+  /* Updated theme colors to match design */
+  --background: var(--navajo-white);
+  --foreground: var(--text-gray);
+  --muted: hsl(60, 4.8%, 95.9%);
+  --muted-foreground: hsl(25, 5.3%, 44.7%);
+  --popover: hsl(0, 0%, 100%);
+  --popover-foreground: var(--text-gray);
+  --card: hsl(0, 0%, 100%);
+  --card-foreground: var(--text-gray);
+  --border: hsl(20, 5.9%, 90%);
+  --input: hsl(20, 5.9%, 90%);
+  --primary: var(--dark-blue);
+  --primary-foreground: hsl(0, 0%, 100%);
+  --secondary: hsl(60, 4.8%, 95.9%);
+  --secondary-foreground: hsl(24, 9.8%, 10%);
+  --accent: var(--accent-red);
+  --accent-foreground: hsl(0, 0%, 100%);
+  --destructive: hsl(0, 84.2%, 60.2%);
+  --destructive-foreground: hsl(60, 9.1%, 97.8%);
+  --ring: var(--text-gray);
+  --radius: 0.5rem;
+}
+
+.dark {
+  --background: hsl(240, 10%, 3.9%);
+  --foreground: hsl(0, 0%, 98%);
+  --muted: hsl(240, 3.7%, 15.9%);
+  --muted-foreground: hsl(240, 5%, 64.9%);
+  --popover: hsl(240, 10%, 3.9%);
+  --popover-foreground: hsl(0, 0%, 98%);
+  --card: hsl(240, 10%, 3.9%);
+  --card-foreground: hsl(0, 0%, 98%);
+  --border: hsl(240, 3.7%, 15.9%);
+  --input: hsl(240, 3.7%, 15.9%);
+  --primary: var(--dark-blue);
+  --primary-foreground: hsl(0, 0%, 98%);
+  --secondary: hsl(240, 3.7%, 15.9%);
+  --secondary-foreground: hsl(0, 0%, 98%);
+  --accent: hsl(240, 3.7%, 15.9%);
+  --accent-foreground: hsl(0, 0%, 98%);
+  --destructive: hsl(0, 62.8%, 30.6%);
+  --destructive-foreground: hsl(0, 0%, 98%);
+  --ring: hsl(240, 4.9%, 83.9%);
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply font-open-sans antialiased bg-navajo-white text-text-gray;
+  }
+}
+
+@layer utilities {
+  /* Custom color classes */
+  .bg-navajo-white {
+    background-color: var(--navajo-white);
+  }
+  
+  .bg-dark-blue {
+    background-color: var(--dark-blue);
+  }
+  
+  .bg-accent-red {
+    background-color: var(--accent-red);
+  }
+  
+  .bg-border-green {
+    background-color: var(--border-green);
+  }
+  
+  .text-navajo-white {
+    color: var(--navajo-white);
+  }
+  
+  .text-dark-blue {
+    color: var(--dark-blue);
+  }
+  
+  .text-accent-red {
+    color: var(--accent-red);
+  }
+  
+  .text-text-gray {
+    color: var(--text-gray);
+  }
+  
+  .text-border-green {
+    color: var(--border-green);
+  }
+  
+  .border-border-green {
+    border-color: var(--border-green);
+  }
+
+  /* Font families */
+  .font-lora {
+    font-family: 'Lora', serif;
+  }
+  
+  .font-open-sans {
+    font-family: 'Open Sans', sans-serif;
+  }
+
+  /* Video thumbnail styling */
+  .video-thumbnail {
+    width: 320px;
+    height: 180px;
+    border: 2px solid var(--border-green);
+  }
+
+  /* Topic card hover effects */
+  .topic-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+  }
+
+  /* Social button hover effects */
+  .social-btn {
+    transition: all 0.3s ease;
+  }
+  
+  .social-btn:hover {
+    transform: translateY(-2px);
+  }
+
+  /* Ranking badge styling */
+  .ranking-badge {
+    background: linear-gradient(135deg, var(--accent-red), #d32f3f);
+  }
+
+  /* Mobile responsive video thumbnails */
+  @media (max-width: 768px) {
+    .video-thumbnail {
+      width: 100%;
+      height: auto;
+      aspect-ratio: 16/9;
+    }
+  }
+}

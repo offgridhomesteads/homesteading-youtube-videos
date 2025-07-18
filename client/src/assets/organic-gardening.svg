@@ -1,0 +1,52 @@
+<svg viewBox="0 0 320 180" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="skyGradient" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" style="stop-color:#87CEEB;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#98D8E8;stop-opacity:1" />
+    </linearGradient>
+    <linearGradient id="soilGradient" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" style="stop-color:#8B4513;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#A0522D;stop-opacity:1" />
+    </linearGradient>
+  </defs>
+  
+  <!-- Sky background -->
+  <rect width="320" height="120" fill="url(#skyGradient)"/>
+  
+  <!-- Soil -->
+  <rect x="0" y="120" width="320" height="60" fill="url(#soilGradient)"/>
+  
+  <!-- Garden rows -->
+  <rect x="20" y="130" width="280" height="8" fill="#654321" rx="4"/>
+  <rect x="20" y="145" width="280" height="8" fill="#654321" rx="4"/>
+  <rect x="20" y="160" width="280" height="8" fill="#654321" rx="4"/>
+  
+  <!-- Vegetables - Tomatoes -->
+  <circle cx="60" cy="135" r="6" fill="#FF6B6B"/>
+  <circle cx="80" cy="135" r="6" fill="#FF6B6B"/>
+  <circle cx="100" cy="135" r="6" fill="#FF6B6B"/>
+  
+  <!-- Vegetables - Lettuce -->
+  <circle cx="140" cy="135" r="8" fill="#90EE90"/>
+  <circle cx="160" cy="135" r="8" fill="#90EE90"/>
+  <circle cx="180" cy="135" r="8" fill="#90EE90"/>
+  
+  <!-- Vegetables - Carrots (tops) -->
+  <polygon points="220,125 225,135 230,125" fill="#228B22"/>
+  <polygon points="240,125 245,135 250,125" fill="#228B22"/>
+  <polygon points="260,125 265,135 270,125" fill="#228B22"/>
+  
+  <!-- Sun -->
+  <circle cx="280" cy="40" r="25" fill="#FFD700"/>
+  <path d="M280,10 L280,25 M295,25 L305,15 M310,40 L295,40 M305,55 L295,65 M280,70 L280,55 M265,65 L255,55 M250,40 L265,40 M255,25 L265,15" stroke="#FFD700" stroke-width="3"/>
+  
+  <!-- Watering can -->
+  <ellipse cx="50" cy="90" rx="15" ry="10" fill="#4169E1"/>
+  <rect x="35" y="85" width="8" height="15" fill="#4169E1"/>
+  <circle cx="65" cy="90" r="3" fill="#4169E1"/>
+  
+  <!-- Water droplets -->
+  <circle cx="75" cy="100" r="2" fill="#00BFFF" opacity="0.8"/>
+  <circle cx="80" cy="105" r="2" fill="#00BFFF" opacity="0.8"/>
+  <circle cx="85" cy="110" r="2" fill="#00BFFF" opacity="0.8"/>
+</svg>

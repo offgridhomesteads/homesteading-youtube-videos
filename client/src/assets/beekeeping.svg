@@ -1,0 +1,88 @@
+<svg viewBox="0 0 320 180" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="skyGradient" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" style="stop-color:#87CEEB;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#98D8E8;stop-opacity:1" />
+    </linearGradient>
+  </defs>
+  
+  <!-- Sky background -->
+  <rect width="320" height="120" fill="url(#skyGradient)"/>
+  
+  <!-- Ground -->
+  <rect x="0" y="120" width="320" height="60" fill="#90EE90"/>
+  
+  <!-- Beehive boxes -->
+  <rect x="80" y="90" width="40" height="30" fill="#F5DEB3"/>
+  <rect x="80" y="110" width="40" height="30" fill="#F5DEB3"/>
+  <rect x="80" y="130" width="40" height="30" fill="#F5DEB3"/>
+  
+  <rect x="140" y="95" width="40" height="30" fill="#F5DEB3"/>
+  <rect x="140" y="115" width="40" height="30" fill="#F5DEB3"/>
+  <rect x="140" y="135" width="40" height="30" fill="#F5DEB3"/>
+  
+  <rect x="200" y="100" width="40" height="30" fill="#F5DEB3"/>
+  <rect x="200" y="120" width="40" height="30" fill="#F5DEB3"/>
+  
+  <!-- Hive tops -->
+  <rect x="75" y="85" width="50" height="8" fill="#8B4513"/>
+  <rect x="135" y="90" width="50" height="8" fill="#8B4513"/>
+  <rect x="195" y="95" width="50" height="8" fill="#8B4513"/>
+  
+  <!-- Hive entrances -->
+  <rect x="85" y="155" width="30" height="3" fill="#000"/>
+  <rect x="145" y="160" width="30" height="3" fill="#000"/>
+  <rect x="205" y="145" width="30" height="3" fill="#000"/>
+  
+  <!-- Bees flying -->
+  <ellipse cx="60" cy="80" rx="3" ry="1" fill="#FFD700"/>
+  <line x1="58" y1="80" x2="62" y2="80" stroke="#000" stroke-width="0.5" opacity="0.7"/>
+  
+  <ellipse cx="150" cy="70" rx="3" ry="1" fill="#FFD700"/>
+  <line x1="148" y1="70" x2="152" y2="70" stroke="#000" stroke-width="0.5" opacity="0.7"/>
+  
+  <ellipse cx="200" cy="85" rx="3" ry="1" fill="#FFD700"/>
+  <line x1="198" y1="85" x2="202" y2="85" stroke="#000" stroke-width="0.5" opacity="0.7"/>
+  
+  <ellipse cx="180" cy="60" rx="3" ry="1" fill="#FFD700"/>
+  <line x1="178" y1="60" x2="182" y2="60" stroke="#000" stroke-width="0.5" opacity="0.7"/>
+  
+  <ellipse cx="120" cy="65" rx="3" ry="1" fill="#FFD700"/>
+  <line x1="118" y1="65" x2="122" y2="65" stroke="#000" stroke-width="0.5" opacity="0.7"/>
+  
+  <!-- Beekeeper -->
+  <ellipse cx="40" cy="140" rx="12" ry="20" fill="#FFFFFF"/> <!-- Body -->
+  <circle cx="40" cy="110" r="8" fill="#FFFFFF"/> <!-- Head -->
+  <rect x="35" y="105" width="10" height="3" fill="#000"/> <!-- Veil -->
+  <rect x="30" y="135" width="8" height="15" fill="#FFFFFF"/> <!-- Left arm -->
+  <rect x="42" y="135" width="8" height="15" fill="#FFFFFF"/> <!-- Right arm -->
+  
+  <!-- Smoker -->
+  <rect x="45" y="140" width="6" height="12" fill="#708090"/>
+  <rect x="47" y="135" width="2" height="8" fill="#8B4513"/>
+  <path d="M48,133 Q46,130 48,127 Q50,124 48,121" fill="none" stroke="#E0E0E0" stroke-width="1" opacity="0.7"/>
+  
+  <!-- Flowering plants -->
+  <circle cx="20" cy="150" r="4" fill="#FF69B4"/>
+  <rect x="18" y="150" width="4" height="15" fill="#228B22"/>
+  
+  <circle cx="280" cy="145" r="4" fill="#FFD700"/>
+  <rect x="278" y="145" width="4" height="15" fill="#228B22"/>
+  
+  <circle cx="300" cy="150" r="4" fill="#DA70D6"/>
+  <rect x="298" y="150" width="4" height="15" fill="#228B22"/>
+  
+  <!-- Honey frame -->
+  <rect x="260" y="120" width="25" height="35" fill="#F5DEB3"/>
+  <rect x="262" y="122" width="21" height="31" fill="#FFD700" opacity="0.7"/>
+  <polygon points="265,125 268,122 271,125 268,128" fill="#FFD700"/>
+  <polygon points="275,130 278,127 281,130 278,133" fill="#FFD700"/>
+  <polygon points="270,140 273,137 276,140 273,143" fill="#FFD700"/>
+  
+  <!-- Sun -->
+  <circle cx="280" cy="30" r="20" fill="#FFD700"/>
+  
+  <!-- Flight paths -->
+  <path d="M100,155 Q130,140 160,155" fill="none" stroke="#FFD700" stroke-width="1" opacity="0.5" stroke-dasharray="2,2"/>
+  <path d="M160,155 Q190,140 220,155" fill="none" stroke="#FFD700" stroke-width="1" opacity="0.5" stroke-dasharray="2,2"/>
+</svg>

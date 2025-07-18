@@ -1,0 +1,97 @@
+<svg viewBox="0 0 320 180" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="skyGradient" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" style="stop-color:#87CEEB;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#98D8E8;stop-opacity:1" />
+    </linearGradient>
+  </defs>
+  
+  <!-- Sky background -->
+  <rect width="320" height="120" fill="url(#skyGradient)"/>
+  
+  <!-- Ground -->
+  <rect x="0" y="120" width="320" height="60" fill="#90EE90"/>
+  
+  <!-- Barn -->
+  <rect x="250" y="70" width="60" height="50" fill="#DC143C"/>
+  <polygon points="250,70 280,45 310,70" fill="#8B4513"/>
+  <rect x="265" y="95" width="15" height="25" fill="#654321"/>
+  <circle cx="275" cy="107" r="2" fill="#FFD700"/>
+  
+  <!-- Fence -->
+  <rect x="50" y="100" width="3" height="40" fill="#8B4513"/>
+  <rect x="70" y="100" width="3" height="40" fill="#8B4513"/>
+  <rect x="90" y="100" width="3" height="40" fill="#8B4513"/>
+  <rect x="110" y="100" width="3" height="40" fill="#8B4513"/>
+  <rect x="130" y="100" width="3" height="40" fill="#8B4513"/>
+  <rect x="150" y="100" width="3" height="40" fill="#8B4513"/>
+  <rect x="170" y="100" width="3" height="40" fill="#8B4513"/>
+  <rect x="190" y="100" width="3" height="40" fill="#8B4513"/>
+  
+  <!-- Fence horizontals -->
+  <rect x="50" y="110" width="143" height="2" fill="#8B4513"/>
+  <rect x="50" y="125" width="143" height="2" fill="#8B4513"/>
+  
+  <!-- Goats -->
+  <ellipse cx="80" cy="130" rx="12" ry="8" fill="#FFFFFF"/>
+  <circle cx="75" cy="125" r="6" fill="#FFFFFF"/>
+  <polygon points="70,125 68,122 70,119" fill="#FFB6C1"/>
+  <circle cx="72" cy="123" r="1" fill="#000"/>
+  <polygon points="69,119 67,116 69,113" fill="#654321"/> <!-- Horn -->
+  <polygon points="81,119 79,116 81,113" fill="#654321"/> <!-- Horn -->
+  <polygon points="78,128 82,132 78,135" fill="#000"/>
+  <polygon points="85,132 89,135 85,138" fill="#000"/>
+  
+  <!-- Sheep -->
+  <ellipse cx="120" cy="135" rx="14" ry="9" fill="#F5F5F5"/>
+  <circle cx="115" cy="128" r="6" fill="#F5F5F5"/>
+  <polygon points="110,128 108,125 110,122" fill="#FFB6C1"/>
+  <circle cx="112" cy="126" r="1" fill="#000"/>
+  <polygon points="116,131 120,134 116,137" fill="#000"/>
+  <polygon points="125,134 129,137 125,140" fill="#000"/>
+  
+  <!-- Cow -->
+  <ellipse cx="160" cy="135" rx="18" ry="12" fill="#000000"/>
+  <circle cx="152" cy="125" r="8" fill="#000000"/>
+  <polygon points="145,125 143,122 145,119" fill="#FFB6C1"/>
+  <circle cx="147" cy="123" r="1" fill="#000"/>
+  <polygon points="144,119 142,116 144,113" fill="#654321"/> <!-- Horn -->
+  <polygon points="156,119 154,116 156,113" fill="#654321"/> <!-- Horn -->
+  <polygon points="154,133 158,136 154,139" fill="#000"/>
+  <polygon points="166,136 170,139 166,142" fill="#000"/>
+  <!-- Udder -->
+  <ellipse cx="165" cy="140" rx="6" ry="4" fill="#FFB6C1"/>
+  
+  <!-- Water trough -->
+  <rect x="200" y="135" width="30" height="8" fill="#4169E1" rx="4"/>
+  <rect x="195" y="138" width="40" height="3" fill="#708090"/>
+  
+  <!-- Feed bucket -->
+  <ellipse cx="70" cy="150" rx="8" ry="5" fill="#8B4513"/>
+  <rect x="65" y="145" width="10" height="8" fill="#F4A460"/> <!-- Feed -->
+  
+  <!-- Hay bales -->
+  <ellipse cx="220" cy="145" rx="12" ry="8" fill="#DAA520"/>
+  <ellipse cx="240" cy="150" rx="12" ry="8" fill="#DAA520"/>
+  
+  <!-- Farmer -->
+  <ellipse cx="30" cy="140" rx="8" ry="15" fill="#4169E1"/> <!-- Body -->
+  <circle cx="30" cy="115" r="6" fill="#FFB6C1"/> <!-- Head -->
+  <rect x="25" y="110" width="10" height="3" fill="#8B4513"/> <!-- Hat -->
+  <rect x="22" y="130" width="6" height="12" fill="#4169E1"/> <!-- Left arm -->
+  <rect x="32" y="130" width="6" height="12" fill="#4169E1"/> <!-- Right arm -->
+  
+  <!-- Pitchfork -->
+  <line x1="45" y1="120" x2="45" y2="150" stroke="#8B4513" stroke-width="3"/>
+  <line x1="42" y1="120" x2="48" y2="120" stroke="#C0C0C0" stroke-width="2"/>
+  <line x1="43" y1="117" x2="47" y2="117" stroke="#C0C0C0" stroke-width="2"/>
+  <line x1="44" y1="114" x2="46" y2="114" stroke="#C0C0C0" stroke-width="2"/>
+  
+  <!-- Sun -->
+  <circle cx="40" cy="30" r="20" fill="#FFD700"/>
+  
+  <!-- Clouds -->
+  <circle cx="150" cy="25" r="12" fill="#FFFFFF"/>
+  <circle cx="165" cy="20" r="15" fill="#FFFFFF"/>
+  <circle cx="180" cy="25" r="12" fill="#FFFFFF"/>
+</svg>

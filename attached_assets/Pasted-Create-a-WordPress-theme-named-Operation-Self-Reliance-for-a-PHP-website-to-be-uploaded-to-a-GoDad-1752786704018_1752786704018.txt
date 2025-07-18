@@ -1,0 +1,72 @@
+Create a WordPress theme named “Operation Self-Reliance” for a PHP website to be uploaded to a GoDaddy WordPress server. The theme should include a homepage and 14 subpages, each named after a specific homesteading topic, displaying YouTube video thumbnails and information for homesteading resources, with a focus on Arizona. Below are the detailed requirements:1. Theme Structure:Generate a WordPress theme folder named operation-self-reliance-theme with the following files:style.css: Theme metadata (name: “Operation Self-Reliance”, author: “Your Name”, version: 1.0) and CSS styling.
+index.php: Homepage template displaying the title, SEO paragraph, and 14 homesteading topics.
+functions.php: For enqueuing styles/scripts, registering custom page templates, and YouTube API integration.
+14 custom page templates named after the topics (without “page-” prefix):organic-gardening.php
+raising-chickens.php
+permaculture-design.php
+food-preservation.php
+water-harvesting.php
+solar-energy.php
+composting.php
+beekeeping.php
+livestock-management.php
+herbal-medicine.php
+diy-home-maintenance.php
+soil-building-in-arid-climates.php
+off-grid-water-systems.php
+homestead-security.php
+Optional: JavaScript file (e.g., scripts.js) for dynamic features like lazy-loading thumbnails.
+2. Homepage (index.php):Title: “Operation Self-Reliance’s Top Recommended Homesteading Videos” in a <h1> tag.
+SEO Paragraph: Include a single paragraph below the title, optimized for the phrase “Top Homesteading Videos”. Example: “Discover the Top Homesteading Videos curated by Operation Self-Reliance, featuring expert tutorials on organic gardening, raising chickens, water harvesting, and more, with a focus on Arizona homesteading. Our handpicked selection of the best YouTube content helps you master self-sufficiency with practical, high-quality videos updated daily.”Ensure the paragraph is 50–70 words, includes “Top Homesteading Videos” naturally 2–3 times, and uses related keywords (e.g., “self-sufficiency”, “Arizona homesteading”).
+Layout:Desktop: Two-column layout (7 rows in the first column, 7 in the second, for 14 topics). Each row contains:Left: YouTube video thumbnail (320x180px, medium quality from API).
+Right: Topic name in bold (e.g., “Organic Gardening”), a short sentence describing the topic (e.g., “Growing fruits and vegetables without synthetic pesticides.”), and a link to the corresponding subpage (e.g., /organic-gardening).
+Mobile: Single-column list of all 14 topics, sorted alphabetically, with thumbnail, topic name, and description stacked vertically.
+Each topic links to its respective subpage.
+
+3. Subpages (Custom Page Templates):Each subpage (e.g., organic-gardening.php) corresponds to one of the 14 homesteading topics.
+Layout:Desktop: Two-column layout (6 rows per column) displaying 12 YouTube videos per topic. Each row includes:Left: Video thumbnail (320x180px).
+Right: Video title, a short description (from YouTube API), and a ranking number (1–12) in red (#A6192E) based on popularity.
+Mobile: Single-column list of 12 videos, sorted by popularity rank (1–12).
+Use the YouTube Data API v3 to fetch 12 videos per topic, with at least 4 Arizona-specific videos, ensuring no more than 2 videos from the same channel.
+
+4. YouTube API Integration:Use the YouTube Data API v3 (search.list and videos.list) to fetch 12 videos per topic.
+Search queries:Primary: {topic} homesteading Arizona (e.g., “organic gardening homesteading Arizona”).
+Fallback (if <4 Arizona videos): {topic} homesteading.
+Video ranking formula: Popularity Score = (Like Count / Age in Months) × Relevance Weight × Recency WeightLike Count: From videos.list (statistics.likeCount).
+Age in Months: (Current Date - publishedAt) / 30 (assume 1 month = 30 days).
+Relevance Weight:1.0 for Arizona-specific videos (title/description/tags contain “Arizona”).
+0.75 for general homesteading videos, 0.9 if highly relevant to the topic.
+Recency Weight:1.0 for videos <1 year old.
+0.9 for 1–2 years old.
+0.8 for >2 years old.
+Filter results to limit to 2 videos per channel (channelId).
+Cache video data (ID, title, description, thumbnail URL, likes, publishedAt, channelId) in a WordPress database (e.g., custom table or wp_options) and update daily via a cron job.
+Securely store the YouTube API key in wp-config.php or WordPress settings.
+Sanitize API outputs to prevent XSS/injection vulnerabilities.
+
+5. Design and Styling (style.css):Colors (inspired by Navajo County website):Background: Navajo White/Tan (#F5E6CC).
+Headers/Navigation: Dark Blue (#003087).
+Accents/Links/Ranking Numbers: Red (#A6192E).
+Text: Gray (#4A4A4A).
+Thumbnail Borders/Icons: Green (#3A5F0B).
+Fonts:Body: Roboto or Open Sans (sans-serif, readable).
+Headings: Lora (rustic, homesteading-inspired).
+Thumbnails: Uniform 320x180px, with 2px green border.
+Spacing: 20px between rows, 10px between columns, ensuring a clean, uncluttered layout.
+Responsive Design: Use CSS media queries to switch to single-column on mobile (screen width <768px).
+
+6. WordPress Compatibility:Follow WordPress theme standards (e.g., proper template hierarchy, escaping outputs).
+Register the 14 custom page templates in functions.php so they can be assigned to WordPress pages (e.g., page with slug organic-gardening uses organic-gardening.php).
+Ensure the theme is uploadable to GoDaddy’s WordPress hosting (wp-content/themes/).
+Allow manual addition of WordPress plugins (e.g., Contact Form 7, Social Warfare) for feedback forms and social sharing buttons (do not implement these in the theme).
+
+7. Additional Requirements:Optimize for performance (e.g., lazy-load thumbnails, cache API data).
+Ensure accessibility (e.g., alt text for thumbnails with topic/video titles, semantic HTML).
+Generate a zip file of the theme folder for easy upload to WordPress.
+Include a README.md with instructions for:Uploading the theme to GoDaddy WordPress via the admin dashboard or FTP.
+Creating 14 WordPress pages with slugs matching the topic names (e.g., organic-gardening) and assigning the corresponding templates.
+Obtaining and configuring a YouTube API key in wp-config.php.
+Output:Create all theme files in a Replit project.
+Ensure the theme is testable in Replit’s PHP environment before export.
+Provide the zip file for download and clear instructions in README.md.
+
