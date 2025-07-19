@@ -4,7 +4,7 @@ A curated platform for homesteading video content from YouTube across 14 essenti
 
 ## Features 
 
-- 14 homesteading topic categories with custom SVG images 
+- 14 homesteading topic categories with custom SVG images
 - YouTube API integration with intelligent ranking algorithm
 - Responsive design with Tailwind CSS
 - Social media sharing (X, Instagram, Facebook)
