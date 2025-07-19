@@ -12,7 +12,7 @@ A curated platform for homesteading video content from YouTube across 14 essenti
 - PostgreSQL database for video metadata storage
 
 ## Topics Covered
-
+  
 - Organic Gardening
 - Raising Chickens
 - Beekeeping
