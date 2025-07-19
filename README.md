@@ -2,7 +2,7 @@
 
 A curated platform for homesteading video content from YouTube across 14 essential topics.
 
-## Features
+## Features 
 
 - 14 homesteading topic categories with custom SVG images 
 - YouTube API integration with intelligent ranking algorithm
