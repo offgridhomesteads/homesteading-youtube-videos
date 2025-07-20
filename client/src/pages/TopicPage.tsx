@@ -4,6 +4,36 @@ import { ArrowLeft, Loader2, VideoOff } from "lucide-react";
 import VideoCard from "@/components/VideoCard";
 import type { Topic, YoutubeVideo } from "@/lib/types";
 
+// Helper function to create topic headings with "Top" or "Best" - Updated July 20, 2025
+function getTopicHeading(topicName: string): string {
+  const topicWords = [
+    "organic gardening",
+    "beekeeping", 
+    "solar energy",
+    "water harvesting",
+    "composting",
+    "soil building in arid climates"
+  ];
+  
+  const bestWords = [
+    "permaculture design",
+    "herbal medicine", 
+    "diy home maintenance",
+    "homestead security",
+    "off-grid water systems"
+  ];
+  
+  const lowerName = topicName.toLowerCase();
+  
+  if (topicWords.includes(lowerName)) {
+    return `Top ${topicName} Videos`;
+  } else if (bestWords.includes(lowerName)) {
+    return `Best ${topicName} Videos`;
+  } else {
+    return `Premium ${topicName} Videos`;
+  }
+}
+
 export default function TopicPage() {
   const { slug } = useParams();
 
@@ -61,7 +91,7 @@ export default function TopicPage() {
             </Link>
           </div>
           <h1 className="text-4xl md:text-5xl font-lora font-bold text-dark-blue mb-4">
-            {topic.name}
+            {getTopicHeading(topic.name)}
           </h1>
           <p className="text-lg text-text-gray">
             Discover the best techniques for {topic.name.toLowerCase()}. These expert-selected videos cover everything from basics to advanced techniques, with a focus on sustainable practices and practical solutions.
