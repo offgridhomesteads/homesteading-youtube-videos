@@ -37,7 +37,7 @@ export default function Home() {
         {/* Page Title and SEO Content */}
         <div className="text-center max-w-4xl mx-auto">
           <h1 className="text-4xl md:text-5xl font-lora font-bold text-dark-blue mb-6">
-            🚨 DEPLOYMENT TEST - Homesteading YouTube Videos 🚨
+            Homesteading YouTube Videos
           </h1>
           {/* DEPLOYMENT FIX: Force complete rebuild - July 20, 2025 14:44 */}
           <p className="text-lg leading-relaxed text-text-gray">
