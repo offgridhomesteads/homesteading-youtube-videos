@@ -38,6 +38,7 @@ export default function Home() {
         <div className="text-center max-w-4xl mx-auto">
           <h1 className="text-4xl md:text-5xl font-lora font-bold text-dark-blue mb-6">
             Homesteading YouTube Videos
+                        🚨 DEPLOYMENT TEST - Homesteading YouTube Videos 🚨
           </h1>
           <p className="text-lg leading-relaxed text-text-gray">
             Discover the best homesteading videos from YouTube across 14 essential topics. Our handpicked selection features expert tutorials on organic gardening, raising chickens, water harvesting, solar energy, and more. High-quality content updated daily to help you master self-sufficient living.
