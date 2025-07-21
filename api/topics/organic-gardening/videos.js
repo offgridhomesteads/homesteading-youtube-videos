@@ -1,5 +1,11 @@
 // Static API route for organic-gardening videos
-export default function handler(req, res) {
+import { Pool, neonConfig } from '@neondatabase/serverless';
+import ws from 'ws';
+
+neonConfig.webSocketConstructor = ws;
+const pool = new Pool({ connectionString: process.env.DATABASE_URL });
+
+export default async function handler(req, res) {
   // Set CORS headers
   res.setHeader('Access-Control-Allow-Origin', '*');
   res.setHeader('Access-Control-Allow-Methods', 'GET, OPTIONS');
@@ -10,11 +16,27 @@ export default function handler(req, res) {
   }
 
   if (req.method === 'GET') {
-    const videos = [
-      {"id":"7Txv1ndELhM","topicId":"organic-gardening","title":"Organic Gardening Basics for Beginners","description":"Learn the fundamentals of organic gardening","thumbnailUrl":"https://i.ytimg.com/vi/7Txv1ndELhM/mqdefault.jpg","channelId":"UC123","channelTitle":"Garden Channel","publishedAt":"2024-01-15T10:00:00Z","likeCount":1250,"viewCount":25000,"isArizonaSpecific":false,"relevanceScore":0.85,"popularityScore":0.92,"ranking":1,"lastUpdated":"2025-07-17T21:31:45.018Z","createdAt":"2025-07-17T21:31:45.018Z"},
-      {"id":"8Uxw2oeEMhN","topicId":"organic-gardening","title":"Desert Organic Gardening Tips","description":"Special techniques for growing organic food in desert climates","thumbnailUrl":"https://i.ytimg.com/vi/8Uxw2oeEMhN/mqdefault.jpg","channelId":"UC456","channelTitle":"Desert Grow","publishedAt":"2024-02-01T14:30:00Z","likeCount":890,"viewCount":18500,"isArizonaSpecific":true,"relevanceScore":0.95,"popularityScore":0.88,"ranking":2,"lastUpdated":"2025-07-17T21:31:45.018Z","createdAt":"2025-07-17T21:31:45.018Z"}
-    ];
-    return res.status(200).json(videos);
+    try {
+      const limit = parseInt(req.query.limit) || 12;
+      
+      const client = await pool.connect();
+      try {
+        const result = await client.query(`
+          SELECT v.* FROM youtube_videos v
+          INNER JOIN topics t ON v.topic_id = t.id
+          WHERE t.slug = $1
+          ORDER BY v.popularity_score DESC
+          LIMIT $2
+        `, ['organic-gardening', limit]);
+        
+        return res.status(200).json(result.rows);
+      } finally {
+        client.release();
+      }
+    } catch (error) {
+      console.error('Database error:', error);
+      return res.status(500).json({ message: "Internal server error" });
+    }
   }
 
   return res.status(405).json({ message: 'Method not allowed' });
