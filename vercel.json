@@ -1,9 +1,10 @@
 {
+  "version": 2,
   "buildCommand": "npm run build && cp -r client/public/* dist/public/ 2>/dev/null || true",
   "outputDirectory": "dist/public",
   "functions": {
     "dist/index.js": {
-      "runtime": "nodejs20.x"
+      "runtime": "@vercel/node@3.0.7"
     }
   },
   "rewrites": [
