@@ -62,8 +62,38 @@ export default async function handler(req, res) {
         }
         
         if (query.includes('SELECT v.* FROM youtube_videos')) {
-          // Return empty videos for now - will need manual fix later
-          return [];
+          // Return sample videos to test topic pages
+          const topicSlug = values[0]; // First parameter is the topic slug
+          return [
+            {
+              id: `${topicSlug}-video-1`,
+              title: `Sample ${topicSlug.replace(/-/g, ' ')} Video 1`,
+              description: `Learn about ${topicSlug.replace(/-/g, ' ')} with this informative video.`,
+              thumbnail_url: `https://via.placeholder.com/480x360?text=${topicSlug}+Video+1`,
+              video_url: "https://www.youtube.com/watch?v=dQw4w9WgXcQ",
+              channel_name: "Homestead Expert",
+              view_count: 15000,
+              like_count: 1200,
+              published_at: "2024-01-15T00:00:00Z",
+              duration: "PT10M30S",
+              popularity_score: 95.5,
+              topic_id: topicSlug
+            },
+            {
+              id: `${topicSlug}-video-2`, 
+              title: `Advanced ${topicSlug.replace(/-/g, ' ')} Techniques`,
+              description: `Master advanced techniques for ${topicSlug.replace(/-/g, ' ')}.`,
+              thumbnail_url: `https://via.placeholder.com/480x360?text=${topicSlug}+Video+2`,
+              video_url: "https://www.youtube.com/watch?v=dQw4w9WgXcQ",
+              channel_name: "Pro Homesteader",
+              view_count: 22000,
+              like_count: 1800,
+              published_at: "2024-02-10T00:00:00Z", 
+              duration: "PT15M45S",
+              popularity_score: 88.2,
+              topic_id: topicSlug
+            }
+          ];
         }
         
         return [];
