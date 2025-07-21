@@ -2,7 +2,7 @@ import { useQuery } from "@tanstack/react-query";
 import { Loader2, Sprout } from "lucide-react";
 import TopicCard from "@/components/TopicCard";
 import type { Topic } from "@/lib/types";
-
+ 
 export default function Home() {
   const { data: topics, isLoading, error } = useQuery<Topic[]>({
     queryKey: ["/api/topics"],
