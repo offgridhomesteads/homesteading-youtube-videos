@@ -17,13 +17,15 @@ export default async function handler(req, res) {
   const { url } = req;
   const urlPath = url.split('?')[0];
   const query = new URLSearchParams(url.split('?')[1] || '');
+  
+  console.log('API Request:', { url, urlPath, method: req.method });
 
   try {
     const client = await pool.connect();
     
     try {
-      // Route: /api/topics - Get all topics
-      if (urlPath === '/api' && !query.get('action')) {
+      // Route: /api/topics or /api - Get all topics
+      if ((urlPath === '/api' || urlPath === '/api/topics') && !query.get('action')) {
         const result = await client.query('SELECT * FROM topics ORDER BY name');
         return res.status(200).json(result.rows);
       }
