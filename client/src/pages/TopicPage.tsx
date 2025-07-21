@@ -38,11 +38,12 @@ export default function TopicPage() {
   const { slug } = useParams();
 
   const { data: topic, isLoading: topicLoading } = useQuery<Topic>({
-    queryKey: ["/api/topics", slug],
+    queryKey: [`/api/topics/${slug}`],
+    enabled: !!slug,
   });
 
   const { data: videos, isLoading: videosLoading } = useQuery<YoutubeVideo[]>({
-    queryKey: ["/api/topics", slug, "videos"],
+    queryKey: [`/api/topics/${slug}/videos`],
     enabled: !!slug,
   });
 
