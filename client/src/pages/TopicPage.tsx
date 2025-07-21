@@ -53,10 +53,15 @@ export default function TopicPage() {
 
   const { data: videos, isLoading: videosLoading } = useQuery<YoutubeVideo[]>({
     queryKey: ["/api", "videos", slug],
-    queryFn: () => fetch(`/api?action=videos&slug=${slug}`).then(res => {
+    queryFn: async () => {
+      console.log('Fetching videos for slug:', slug);
+      const res = await fetch(`/api?action=videos&slug=${slug}`);
       if (!res.ok) throw new Error(`${res.status}: ${res.statusText}`);
-      return res.json();
-    }),
+      const data = await res.json();
+      console.log('Videos data received:', data.length, 'videos');
+      console.log('First video sample:', data[0]);
+      return data;
+    },
     enabled: !!slug,
   });
 
