@@ -9,7 +9,43 @@ export async function registerRoutes(app: Express): Promise<Server> {
   await CronService.initializeTopics();
   CronService.initializeCronJobs();
 
-  // API Routes
+  // API Routes - Consolidated handler for all endpoints
+  app.get("/api", async (req, res) => {
+    try {
+      const { action, slug, limit } = req.query;
+
+      // Route: /api?action=topic&slug=X - Get specific topic
+      if (action === 'topic') {
+        if (!slug) {
+          return res.status(400).json({ message: "Topic slug is required" });
+        }
+        const topic = await storage.getTopicBySlug(slug as string);
+        if (!topic) {
+          return res.status(404).json({ message: "Topic not found" });
+        }
+        return res.json(topic);
+      }
+
+      // Route: /api?action=videos&slug=X - Get videos for topic
+      if (action === 'videos') {
+        if (!slug) {
+          return res.status(400).json({ message: "Topic slug is required" });
+        }
+        const videoLimit = parseInt(limit as string) || 12;
+        const videos = await storage.getVideosByTopicSlug(slug as string, videoLimit);
+        return res.json(videos);
+      }
+
+      // Default route - return all topics
+      const topics = await storage.getAllTopics();
+      res.json(topics);
+    } catch (error) {
+      console.error("Error in API handler:", error);
+      res.status(500).json({ message: "Internal server error" });
+    }
+  });
+
+  // Keep existing routes for backward compatibility
   app.get("/api/topics", async (req, res) => {
     try {
       const topics = await storage.getAllTopics();
