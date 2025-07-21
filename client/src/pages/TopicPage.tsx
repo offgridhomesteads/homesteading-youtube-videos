@@ -39,10 +39,14 @@ export default function TopicPage() {
 
   const { data: topic, isLoading: topicLoading } = useQuery<Topic>({
     queryKey: ["/api", "topic", slug],
-    queryFn: () => fetch(`/api?action=topic&slug=${slug}`).then(res => {
+    queryFn: async () => {
+      console.log('Fetching topic data for slug:', slug);
+      const res = await fetch(`/api?action=topic&slug=${slug}`);
       if (!res.ok) throw new Error(`${res.status}: ${res.statusText}`);
-      return res.json();
-    }),
+      const data = await res.json();
+      console.log('Topic data received:', data);
+      return data;
+    },
     enabled: !!slug,
   });
 
