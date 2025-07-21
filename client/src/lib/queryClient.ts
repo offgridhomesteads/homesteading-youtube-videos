@@ -29,7 +29,11 @@ export const getQueryFn: <T>(options: {
 }) => QueryFunction<T> =
   ({ on401: unauthorizedBehavior }) =>
   async ({ queryKey }) => {
-    const res = await fetch(queryKey.join("/") as string, {
+    // In development, use the full URL to the Express server
+    const baseUrl = import.meta.env.DEV ? 'http://localhost:5000' : '';
+    const url = baseUrl + queryKey.join("/");
+    
+    const res = await fetch(url, {
       credentials: "include",
     });
 
