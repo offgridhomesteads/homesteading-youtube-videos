@@ -1,9 +1,9 @@
 // Vercel serverless function handler
-import { Pool, neonConfig } from '@neondatabase/serverless';
-import { drizzle } from 'drizzle-orm/neon-serverless';
-import { topics, youtubeVideos } from '../shared/schema.js';
-import { eq, desc } from 'drizzle-orm';
-import ws from 'ws';
+const { Pool, neonConfig } = require('@neondatabase/serverless');
+const { drizzle } = require('drizzle-orm/neon-serverless');
+const { topics, youtubeVideos } = require('../shared/schema.js');
+const { eq, desc } = require('drizzle-orm');
+const ws = require('ws');
 
 neonConfig.webSocketConstructor = ws;
 
@@ -11,7 +11,7 @@ neonConfig.webSocketConstructor = ws;
 const pool = new Pool({ connectionString: process.env.DATABASE_URL });
 const db = drizzle({ client: pool, schema: { topics, youtubeVideos } });
 
-export default async function handler(req, res) {
+module.exports = async function handler(req, res) {
   // Set CORS headers
   res.setHeader('Access-Control-Allow-Origin', '*');
   res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS');
