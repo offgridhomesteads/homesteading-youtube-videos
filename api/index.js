@@ -25,7 +25,7 @@ export default async function handler(req, res) {
   const urlPath = url.split('?')[0];
   const query = new URLSearchParams(url.split('?')[1] || '');
   
-  console.log('API Request:', { url, urlPath, method: req.method });
+  console.log('API Request:', { url, urlPath, method: req.method, userAgent: req.headers['user-agent']?.slice(0, 50) });
 
   try {
     // Import inside try block to handle module loading issues
@@ -34,12 +34,14 @@ export default async function handler(req, res) {
       // Try Neon serverless first
       const { neon } = await import('@neondatabase/serverless');
       sql = neon(process.env.DATABASE_URL);
-      console.log('Successfully connected to Neon database');
+      console.log('Successfully connected to Neon database for request:', query.get('action'), query.get('slug'));
     } catch (importError) {
       console.error('Failed to import @neondatabase/serverless:', importError.message);
       
       // Fallback to mock data if database import fails
       console.warn('Using fallback mock data - database connection failed');
+      console.warn('Database URL exists:', !!process.env.DATABASE_URL);
+      console.warn('YouTube API key exists:', !!process.env.YOUTUBE_API_KEY);
       sql = async (strings, ...values) => {
         const query = strings[0];
         
@@ -193,6 +195,7 @@ export default async function handler(req, res) {
         const videos = await youtubeService.searchVideos(searchTerm, limit);
         
         console.log(`Fetched ${videos.length} videos from YouTube for ${searchTerm}`);
+        console.log('Sample video titles:', videos.slice(0, 2).map(v => v.title));
         
         // Store videos in database for future use
         if (videos.length > 0) {
