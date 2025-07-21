@@ -140,4 +140,32 @@ export class YouTubeService {
     
     return Math.min(viewScore + likeScore + recencyScore, 100);
   }
+
+  async fetchVideosForTopic(topicName: string, topicId: string): Promise<void> {
+    try {
+      const videos = await this.searchVideos(topicName, 12);
+      
+      if (videos.length > 0) {
+        const { storage } = await import("../storage");
+        
+        // Store videos in database
+        for (const video of videos) {
+          const videoData = {
+            ...video,
+            topicId: topicId
+          };
+          await storage.upsertVideo(videoData);
+        }
+        
+        // Clean up old videos (keep only latest 24)
+        const videoIds = videos.map(v => v.id);
+        await storage.deleteOldVideosForTopic(topicId, videoIds);
+        
+        console.log(`✓ Fetched ${videos.length} videos for topic: ${topicName}`);
+      }
+    } catch (error) {
+      console.error(`Failed to fetch videos for ${topicName}:`, error);
+      throw error;
+    }
+  }
 }
