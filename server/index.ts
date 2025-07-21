@@ -56,9 +56,11 @@ app.use((req, res, next) => {
     serveStatic(app);
   }
 
-  // Export app for Vercel serverless function
-  if (process.env.VERCEL) {
-    return app;
+  // Check if running in Vercel
+  if (process.env.VERCEL || process.env.NODE_ENV === 'production') {
+    // Export for Vercel serverless
+    module.exports = app;
+    return;
   }
 
   // ALWAYS serve the app on the port specified in the environment variable PORT
@@ -75,5 +77,5 @@ app.use((req, res, next) => {
   });
 })();
 
-// Export for ES modules (Vercel)
-export default app;
+// Export for Vercel
+module.exports = app;
