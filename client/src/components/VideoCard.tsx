@@ -53,7 +53,7 @@ export default function VideoCard({ video, showRanking = true }: VideoCardProps)
             <span className="mx-2">•</span>
             <span>{formatDate(video.publishedAt)}</span>
             <span className="mx-2">•</span>
-            <span>{video.likeCount.toLocaleString()} likes</span>
+            <span>{video.likeCount?.toLocaleString() || 0} likes</span>
           </div>
           <SocialShareButtons video={video} />
         </div>
