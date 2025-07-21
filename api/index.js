@@ -37,15 +37,21 @@ export default async function handler(req, res) {
     } catch (importError) {
       console.error('Failed to import @neondatabase/serverless:', importError.message);
       
-      // Fallback to basic fetch-based SQL
+      // Fallback to pg client if neon fails
+      const { Client } = await import('pg');
       sql = async (strings, ...values) => {
-        // Simple mock for now to test deployment
-        if (strings[0].includes('SELECT * FROM topics')) {
-          return [
-            { id: 'test', name: 'Test Topic', slug: 'test', description: 'Test description' }
-          ];
+        const client = new Client({ connectionString: process.env.DATABASE_URL });
+        try {
+          await client.connect();
+          let query = strings[0];
+          for (let i = 0; i < values.length; i++) {
+            query += '$' + (i + 1) + strings[i + 1];
+          }
+          const result = await client.query(query, values);
+          return result.rows;
+        } finally {
+          await client.end();
         }
-        return [];
       };
     }
     
