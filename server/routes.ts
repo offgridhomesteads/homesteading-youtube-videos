@@ -1,7 +1,7 @@
 import type { Express } from "express";
 import { createServer, type Server } from "http";
 import { storage } from "./storage";
-import { youtubeService } from "./services/youtubeService";
+// import { youtubeService } from "./services/youtubeService";
 import { CronService } from "./services/cronService";
 
 export async function registerRoutes(app: Express): Promise<Server> {
