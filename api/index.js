@@ -1,21 +1,19 @@
 // Single consolidated API handler for all endpoints
-const { Pool, neonConfig } = require('@neondatabase/serverless');
-
-// Only set webSocketConstructor in Node.js environment
-if (typeof WebSocket === 'undefined') {
-  const ws = require('ws');
-  neonConfig.webSocketConstructor = ws;
-}
-
-const pool = new Pool({ connectionString: process.env.DATABASE_URL });
+const { neon } = require('@neondatabase/serverless');
 
 module.exports = async function handler(req, res) {
+  // Set CORS headers
   res.setHeader('Access-Control-Allow-Origin', '*');
   res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS');
   res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
 
   if (req.method === 'OPTIONS') {
     return res.status(200).end();
+  }
+
+  if (!process.env.DATABASE_URL) {
+    console.error('DATABASE_URL not found');
+    return res.status(500).json({ message: "Database configuration error" });
   }
 
   const { url } = req;
@@ -25,61 +23,57 @@ module.exports = async function handler(req, res) {
   console.log('API Request:', { url, urlPath, method: req.method });
 
   try {
-    const client = await pool.connect();
+    // Use Neon's serverless driver for better Vercel compatibility
+    const sql = neon(process.env.DATABASE_URL);
     
-    try {
-      // Route: /api/topics or /api - Get all topics
-      if ((urlPath === '/api' || urlPath === '/api/topics') && !query.get('action')) {
-        const result = await client.query('SELECT * FROM topics ORDER BY name');
-        return res.status(200).json(result.rows);
-      }
-
-      // Route: /api?action=topic&slug=X - Get specific topic
-      if (query.get('action') === 'topic') {
-        const slug = query.get('slug');
-        if (!slug) {
-          return res.status(400).json({ message: "Topic slug is required" });
-        }
-
-        const result = await client.query('SELECT * FROM topics WHERE slug = $1', [slug]);
-        if (result.rows.length === 0) {
-          return res.status(404).json({ message: "Topic not found" });
-        }
-        return res.status(200).json(result.rows[0]);
-      }
-
-      // Route: /api?action=videos&slug=X - Get videos for topic
-      if (query.get('action') === 'videos') {
-        const slug = query.get('slug');
-        const limit = parseInt(query.get('limit')) || 12;
-        
-        if (!slug) {
-          return res.status(400).json({ message: "Topic slug is required" });
-        }
-        
-        const result = await client.query(`
-          SELECT v.* FROM youtube_videos v
-          INNER JOIN topics t ON v.topic_id = t.id
-          WHERE t.slug = $1
-          ORDER BY v.popularity_score DESC
-          LIMIT $2
-        `, [slug, limit]);
-        
-        return res.status(200).json(result.rows);
-      }
-
-      // Default route - return all topics (for backward compatibility)
-      const result = await client.query('SELECT * FROM topics ORDER BY name');
-      return res.status(200).json(result.rows);
-
-    } finally {
-      client.release();
+    // Route: /api/topics or /api - Get all topics
+    if ((urlPath === '/api' || urlPath === '/api/topics') && !query.get('action')) {
+      const result = await sql`SELECT * FROM topics ORDER BY name`;
+      return res.status(200).json(result);
     }
+
+    // Route: /api?action=topic&slug=X - Get specific topic
+    if (query.get('action') === 'topic') {
+      const slug = query.get('slug');
+      if (!slug) {
+        return res.status(400).json({ message: "Topic slug is required" });
+      }
+
+      const result = await sql`SELECT * FROM topics WHERE slug = ${slug}`;
+      if (result.length === 0) {
+        return res.status(404).json({ message: "Topic not found" });
+      }
+      return res.status(200).json(result[0]);
+    }
+
+    // Route: /api?action=videos&slug=X - Get videos for topic
+    if (query.get('action') === 'videos') {
+      const slug = query.get('slug');
+      const limit = parseInt(query.get('limit')) || 12;
+      
+      if (!slug) {
+        return res.status(400).json({ message: "Topic slug is required" });
+      }
+      
+      const result = await sql`
+        SELECT v.* FROM youtube_videos v
+        INNER JOIN topics t ON v.topic_id = t.id
+        WHERE t.slug = ${slug}
+        ORDER BY v.popularity_score DESC
+        LIMIT ${limit}
+      `;
+      
+      return res.status(200).json(result);
+    }
+
+    // Default route - return all topics (for backward compatibility)
+    const result = await sql`SELECT * FROM topics ORDER BY name`;
+    return res.status(200).json(result);
   } catch (error) {
     console.error('Database error:', error);
     return res.status(500).json({ 
       message: "Internal server error",
-      error: process.env.NODE_ENV === 'development' ? error.message : undefined 
+      error: process.env.NODE_ENV === 'development' ? error.message : undefined
     });
   }
 }
