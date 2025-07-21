@@ -1,65 +1,26 @@
-import { Pool, neonConfig } from '@neondatabase/serverless';
-import { drizzle } from 'drizzle-orm/neon-serverless';
-import ws from "ws";
-
-neonConfig.webSocketConstructor = ws;
-
-const pool = new Pool({ connectionString: process.env.DATABASE_URL });
-const db = drizzle({ client: pool });
-
-export default async function handler(req, res) {
+// Vercel API route for topic videos
+export default function handler(req, res) {
   // Set CORS headers
   res.setHeader('Access-Control-Allow-Origin', '*');
-  res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS');
-  res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization');
+  res.setHeader('Access-Control-Allow-Methods', 'GET, OPTIONS');
+  res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
 
   if (req.method === 'OPTIONS') {
-    res.status(200).end();
-    return;
-  }
-
-  if (req.method !== 'GET') {
-    res.status(405).json({ message: 'Method not allowed' });
+    return res.status(200).end();
   }
 
   const { slug } = req.query;
-  const limit = parseInt(req.query.limit) || 12;
 
-  try {
-    const result = await db.execute(`
-      SELECT v.id, v.video_id, v.title, v.description, v.thumbnail_url, 
-             v.channel_title, v.published_at, v.view_count, v.like_count, 
-             v.comment_count, v.duration, v.ranking_score, v.relevance_weight, 
-             v.recency_weight, v.created_at, v.updated_at
-      FROM youtube_videos v
-      JOIN topics t ON v.topic_id = t.id
-      WHERE t.slug = $1
-      ORDER BY v.ranking_score DESC
-      LIMIT $2
-    `, [slug, limit]);
-    
-    const videos = result.rows.map(row => ({
-      id: row[0],
-      videoId: row[1],
-      title: row[2],
-      description: row[3],
-      thumbnailUrl: row[4],
-      channelTitle: row[5],
-      publishedAt: row[6],
-      viewCount: row[7],
-      likeCount: row[8],
-      commentCount: row[9],
-      duration: row[10],
-      rankingScore: row[11],
-      relevanceWeight: row[12],
-      recencyWeight: row[13],
-      createdAt: row[14],
-      updatedAt: row[15]
-    }));
+  // Mock video data for testing
+  const SAMPLE_VIDEOS = [
+    {"id":"7Txv1ndELhM","topicId":"organic-gardening","title":"Organic Gardening Basics for Beginners","description":"Learn the fundamentals of organic gardening","thumbnailUrl":"https://i.ytimg.com/vi/7Txv1ndELhM/mqdefault.jpg","channelId":"UC123","channelTitle":"Garden Channel","publishedAt":"2024-01-15T10:00:00Z","likeCount":1250,"viewCount":25000,"isArizonaSpecific":false,"relevanceScore":0.85,"popularityScore":0.92,"ranking":1,"lastUpdated":"2025-07-17T21:31:45.018Z","createdAt":"2025-07-17T21:31:45.018Z"},
+    {"id":"8Uxw2oeEMhN","topicId":"organic-gardening","title":"Desert Organic Gardening Tips","description":"Special techniques for growing organic food in desert climates","thumbnailUrl":"https://i.ytimg.com/vi/8Uxw2oeEMhN/mqdefault.jpg","channelId":"UC456","channelTitle":"Desert Grow","publishedAt":"2024-02-01T14:30:00Z","likeCount":890,"viewCount":18500,"isArizonaSpecific":true,"relevanceScore":0.95,"popularityScore":0.88,"ranking":2,"lastUpdated":"2025-07-17T21:31:45.018Z","createdAt":"2025-07-17T21:31:45.018Z"}
+  ];
 
-    res.status(200).json(videos);
-  } catch (error) {
-    console.error('Error fetching videos:', error);
-    res.status(500).json({ message: 'Failed to fetch videos' });
+  if (req.method === 'GET') {
+    // For now, return sample videos for all topics
+    return res.status(200).json(SAMPLE_VIDEOS);
   }
+
+  return res.status(405).json({ message: 'Method not allowed' });
 }
