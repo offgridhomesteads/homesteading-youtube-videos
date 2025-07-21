@@ -55,11 +55,14 @@ export default function TopicPage() {
     queryKey: ["/api", "videos", slug],
     queryFn: async () => {
       console.log('Fetching videos for slug:', slug);
-      const res = await fetch(`/api?action=videos&slug=${slug}`);
+      const url = `/api?action=videos&slug=${slug}`;
+      console.log('Making request to:', url);
+      const res = await fetch(url);
       if (!res.ok) throw new Error(`${res.status}: ${res.statusText}`);
       const data = await res.json();
       console.log('Videos data received:', data.length, 'videos');
       console.log('First video sample:', data[0]);
+      console.log('Response headers:', Object.fromEntries(res.headers.entries()));
       return data;
     },
     enabled: !!slug,
