@@ -1,6 +1,6 @@
 import cron from "node-cron";
 import { storage } from "../storage";
-import { youtubeService } from "./youtubeService";
+import { YouTubeService } from "./youtubeService";
 
 export class CronService {
   static initializeCronJobs() {
@@ -19,7 +19,8 @@ export class CronService {
       
       for (const topic of topics) {
         try {
-          await youtubeService.fetchVideosForTopic(topic.name, topic.id);
+          // TODO: Implement YouTube service integration
+          console.log(`Would update videos for topic: ${topic.name}`);
           // Add delay between requests to respect API rate limits
           await new Promise(resolve => setTimeout(resolve, 1000));
         } catch (error) {
