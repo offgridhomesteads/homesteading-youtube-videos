@@ -41,8 +41,7 @@ export default function TopicPage() {
     queryKey: ["/api", "topic", slug],
     queryFn: async () => {
       console.log('Fetching topic data for slug:', slug);
-      const baseUrl = import.meta.env.DEV ? 'http://localhost:5000' : '';
-      const res = await fetch(`${baseUrl}/api?action=topic&slug=${slug}`);
+      const res = await fetch(`/api?action=topic&slug=${slug}`);
       if (!res.ok) throw new Error(`${res.status}: ${res.statusText}`);
       const data = await res.json();
       console.log('Topic data received:', data);
@@ -56,8 +55,7 @@ export default function TopicPage() {
     queryKey: ["/api", "videos", slug],
     queryFn: async () => {
       console.log('Fetching videos for slug:', slug);
-      const baseUrl = import.meta.env.DEV ? 'http://localhost:5000' : '';
-      const url = `${baseUrl}/api?action=videos&slug=${slug}`;
+      const url = `/api?action=videos&slug=${slug}`;
       console.log('Making request to:', url);
       const res = await fetch(url);
       if (!res.ok) throw new Error(`${res.status}: ${res.statusText}`);
