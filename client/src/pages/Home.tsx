@@ -6,10 +6,13 @@ import type { Topic } from "@/lib/types";
 export default function Home() {
   const { data: topics, isLoading, error } = useQuery<Topic[]>({
     queryKey: ["/api/topics"],
-    queryFn: () => fetch("/api/topics").then(res => {
-      if (!res.ok) throw new Error(`${res.status}: ${res.statusText}`);
-      return res.json();
-    }),
+    queryFn: () => {
+      const baseUrl = import.meta.env.DEV ? 'http://localhost:5000' : '';
+      return fetch(`${baseUrl}/api/topics`).then(res => {
+        if (!res.ok) throw new Error(`${res.status}: ${res.statusText}`);
+        return res.json();
+      });
+    },
   });
 
   if (isLoading) {
