@@ -10,7 +10,7 @@ import {
   type InsertYoutubeVideo,
 } from "@shared/schema";
 import { db } from "./db";
-import { eq, desc, and } from "drizzle-orm";
+import { eq, desc, and, not, inArray } from "drizzle-orm";
 
 export interface IStorage {
   // User operations (required for auth)
@@ -122,7 +122,7 @@ export class DatabaseStorage implements IStorage {
         .where(
           and(
             eq(youtubeVideos.topicId, topicId),
-            // Delete videos not in the keepIds array
+            not(inArray(youtubeVideos.id, keepIds))
           )
         );
     }
