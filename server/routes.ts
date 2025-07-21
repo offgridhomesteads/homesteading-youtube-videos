@@ -1,8 +1,11 @@
 import type { Express } from "express";
 import { createServer, type Server } from "http";
 import { storage } from "./storage";
-// import { youtubeService } from "./services/youtubeService";
+import { YouTubeService } from "./services/youtubeService";
 import { CronService } from "./services/cronService";
+
+// Initialize YouTube service
+const youtubeService = new YouTubeService(process.env.YOUTUBE_API_KEY!);
 
 export async function registerRoutes(app: Express): Promise<Server> {
   // Initialize topics and start cron jobs
