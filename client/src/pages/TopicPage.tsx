@@ -45,6 +45,7 @@ export default function TopicPage() {
       if (!res.ok) throw new Error(`${res.status}: ${res.statusText}`);
       const data = await res.json();
       console.log('Topic data received:', data);
+      console.log('Expected slug:', slug, 'Received slug:', data.slug);
       return data;
     },
     enabled: !!slug,
