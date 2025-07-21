@@ -56,13 +56,6 @@ app.use((req, res, next) => {
     serveStatic(app);
   }
 
-  // Check if running in Vercel
-  if (process.env.VERCEL || process.env.NODE_ENV === 'production') {
-    // Export for Vercel serverless
-    module.exports = app;
-    return;
-  }
-
   // ALWAYS serve the app on the port specified in the environment variable PORT
   // Other ports are firewalled. Default to 5000 if not specified.
   // this serves both the API and the client.
@@ -76,6 +69,3 @@ app.use((req, res, next) => {
     log(`serving on port ${port}`);
   });
 })();
-
-// Export for Vercel
-module.exports = app;
