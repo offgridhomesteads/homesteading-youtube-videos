@@ -1,11 +1,15 @@
 // Single consolidated API handler for all endpoints
-import { Pool, neonConfig } from '@neondatabase/serverless';
-import ws from 'ws';
+const { Pool, neonConfig } = require('@neondatabase/serverless');
 
-neonConfig.webSocketConstructor = ws;
+// Only set webSocketConstructor in Node.js environment
+if (typeof WebSocket === 'undefined') {
+  const ws = require('ws');
+  neonConfig.webSocketConstructor = ws;
+}
+
 const pool = new Pool({ connectionString: process.env.DATABASE_URL });
 
-export default async function handler(req, res) {
+module.exports = async function handler(req, res) {
   res.setHeader('Access-Control-Allow-Origin', '*');
   res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS');
   res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
@@ -73,6 +77,9 @@ export default async function handler(req, res) {
     }
   } catch (error) {
     console.error('Database error:', error);
-    return res.status(500).json({ message: "Internal server error" });
+    return res.status(500).json({ 
+      message: "Internal server error",
+      error: process.env.NODE_ENV === 'development' ? error.message : undefined 
+    });
   }
 }
