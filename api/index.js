@@ -1,9 +1,37 @@
 // Vercel serverless function handler
 const { Pool, neonConfig } = require('@neondatabase/serverless');
 const { drizzle } = require('drizzle-orm/neon-serverless');
-const { topics, youtubeVideos } = require('../shared/schema.js');
 const { eq, desc } = require('drizzle-orm');
+const { pgTable, varchar, text, timestamp, integer, real, boolean } = require('drizzle-orm/pg-core');
 const ws = require('ws');
+
+// Define schema inline to avoid import issues
+const topics = pgTable("topics", {
+  id: varchar("id").primaryKey(),
+  name: varchar("name").notNull(),
+  description: text("description").notNull(),
+  slug: varchar("slug").notNull().unique(),
+  createdAt: timestamp("created_at").defaultNow(),
+});
+
+const youtubeVideos = pgTable("youtube_videos", {
+  id: varchar("id").primaryKey(),
+  topicId: varchar("topic_id").notNull().references(() => topics.id),
+  title: text("title").notNull(),
+  description: text("description"),
+  thumbnailUrl: varchar("thumbnail_url").notNull(),
+  channelId: varchar("channel_id").notNull(),
+  channelTitle: varchar("channel_title").notNull(),
+  publishedAt: timestamp("published_at").notNull(),
+  likeCount: integer("like_count").default(0),
+  viewCount: integer("view_count").default(0),
+  isArizonaSpecific: boolean("is_arizona_specific").default(false),
+  relevanceScore: real("relevance_score").default(0),
+  popularityScore: real("popularity_score").default(0),
+  ranking: integer("ranking"),
+  lastUpdated: timestamp("last_updated").defaultNow(),
+  createdAt: timestamp("created_at").defaultNow(),
+});
 
 neonConfig.webSocketConstructor = ws;
 
