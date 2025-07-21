@@ -1,43 +1,11 @@
 // Vercel serverless function handler
 const { Pool, neonConfig } = require('@neondatabase/serverless');
-const { drizzle } = require('drizzle-orm/neon-serverless');
-const { eq, desc } = require('drizzle-orm');
-const { pgTable, varchar, text, timestamp, integer, real, boolean } = require('drizzle-orm/pg-core');
 const ws = require('ws');
-
-// Define schema inline to avoid import issues
-const topics = pgTable("topics", {
-  id: varchar("id").primaryKey(),
-  name: varchar("name").notNull(),
-  description: text("description").notNull(),
-  slug: varchar("slug").notNull().unique(),
-  createdAt: timestamp("created_at").defaultNow(),
-});
-
-const youtubeVideos = pgTable("youtube_videos", {
-  id: varchar("id").primaryKey(),
-  topicId: varchar("topic_id").notNull().references(() => topics.id),
-  title: text("title").notNull(),
-  description: text("description"),
-  thumbnailUrl: varchar("thumbnail_url").notNull(),
-  channelId: varchar("channel_id").notNull(),
-  channelTitle: varchar("channel_title").notNull(),
-  publishedAt: timestamp("published_at").notNull(),
-  likeCount: integer("like_count").default(0),
-  viewCount: integer("view_count").default(0),
-  isArizonaSpecific: boolean("is_arizona_specific").default(false),
-  relevanceScore: real("relevance_score").default(0),
-  popularityScore: real("popularity_score").default(0),
-  ranking: integer("ranking"),
-  lastUpdated: timestamp("last_updated").defaultNow(),
-  createdAt: timestamp("created_at").defaultNow(),
-});
 
 neonConfig.webSocketConstructor = ws;
 
-// Initialize database
+// Initialize database connection
 const pool = new Pool({ connectionString: process.env.DATABASE_URL });
-const db = drizzle({ client: pool, schema: { topics, youtubeVideos } });
 
 module.exports = async function handler(req, res) {
   // Set CORS headers
@@ -55,20 +23,30 @@ module.exports = async function handler(req, res) {
 
     // Handle /api/topics
     if (pathSegments.length === 2 && pathSegments[0] === 'api' && pathSegments[1] === 'topics') {
-      const allTopics = await db.select().from(topics).orderBy(topics.name);
-      return res.status(200).json(allTopics);
+      const client = await pool.connect();
+      try {
+        const result = await client.query('SELECT * FROM topics ORDER BY name');
+        return res.status(200).json(result.rows);
+      } finally {
+        client.release();
+      }
     }
 
     // Handle /api/topics/:slug
     if (pathSegments.length === 3 && pathSegments[0] === 'api' && pathSegments[1] === 'topics') {
       const slug = pathSegments[2];
-      const [topic] = await db.select().from(topics).where(eq(topics.slug, slug));
-      
-      if (!topic) {
-        return res.status(404).json({ message: "Topic not found" });
+      const client = await pool.connect();
+      try {
+        const result = await client.query('SELECT * FROM topics WHERE slug = $1', [slug]);
+        
+        if (result.rows.length === 0) {
+          return res.status(404).json({ message: "Topic not found" });
+        }
+        
+        return res.status(200).json(result.rows[0]);
+      } finally {
+        client.release();
       }
-      
-      return res.status(200).json(topic);
     }
 
     // Handle /api/topics/:slug/videos
@@ -76,18 +54,20 @@ module.exports = async function handler(req, res) {
       const slug = pathSegments[2];
       const limit = parseInt(url.searchParams.get('limit')) || 12;
       
-      const result = await db
-        .select({
-          video: youtubeVideos,
-        })
-        .from(youtubeVideos)
-        .innerJoin(topics, eq(youtubeVideos.topicId, topics.id))
-        .where(eq(topics.slug, slug))
-        .orderBy(desc(youtubeVideos.popularityScore))
-        .limit(limit);
-      
-      const videos = result.map(row => row.video);
-      return res.status(200).json(videos);
+      const client = await pool.connect();
+      try {
+        const result = await client.query(`
+          SELECT v.* FROM youtube_videos v
+          INNER JOIN topics t ON v.topic_id = t.id
+          WHERE t.slug = $1
+          ORDER BY v.popularity_score DESC
+          LIMIT $2
+        `, [slug, limit]);
+        
+        return res.status(200).json(result.rows);
+      } finally {
+        client.release();
+      }
     }
 
     // Default 404
