@@ -188,7 +188,7 @@ export default async function handler(req, res) {
         
         // Import and use YouTube service
         const { YouTubeService } = await import('./youtubeService.js');
-        const youtubeService = new YouTubeService(process.env.YOUTUBE_API_KEY);
+        const youtubeService = new YouTubeService();
         
         // Convert slug to search term
         const searchTerm = slug.replace(/-/g, ' ');
