@@ -34,10 +34,12 @@ export default async function handler(req, res) {
       // Try Neon serverless first
       const { neon } = await import('@neondatabase/serverless');
       sql = neon(process.env.DATABASE_URL);
+      console.log('Successfully connected to Neon database');
     } catch (importError) {
       console.error('Failed to import @neondatabase/serverless:', importError.message);
       
-      // Return mock data for now until we can resolve pg import issues
+      // Fallback to mock data if database import fails
+      console.warn('Using fallback mock data - database connection failed');
       sql = async (strings, ...values) => {
         const query = strings[0];
         
@@ -160,15 +162,77 @@ export default async function handler(req, res) {
         return res.status(400).json({ message: "Topic slug is required" });
       }
       
-      const result = await sql`
-        SELECT v.* FROM youtube_videos v
-        INNER JOIN topics t ON v.topic_id = t.id
-        WHERE t.slug = ${slug}
-        ORDER BY v.popularity_score DESC
-        LIMIT ${limit}
-      `;
-      
-      return res.status(200).json(result);
+      try {
+        // Try to get videos from database first
+        const result = await sql`
+          SELECT v.* FROM youtube_videos v
+          INNER JOIN topics t ON v.topic_id = t.id
+          WHERE t.slug = ${slug}
+          ORDER BY v.popularity_score DESC
+          LIMIT ${limit}
+        `;
+        
+        if (result.length > 0) {
+          console.log(`Found ${result.length} videos in database for ${slug}`);
+          return res.status(200).json(result);
+        }
+        
+        // If no videos in database, fetch from YouTube API
+        console.log(`No videos in database for ${slug}, fetching from YouTube API`);
+        if (!process.env.YOUTUBE_API_KEY) {
+          console.error('YOUTUBE_API_KEY not found');
+          return res.status(500).json({ message: "YouTube API key not configured" });
+        }
+        
+        // Import and use YouTube service
+        const { YouTubeService } = await import('./youtubeService.js');
+        const youtubeService = new YouTubeService(process.env.YOUTUBE_API_KEY);
+        
+        // Convert slug to search term
+        const searchTerm = slug.replace(/-/g, ' ');
+        const videos = await youtubeService.searchVideos(searchTerm, limit);
+        
+        console.log(`Fetched ${videos.length} videos from YouTube for ${searchTerm}`);
+        
+        // Store videos in database for future use
+        if (videos.length > 0) {
+          for (const video of videos) {
+            try {
+              await sql`
+                INSERT INTO youtube_videos (
+                  id, topic_id, title, description, thumbnail_url, video_url,
+                  channel_id, channel_title, published_at, like_count, view_count,
+                  duration, is_arizona_specific, relevance_score, popularity_score,
+                  ranking, last_updated, created_at
+                ) VALUES (
+                  ${video.id}, ${slug}, ${video.title}, ${video.description},
+                  ${video.thumbnailUrl}, ${video.videoUrl}, ${video.channelId},
+                  ${video.channelTitle}, ${video.publishedAt}, ${video.likeCount},
+                  ${video.viewCount}, ${video.duration}, ${video.isArizonaSpecific},
+                  ${video.relevanceScore}, ${video.popularityScore}, ${video.ranking},
+                  ${video.lastUpdated}, ${video.createdAt}
+                )
+                ON CONFLICT (id) DO UPDATE SET
+                  like_count = EXCLUDED.like_count,
+                  view_count = EXCLUDED.view_count,
+                  popularity_score = EXCLUDED.popularity_score,
+                  last_updated = EXCLUDED.last_updated
+              `;
+            } catch (insertError) {
+              console.error('Error inserting video:', insertError.message);
+            }
+          }
+        }
+        
+        return res.status(200).json(videos);
+        
+      } catch (dbError) {
+        console.error('Database error in videos endpoint:', dbError.message);
+        return res.status(500).json({ 
+          message: "Database error", 
+          error: dbError.message 
+        });
+      }
     }
 
     // Default route - return all topics (for backward compatibility)
