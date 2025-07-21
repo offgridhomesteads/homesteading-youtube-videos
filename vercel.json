@@ -2,15 +2,10 @@
   "version": 2,
   "buildCommand": "npm run build && cp -r client/public/* dist/public/ 2>/dev/null || true",
   "outputDirectory": "dist/public",
-  "functions": {
-    "dist/index.js": {
-      "runtime": "@vercel/node@3.0.7"
-    }
-  },
   "rewrites": [
     {
       "source": "/api/(.*)",
-      "destination": "/api"
+      "destination": "/api/index"
     },
     {
       "source": "/(.*)",
