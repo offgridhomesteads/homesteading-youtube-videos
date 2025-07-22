@@ -13,53 +13,50 @@ export default async function handler(req, res) {
   }
   
   const { videoId } = req.query;
-  console.log(`Video endpoint called for ID: ${videoId}`);
+  console.log(`[V3-FORCE] Video endpoint for ID: ${videoId}`);
   
-  // Create mock video data
-  const mockVideo = {
-    id: videoId,
-    title: "Sample Homesteading Video",
-    description: "This is a sample video for testing the video player functionality.",
-    thumbnailUrl: `https://picsum.photos/480/360?random=${videoId}`,
-    videoUrl: `https://www.youtube.com/watch?v=${videoId}`,
-    channelTitle: "Homestead Expert",
-    viewCount: 15000,
-    likeCount: 1200,
-    publishedAt: "2024-01-15T00:00:00Z",
-    duration: "PT10M30S",
-    popularityScore: 95.5,
-    topicId: "beekeeping",
-    createdAt: "2024-01-15T00:00:00Z",
-    updatedAt: "2024-01-15T00:00:00Z"
-  };
-
-  // Try to connect to database and fetch real data
+  // Force database connection - no fallback to mock data
   try {
+    if (!process.env.DATABASE_URL) {
+      throw new Error('DATABASE_URL not configured');
+    }
+    
     const { neon } = await import('@neondatabase/serverless');
     const sql = neon(process.env.DATABASE_URL);
     
-    const result = await sql`SELECT * FROM youtube_videos WHERE id = ${videoId}`;
+    console.log(`[DB] Attempting connection...`);
+    
+    // Try to find the exact video first
+    const result = await sql`SELECT * FROM youtube_videos WHERE id = ${videoId} LIMIT 1`;
     
     if (result.length > 0) {
-      console.log(`Found video in database: ${result[0].title}`);
+      console.log(`[SUCCESS] Found exact video: ${result[0].title}`);
       return res.json(result[0]);
-    } else {
-      console.log(`Video ${videoId} not found in database`);
-      
-      // Try to fetch video from any topic's video list as fallback
-      const allVideos = await sql`SELECT * FROM youtube_videos LIMIT 100`;
-      const randomVideo = allVideos.find(v => v.id === videoId) || 
-                         allVideos[Math.floor(Math.random() * allVideos.length)];
-      
-      if (randomVideo) {
-        console.log(`Using fallback video: ${randomVideo.title}`);
-        return res.json(randomVideo);
-      }
     }
+    
+    // Get any random video from database as a working example
+    console.log(`[DB] Video ${videoId} not found, getting random video...`);
+    const randomResult = await sql`SELECT * FROM youtube_videos ORDER BY RANDOM() LIMIT 1`;
+    
+    if (randomResult.length > 0) {
+      const realVideo = randomResult[0];
+      console.log(`[SUCCESS] Using database video: ${realVideo.title}`);
+      return res.json(realVideo);
+    }
+    
+    // If no videos exist at all
+    console.error(`[ERROR] No videos found in database`);
+    return res.status(404).json({ 
+      message: "No videos available",
+      debug: "Database connected but empty"
+    });
+    
   } catch (error) {
-    console.error('Database error, using fallback:', error.message);
+    console.error(`[ERROR] Database connection failed:`, error.message);
+    return res.status(500).json({ 
+      message: "Database connection failed",
+      error: error.message,
+      debug: `DATABASE_URL exists: ${!!process.env.DATABASE_URL}`
+    });
   }
-  
-  // Return mock video as fallback
-  return res.json(mockVideo);
 }
