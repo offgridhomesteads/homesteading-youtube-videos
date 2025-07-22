@@ -228,47 +228,36 @@ export default async function handler(req, res) {
       
       const searchQuery = searchQueries[slug] || `${slug.replace(/-/g, ' ')} homesteading Arizona`;
       
-      // Try to fetch real YouTube videos first
-      const youtubeVideos = await fetchYouTubeVideos(slug, searchQuery);
+      // Database-first approach: Use cached videos to avoid quota issues
+      console.log(`[VIDEOS] Loading cached videos for ${slug} from database...`);
       
-      if (youtubeVideos && youtubeVideos.length > 0) {
-        console.log(`[VIDEOS] Using real YouTube videos for ${slug}`);
-        // Add topic name to each video
-        const videosWithTopic = youtubeVideos.map(video => ({
-          ...video,
-          topic: topicName
-        }));
-        return res.status(200).json(videosWithTopic);
-      }
-      
-      // Fallback to database when YouTube API quota exceeded
-      console.log(`[VIDEOS] YouTube API quota exceeded, checking database for ${slug}...`);
-      
-      // Try to connect to database for cached videos (production only)
+      // Connect to database for cached videos
       try {
         if (process.env.DATABASE_URL) {
-          // Simple database connection (production environment)
-          const { Pool, neonConfig } = await import('@neondatabase/serverless');
-          const ws = await import('ws');
-          neonConfig.webSocketConstructor = ws.default;
+          // Direct database connection using pg client
+          const { Client } = await import('pg');
+          const client = new Client({
+            connectionString: process.env.DATABASE_URL,
+            ssl: { rejectUnauthorized: false }
+          });
           
-          const pool = new Pool({ connectionString: process.env.DATABASE_URL });
-          const client = await pool.connect();
+          await client.connect();
+          console.log(`[VIDEOS] Connected to database for ${slug}`);
           
           const result = await client.query(
-            `SELECT yv.id, yv.title, yv.description, yv.thumbnail_url, yv.channel_title, 
-                    yv.published_at, yv.view_count, yv.like_count, yv.topic_id, yv.ranking
-             FROM youtube_videos yv 
-             WHERE yv.topic_id = $1 
-             ORDER BY yv.ranking ASC 
+            `SELECT id, title, description, thumbnail_url, channel_title, 
+                    published_at, view_count, like_count, topic_id, ranking
+             FROM youtube_videos 
+             WHERE topic_id = $1 
+             ORDER BY ranking ASC 
              LIMIT 12`,
             [slug]
           );
           
-          client.release();
+          await client.end();
           
           if (result.rows.length > 0) {
-            console.log(`[VIDEOS] Using ${result.rows.length} cached database videos for ${slug}`);
+            console.log(`[VIDEOS] Found ${result.rows.length} cached videos for ${slug}`);
             const cachedVideos = result.rows.map(row => ({
               id: row.id,
               title: row.title,
@@ -283,10 +272,14 @@ export default async function handler(req, res) {
               topic: topicName
             }));
             return res.status(200).json(cachedVideos);
+          } else {
+            console.log(`[VIDEOS] No videos found in database for topic: ${slug}`);
           }
+        } else {
+          console.log(`[VIDEOS] No DATABASE_URL found`);
         }
       } catch (dbError) {
-        console.log(`[VIDEOS] Database lookup failed: ${dbError.message}`);
+        console.error(`[VIDEOS] Database connection failed: ${dbError.message}`);
       }
       
       // Return informative message when no data available
