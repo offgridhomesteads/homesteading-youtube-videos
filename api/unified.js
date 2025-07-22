@@ -61,12 +61,30 @@ export default async function handler(req, res) {
     {id: "water-harvesting", name: "Water Harvesting", description: "Essential techniques for collecting and storing water in arid climates.", slug: "water-harvesting", createdAt: "2025-07-17T21:31:45.237Z"}
   ];
 
-  // Sample videos for each topic
+  // Sample videos for each topic with unique video IDs
   const getVideosForTopic = (slug) => {
+    const videoIdsByTopic = {
+      "beekeeping": ["jeFxOUZreXI", "nZTQIiJiFn4", "u85saevOZrI"],
+      "composting": ["f7KSfjv4Oq0", "mXsJBVoJgEo", "iDuCR9rYb-o"],
+      "diy-home-maintenance": ["v0HyLBK4408", "DhbK2lnuKVg", "9PbdRZ2ddD8"],
+      "food-preservation": ["KEQfKwNOJcE", "lVEQfKwNOJo", "mXsJBVoJgEp"],
+      "herbal-medicine": ["8SzJ0z8sNnU", "pLRJ7wFn4kE", "qKEQfKwNOJo"],
+      "homestead-security": ["rBwM6dK4TWY", "tXsJBVoJgEo", "uKEQfKwNOJo"],
+      "livestock-management": ["yBVuCEb8sGI", "zXsJBVoJgEo", "AKEQfKwNOJo"],
+      "off-grid-water-systems": ["2Bb8Nup2T6k", "BXsJBVoJgEo", "CKEQfKwNOJo"],
+      "organic-gardening": ["4DKsQKX2fks", "DXsJBVoJgEo", "EKEQfKwNOJo"],
+      "permaculture-design": ["6VbG4Np3M8s", "FXsJBVoJgEo", "GKEQfKwNOJo"],
+      "raising-chickens": ["8YdBnK5r2Mo", "HXsJBVoJgEo", "IKEQfKwNOJo"],
+      "soil-building-in-arid-climates": ["AsG7KpqNf4w", "JXsJBVoJgEo", "KKEQfKwNOJo"],
+      "solar-energy": ["CqH8K9z3Np4", "LXsJBVoJgEo", "MKEQfKwNOJo"],
+      "water-harvesting": ["ExK9L2p4Rq8", "NXsJBVoJgEo", "OKEQfKwNOJo"]
+    };
+    
+    const videoIds = videoIdsByTopic[slug] || ["jeFxOUZreXI", "nZTQIiJiFn4", "u85saevOZrI"];
     const baseVideos = [
-      { id: "jeFxOUZreXI", title: `${slug.replace(/-/g, ' ')} - Getting Started`, channelTitle: "Homestead Expert" },
-      { id: "nZTQIiJiFn4", title: `Advanced ${slug.replace(/-/g, ' ')} Techniques`, channelTitle: "Farm Life Pro" },
-      { id: "u85saevOZrI", title: `${slug.replace(/-/g, ' ')} Tips & Tricks`, channelTitle: "Rural Living" }
+      { id: videoIds[0], title: `${slug.replace(/-/g, ' ')} - Getting Started`, channelTitle: "Homestead Expert" },
+      { id: videoIds[1], title: `Advanced ${slug.replace(/-/g, ' ')} Techniques`, channelTitle: "Farm Life Pro" },
+      { id: videoIds[2], title: `${slug.replace(/-/g, ' ')} Tips & Tricks`, channelTitle: "Rural Living" }
     ];
     
     return baseVideos.map(video => ({
