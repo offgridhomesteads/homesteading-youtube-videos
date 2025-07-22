@@ -22,19 +22,22 @@ async function fetchYouTubeVideos(topic, searchQuery) {
   const YOUTUBE_API_KEY = process.env.YOUTUBE_API_KEY;
   
   if (!YOUTUBE_API_KEY) {
-    console.log('No YouTube API key found, using fallback data');
+    console.error(`[YouTube API] No API key found. YOUTUBE_API_KEY environment variable is missing.`);
     return null;
   }
 
   try {
+    console.log(`[YouTube API] Searching for: "${searchQuery}" with key: ${YOUTUBE_API_KEY.substring(0, 6)}...`);
     const response = await fetch(`https://www.googleapis.com/youtube/v3/search?part=snippet&q=${encodeURIComponent(searchQuery)}&type=video&maxResults=12&key=${YOUTUBE_API_KEY}`);
     
     if (!response.ok) {
-      console.log('YouTube API request failed:', response.status);
+      const errorText = await response.text();
+      console.error(`[YouTube API] Request failed with status ${response.status}: ${errorText}`);
       return null;
     }
     
     const data = await response.json();
+    console.log(`[YouTube API] Success: Found ${data.items?.length || 0} videos for topic ${topic}`);
     
     // Get proper topic name
     const topicNames = {
@@ -238,15 +241,12 @@ export default async function handler(req, res) {
         return res.status(200).json(videosWithTopic);
       }
       
-      // Fallback to sample videos if YouTube API fails
-      console.log(`[VIDEOS] Using fallback videos for ${slug}`);
-      const videos = getVideosForTopic(slug);
-      // Add topic name to fallback videos too
-      const videosWithTopic = videos.map(video => ({
-        ...video,
-        topic: topicName
-      }));
-      return res.status(200).json(videosWithTopic);
+      // No fallback - return error when YouTube API fails
+      console.log(`[VIDEOS] YouTube API failed for ${slug}, no videos available`);
+      return res.status(503).json({ 
+        error: "Video service temporarily unavailable", 
+        message: "Unable to fetch videos from YouTube. Please try again later." 
+      });
     }
     
     // Route: /api/video/videoId - Get single video by ID
@@ -279,17 +279,7 @@ export default async function handler(req, res) {
         
         console.log(`[VIDEO] Searching topic ${slug} for video ${videoId}...`);
         
-        // Check fallback videos first (more reliable for development)
-        const fallbackVideos = getVideosForTopic(slug);
-        const foundFallback = fallbackVideos.find(v => v.id === videoId);
-        if (foundFallback) {
-          console.log(`[VIDEO] Found video ${videoId} in fallback data for topic ${slug} (${topicName}) with ranking ${foundFallback.ranking}`);
-          return res.status(200).json({
-            ...foundFallback,
-            topic: topicName,
-            topicId: slug
-          });
-        }
+        // Skip fallback videos - only use real YouTube data
         
         // Try YouTube API if available
         const searchQueries = {
