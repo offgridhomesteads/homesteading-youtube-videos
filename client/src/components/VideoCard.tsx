@@ -8,6 +8,15 @@ interface VideoCardProps {
 }
 
 export default function VideoCard({ video, showRanking = true, topicName }: VideoCardProps) {
+  // Debug: Log video data to see what we're getting
+  console.log('VideoCard received:', { 
+    ranking: video.ranking, 
+    topic: video.topic, 
+    topicName, 
+    showRanking,
+    title: video.title 
+  });
+
   const formatDate = (dateString: string) => {
     return new Date(dateString).toLocaleDateString("en-US", {
       year: "numeric",
@@ -23,10 +32,10 @@ export default function VideoCard({ video, showRanking = true, topicName }: Vide
 
   return (
     <div className="bg-white rounded-lg shadow-md p-6 hover:shadow-lg transition-shadow">
-      {showRanking && video.ranking && topicName && (
+      {showRanking && video.ranking && (
         <div className="mb-3">
           <h4 className="text-sm font-semibold text-accent-red">
-            #{video.ranking} video on YouTube for {topicName}
+            #{video.ranking} video on YouTube for {topicName || video.topic || 'Homesteading'}
           </h4>
         </div>
       )}
