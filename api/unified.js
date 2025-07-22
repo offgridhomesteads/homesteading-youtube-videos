@@ -556,19 +556,142 @@ export default function handler(req, res) {
     if (pathSegments.length === 2 && pathSegments[0] === 'video') {
       const videoId = pathSegments[1];
       
-      const video = {
-        id: videoId,
-        title: "Homesteading Tutorial Video",
-        description: "Learn essential homesteading techniques with this comprehensive guide. Perfect for beginners and experienced homesteaders alike.",
-        thumbnailUrl: `https://i.ytimg.com/vi/${videoId}/mqdefault.jpg`,
-        channelTitle: "Homesteading Guide",
-        publishedAt: "2024-10-15T00:00:00Z",
-        viewCount: 15000,
-        likeCount: 500,
-        topicId: "beekeeping"
+      // Search through all topics to find the video
+      const videosByTopic = {
+        "beekeeping": [
+          {
+            id: "nZTQIiJiFn4",
+            title: "Our Beehive SWARMED! Too Much HONEY!",
+            description: "Mark shares the dramatic experience of his beehive swarming due to overcrowding from excessive honey production. He explains what causes bee swarms, how to prevent them, and demonstrates proper hive management techniques to avoid losing your bee colony.",
+            thumbnailUrl: "https://i.ytimg.com/vi/nZTQIiJiFn4/mqdefault.jpg",
+            channelTitle: "Self Sufficient Me",
+            publishedAt: "2024-10-15T00:00:00Z",
+            viewCount: 25843,
+            likeCount: 1203,
+            topicId: "beekeeping"
+          },
+          {
+            id: "jeFxOUZreXI",
+            title: "HOW TO START BEEKEEPING for the Absolute Beginner",
+            description: "Comprehensive beginner's tutorial covering essential equipment, hive placement, bee colony basics, safety gear, and step-by-step instructions for your first beekeeping season. Includes costs, timing, and common mistakes to avoid.",
+            thumbnailUrl: "https://i.ytimg.com/vi/jeFxOUZreXI/mqdefault.jpg",
+            channelTitle: "Beekeeping Made Simple",
+            publishedAt: "2024-10-12T00:00:00Z",
+            viewCount: 18543,
+            likeCount: 892,
+            topicId: "beekeeping"
+          },
+          {
+            id: "u85saevOZrI",
+            title: "Homestead Beekeeping the Natural and Organic Way",
+            description: "Explores natural beekeeping methods that work with bee biology rather than against it. Covers treatment-free approaches, natural hive materials, organic disease prevention, and sustainable honey harvesting practices for homesteaders.",
+            thumbnailUrl: "https://i.ytimg.com/vi/u85saevOZrI/mqdefault.jpg",
+            channelTitle: "Homesteaders of America",
+            publishedAt: "2024-10-08T00:00:00Z",
+            viewCount: 22176,
+            likeCount: 1045,
+            topicId: "beekeeping"
+          }
+        ],
+        "composting": [
+          {
+            id: "nxTzuasQLFo",
+            title: "How to make Compost - The Simplest Easy Method To Compost Piles!",
+            description: "Step-by-step demonstration of the easiest composting method using a simple pile system. Shows proper layering of brown and green materials, optimal moisture levels, turning techniques, and timeline from start to finished compost.",
+            thumbnailUrl: "https://i.ytimg.com/vi/nxTzuasQLFo/mqdefault.jpg",
+            channelTitle: "Growit Buildit",
+            publishedAt: "2024-10-14T00:00:00Z",
+            viewCount: 31245,
+            likeCount: 1534,
+            topicId: "composting"
+          },
+          {
+            id: "LX6XJnKaiCs",
+            title: "I Build a DIY Worm Farm",
+            description: "Complete build tutorial for a homemade vermicomposting system using affordable materials. Demonstrates bin construction, bedding preparation, worm selection, feeding schedules, and harvesting worm castings for garden use.",
+            thumbnailUrl: "https://i.ytimg.com/vi/LX6XJnKaiCs/mqdefault.jpg",
+            channelTitle: "Greenhorn Grove",
+            publishedAt: "2024-10-11T00:00:00Z",
+            viewCount: 19876,
+            likeCount: 743,
+            topicId: "composting"
+          },
+          {
+            id: "HLbwOkAf-iw",
+            title: "Here are 5 ways you can make compost at home",
+            description: "Mark demonstrates five different composting methods suitable for various spaces and needs: traditional pile, tumbler system, trench composting, bokashi fermentation, and leaf mold creation. Includes pros and cons of each method.",
+            thumbnailUrl: "https://i.ytimg.com/vi/HLbwOkAf-iw/mqdefault.jpg",
+            channelTitle: "Self Sufficient Me",
+            publishedAt: "2024-10-05T00:00:00Z",
+            viewCount: 28432,
+            likeCount: 1298,
+            topicId: "composting"
+          }
+        ],
+        // Add key videos from other topics for video player lookup
+        "water-harvesting": [
+          {
+            id: "F24XPaTYns4",
+            title: "Arizona Homesteading: Rainwater Harvesting",
+            description: "Practical demonstration of rainwater collection systems specifically designed for Arizona's arid climate. Shows guttering installation, storage tank selection, filtration methods, and maximizing water capture during brief desert storms.",
+            thumbnailUrl: "https://i.ytimg.com/vi/F24XPaTYns4/mqdefault.jpg",
+            channelTitle: "Frugal Off Grid",
+            publishedAt: "2024-10-11T00:00:00Z",
+            viewCount: 27654,
+            likeCount: 1143,
+            topicId: "water-harvesting"
+          },
+          {
+            id: "79s_PJ0E2CQ",
+            title: "Rain Water Harvesting System Top Mistakes! Don't Make These!",
+            description: "Reveals the most common and costly mistakes people make when installing rainwater harvesting systems. Covers improper tank placement, inadequate filtration, mosquito breeding prevention, overflow management, and maintenance failures that can ruin your investment.",
+            thumbnailUrl: "https://i.ytimg.com/vi/79s_PJ0E2CQ/mqdefault.jpg",
+            channelTitle: "Country Living Experience: A Homesteading Journey",
+            publishedAt: "2024-10-08T00:00:00Z",
+            viewCount: 19834,
+            likeCount: 876,
+            topicId: "water-harvesting"
+          },
+          {
+            id: "Al4dXQUMgaY",
+            title: "EPIC 40,000 Gallon Off Grid Rainwater System Tour In The Desert",
+            description: "Incredible walkthrough of a massive off-grid rainwater collection system in the desert. Features multiple catchment surfaces, sophisticated pump systems, automated controls, and demonstrates how to achieve water independence even in extremely dry climates.",
+            thumbnailUrl: "https://i.ytimg.com/vi/Al4dXQUMgaY/mqdefault.jpg",
+            channelTitle: "Handeeman",
+            publishedAt: "2024-10-04T00:00:00Z",
+            viewCount: 52431,
+            likeCount: 2187,
+            topicId: "water-harvesting"
+          }
+        ]
       };
       
-      return res.status(200).json(video);
+      // Find the video by searching all topics
+      let foundVideo = null;
+      for (const topicSlug in videosByTopic) {
+        const videos = videosByTopic[topicSlug];
+        foundVideo = videos.find(video => video.id === videoId);
+        if (foundVideo) break;
+      }
+      
+      // Return found video or fallback
+      if (foundVideo) {
+        return res.status(200).json(foundVideo);
+      } else {
+        // Generic fallback for any video ID not in our system
+        const video = {
+          id: videoId,
+          title: "Homesteading Tutorial Video",
+          description: "Learn essential homesteading techniques with this comprehensive guide. Perfect for beginners and experienced homesteaders alike.",
+          thumbnailUrl: `https://i.ytimg.com/vi/${videoId}/mqdefault.jpg`,
+          channelTitle: "Homesteading Guide",
+          publishedAt: "2024-10-15T00:00:00Z",
+          viewCount: 15000,
+          likeCount: 500,
+          topicId: "beekeeping"
+        };
+        return res.status(200).json(video);
+      }
     }
 
     return res.status(404).json({ error: 'Route not found' });
