@@ -256,10 +256,10 @@ export default async function handler(req, res) {
           const client = await pool.connect();
           
           const result = await client.query(
-            `SELECT yv.*, t.name as topic_name 
+            `SELECT yv.id, yv.title, yv.description, yv.thumbnail_url, yv.channel_title, 
+                    yv.published_at, yv.view_count, yv.like_count, yv.topic_id, yv.ranking
              FROM youtube_videos yv 
-             JOIN topics t ON yv.topic_id = t.id 
-             WHERE t.slug = $1 
+             WHERE yv.topic_id = $1 
              ORDER BY yv.ranking ASC 
              LIMIT 12`,
             [slug]
