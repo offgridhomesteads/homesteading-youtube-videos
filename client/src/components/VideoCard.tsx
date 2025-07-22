@@ -23,13 +23,7 @@ export default function VideoCard({ video, showRanking = true, topicName }: Vide
 
   return (
     <div className="bg-white rounded-lg shadow-md p-6 hover:shadow-lg transition-shadow">
-      {showRanking && (
-        <div className="mb-3">
-          <h4 className="text-sm font-semibold text-accent-red">
-            #{video.ranking || 1} video on YouTube for {topicName || video.topic || 'Homesteading'}
-          </h4>
-        </div>
-      )}
+
       <div className="flex flex-col md:flex-row gap-4">
         <div className="flex-shrink-0 relative">
           {showRanking && video.ranking && (
