@@ -198,7 +198,7 @@ export default function handler(req, res) {
           {
             id: "6PfrwNBY1eU",
             title: "How Many Eggs Did My 6 Backyard Hens Lay This Week?",
-            description: "Weekly egg production tracking and management tips for backyard chicken flocks.",
+            description: "Bre tracks her weekly egg production from 6 backyard hens, analyzing factors that affect laying rates including diet, weather, daylight hours, and breed differences. Includes practical tips for maximizing egg production in small flocks.",
             thumbnailUrl: "https://i.ytimg.com/vi/6PfrwNBY1eU/mqdefault.jpg",
             channelTitle: "Bre Ellis",
             publishedAt: "2024-10-12T00:00:00Z",
@@ -209,7 +209,7 @@ export default function handler(req, res) {
           {
             id: "wuOd5_M9yDQ",
             title: "Raising Chickens: Everything You Need To Know!",
-            description: "Complete guide to raising healthy chickens on your homestead from start to finish.",
+            description: "Comprehensive beginner's guide covering chicken coop design, breed selection, feeding requirements, healthcare basics, predator protection, and egg collection. Perfect for new homesteaders planning their first flock.",
             thumbnailUrl: "https://i.ytimg.com/vi/wuOd5_M9yDQ/mqdefault.jpg",
             channelTitle: "Epic Homesteading",
             publishedAt: "2024-10-09T00:00:00Z",
@@ -220,7 +220,7 @@ export default function handler(req, res) {
           {
             id: "mQYc7v39WzY",
             title: "6 Reasons to Add Sheep to Your Homestead",
-            description: "Benefits of adding sheep to your homestead operation for beginners.",
+            description: "PJ explains why sheep make excellent additions to homestead operations: natural lawn mowing, wool production, meat source, land clearing abilities, relatively low maintenance needs, and integration with other livestock systems.",
             thumbnailUrl: "https://i.ytimg.com/vi/mQYc7v39WzY/mqdefault.jpg",
             channelTitle: "PJ Howland",
             publishedAt: "2024-10-04T00:00:00Z",
