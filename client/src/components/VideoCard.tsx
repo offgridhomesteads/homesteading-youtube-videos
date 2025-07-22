@@ -4,9 +4,10 @@ import SocialShareButtons from "./SocialShareButtons";
 interface VideoCardProps {
   video: YoutubeVideo;
   showRanking?: boolean;
+  topicName?: string;
 }
 
-export default function VideoCard({ video, showRanking = true }: VideoCardProps) {
+export default function VideoCard({ video, showRanking = true, topicName }: VideoCardProps) {
   const formatDate = (dateString: string) => {
     return new Date(dateString).toLocaleDateString("en-US", {
       year: "numeric",
@@ -22,6 +23,13 @@ export default function VideoCard({ video, showRanking = true }: VideoCardProps)
 
   return (
     <div className="bg-white rounded-lg shadow-md p-6 hover:shadow-lg transition-shadow">
+      {showRanking && video.ranking && topicName && (
+        <div className="mb-3">
+          <h4 className="text-sm font-semibold text-accent-red">
+            #{video.ranking} video on YouTube for {topicName}
+          </h4>
+        </div>
+      )}
       <div className="flex flex-col md:flex-row gap-4">
         <div className="flex-shrink-0 relative">
           {showRanking && video.ranking && (
