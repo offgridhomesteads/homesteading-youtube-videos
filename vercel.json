@@ -4,6 +4,10 @@
   "outputDirectory": "dist/public",
   "rewrites": [
     {
+      "source": "/api/video/(.*)",
+      "destination": "/api/video/[videoId].js"
+    },
+    {
       "source": "/api/topics",
       "destination": "/api/index.js"
     },
