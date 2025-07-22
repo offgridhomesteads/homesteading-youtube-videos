@@ -26,6 +26,10 @@ export default async function handler(req, res) {
   const query = new URLSearchParams(url.split('?')[1] || '');
   
   console.log('API Request:', { url, urlPath, method: req.method, userAgent: req.headers['user-agent']?.slice(0, 50) });
+  
+  // Parse URL path to determine endpoint
+  const pathSegments = urlPath.replace('/api', '').split('/').filter(Boolean);
+  console.log('Path segments:', pathSegments);
 
   try {
     // Import inside try block to handle module loading issues
@@ -135,24 +139,90 @@ export default async function handler(req, res) {
       };
     }
     
-    // Route: /api/topics or /api - Get all topics
-    if ((urlPath === '/api' || urlPath === '/api/topics') && !query.get('action')) {
-      const result = await sql`SELECT * FROM topics ORDER BY name`;
-      return res.status(200).json(result);
+    // Route: /api/topics/slug/videos - Get videos for topic
+    if (pathSegments.length === 3 && pathSegments[0] === 'topics' && pathSegments[2] === 'videos') {
+      const slug = pathSegments[1];
+      const limit = parseInt(query.get('limit')) || 12;
+      
+      console.log(`Videos endpoint called for slug: ${slug}`);
+      
+      try {
+        // Check if we're in mock mode (database connection failed)
+        if (typeof sql === 'function' && sql.toString().includes('topicData')) {
+          console.log('Mock mode detected - using YouTube API directly');
+          
+          // Use YouTube API directly since database is in mock mode
+          if (!process.env.YOUTUBE_API_KEY) {
+            console.error('YOUTUBE_API_KEY not found');
+            return res.status(500).json({ message: "YouTube API key not configured" });
+          }
+          
+          const { YouTubeService } = await import('./youtubeService.js');
+          const youtubeService = new YouTubeService();
+          
+          const searchTerm = slug.replace(/-/g, ' ');
+          const videos = await youtubeService.searchVideos(searchTerm, limit);
+          
+          console.log(`Fetched ${videos.length} videos from YouTube API for ${searchTerm}`);
+          return res.status(200).json(videos);
+        }
+        
+        // Try database first (real connection)
+        const result = await sql`
+          SELECT v.* FROM youtube_videos v
+          INNER JOIN topics t ON v.topic_id = t.id
+          WHERE t.slug = ${slug}
+          ORDER BY v.popularity_score DESC
+          LIMIT ${limit}
+        `;
+        
+        if (result.length > 0) {
+          console.log(`Found ${result.length} videos in database for ${slug}`);
+          return res.status(200).json(result);
+        }
+        
+        // If no videos in database, fetch from YouTube API
+        console.log(`No videos in database for ${slug}, fetching from YouTube API`);
+        if (!process.env.YOUTUBE_API_KEY) {
+          console.error('YOUTUBE_API_KEY not found');
+          return res.status(500).json({ message: "YouTube API key not configured" });
+        }
+        
+        const { YouTubeService } = await import('./youtubeService.js');
+        const youtubeService = new YouTubeService();
+        
+        const searchTerm = slug.replace(/-/g, ' ');
+        const videos = await youtubeService.searchVideos(searchTerm, limit);
+        
+        console.log(`Fetched ${videos.length} videos from YouTube API for ${searchTerm}`);
+        return res.status(200).json(videos);
+        
+      } catch (videoError) {
+        console.error('Error in videos endpoint:', videoError.message);
+        return res.status(500).json({ 
+          message: "Error fetching videos", 
+          error: videoError.message 
+        });
+      }
     }
 
-    // Route: /api?action=topic&slug=X - Get specific topic
-    if (query.get('action') === 'topic') {
-      const slug = query.get('slug');
-      if (!slug) {
-        return res.status(400).json({ message: "Topic slug is required" });
-      }
-
+    // Route: /api/topics/slug - Get single topic by slug
+    if (pathSegments.length === 2 && pathSegments[0] === 'topics') {
+      const slug = pathSegments[1];
+      console.log(`Single topic endpoint called for slug: ${slug}`);
+      
       const result = await sql`SELECT * FROM topics WHERE slug = ${slug}`;
       if (result.length === 0) {
         return res.status(404).json({ message: "Topic not found" });
       }
+      
       return res.status(200).json(result[0]);
+    }
+
+    // Route: /api/topics or /api - Get all topics
+    if ((urlPath === '/api' || urlPath === '/api/topics') && !query.get('action')) {
+      const result = await sql`SELECT * FROM topics ORDER BY name`;
+      return res.status(200).json(result);
     }
 
     // Route: /api?action=videos&slug=X - Get videos for topic
