@@ -35,9 +35,14 @@ export default async function handler(req, res) {
     // Import inside try block to handle module loading issues
     let sql;
     try {
-      // Try Neon serverless first
+      // Try Neon serverless first - fix DATABASE_URL format
+      let dbUrl = process.env.DATABASE_URL;
+      if (dbUrl.startsWith("psql '") && dbUrl.endsWith("'")) {
+        dbUrl = dbUrl.slice(6, -1); // Remove "psql '" prefix and "'" suffix
+      }
+      
       const { neon } = await import('@neondatabase/serverless');
-      sql = neon(process.env.DATABASE_URL);
+      sql = neon(dbUrl);
       console.log('Successfully connected to Neon database for request:', query.get('action'), query.get('slug'));
     } catch (importError) {
       console.error('Failed to import @neondatabase/serverless:', importError.message);
