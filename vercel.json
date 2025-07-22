@@ -5,7 +5,7 @@
   "rewrites": [
     {
       "source": "/api/video/(.*)",
-      "destination": "/api/video/[videoId].js"
+      "destination": "/api/video-direct.js"
     },
     {
       "source": "/api/topics",
