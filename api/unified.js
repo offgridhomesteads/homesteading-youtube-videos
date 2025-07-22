@@ -767,6 +767,146 @@ export default function handler(req, res) {
             likeCount: 2187,
             topicId: "water-harvesting"
           }
+        ],
+        "off-grid-water-systems": [
+          {
+            id: "water1mno",
+            title: "Well Drilling and Water Sources",
+            description: "Comprehensive guide to locating, drilling, and developing water sources for off-grid properties. Covers water table assessment, drilling techniques, pump selection, and water quality testing for safe homestead water supplies.",
+            thumbnailUrl: "https://i.ytimg.com/vi/water1mno/mqdefault.jpg",
+            channelTitle: "Kris Harbour Natural Building",
+            publishedAt: "2024-10-11T00:00:00Z",
+            viewCount: 31245,
+            likeCount: 1432,
+            topicId: "off-grid-water-systems"
+          },
+          {
+            id: "water2pqr",
+            title: "Gravity Fed Water Systems",
+            description: "Engineering and building gravity-fed water distribution systems for remote homesteads. Demonstrates elevation planning, pipe sizing, pressure calculations, and storage tank placement for reliable water delivery without electricity.",
+            thumbnailUrl: "https://i.ytimg.com/vi/water2pqr/mqdefault.jpg",
+            channelTitle: "Simple Living Alaska",
+            publishedAt: "2024-10-07T00:00:00Z",
+            viewCount: 24567,
+            likeCount: 1098,
+            topicId: "off-grid-water-systems"
+          },
+          {
+            id: "water3stu",
+            title: "Water Purification and Treatment",
+            description: "Advanced water treatment and purification methods for safe homestead water supplies. Covers filtration systems, UV sterilization, chemical treatment options, and ongoing water quality monitoring for off-grid properties.",
+            thumbnailUrl: "https://i.ytimg.com/vi/water3stu/mqdefault.jpg",
+            channelTitle: "Modern Survivalist",
+            publishedAt: "2024-10-02T00:00:00Z",
+            viewCount: 18934,
+            likeCount: 743,
+            topicId: "off-grid-water-systems"
+          }
+        ],
+        "herbal-medicine": [
+          {
+            id: "herb1jkl",
+            title: "Medicinal Plant Cultivation",
+            description: "Complete guide to growing and harvesting medicinal plants on your homestead. Covers soil preparation, plant selection for climate zones, organic growing methods, proper harvesting timing, and sustainable cultivation practices.",
+            thumbnailUrl: "https://i.ytimg.com/vi/herb1jkl/mqdefault.jpg",
+            channelTitle: "Mountain Rose Herbs",
+            publishedAt: "2024-10-13T00:00:00Z",
+            viewCount: 26789,
+            likeCount: 1189,
+            topicId: "herbal-medicine"
+          },
+          {
+            id: "herb2ghi",
+            title: "Making Herbal Remedies at Home",
+            description: "Step-by-step instructions for preparing tinctures, salves, teas, and other herbal remedies from homegrown herbs. Includes extraction methods, proper dosing, storage techniques, and safety considerations for home preparation.",
+            thumbnailUrl: "https://i.ytimg.com/vi/herb2ghi/mqdefault.jpg",
+            channelTitle: "Herbal Academy",
+            publishedAt: "2024-10-09T00:00:00Z",
+            viewCount: 19456,
+            likeCount: 823,
+            topicId: "herbal-medicine"
+          },
+          {
+            id: "herb3def",
+            title: "Herb Drying and Storage Methods",
+            description: "Professional techniques for properly drying and storing medicinal herbs for maximum potency and long-term preservation. Covers air drying, dehydrator methods, proper storage containers, and maintaining herb quality over time.",
+            thumbnailUrl: "https://i.ytimg.com/vi/herb3def/mqdefault.jpg",
+            channelTitle: "Traditional Medicinals",
+            publishedAt: "2024-10-04T00:00:00Z",
+            viewCount: 22134,
+            likeCount: 954,
+            topicId: "herbal-medicine"
+          }
+        ],
+        "homestead-security": [
+          {
+            id: "security1abc",
+            title: "Perimeter Security for Rural Properties",
+            description: "Comprehensive approach to securing rural homestead properties including fencing options, gate systems, lighting strategies, surveillance cameras, and alarm systems designed for remote locations with limited infrastructure.",
+            thumbnailUrl: "https://i.ytimg.com/vi/security1abc/mqdefault.jpg",
+            channelTitle: "Modern Homesteading",
+            publishedAt: "2024-10-12T00:00:00Z",
+            viewCount: 33456,
+            likeCount: 1456,
+            topicId: "homestead-security"
+          },
+          {
+            id: "security2def",
+            title: "Food and Water Security Planning",
+            description: "Building comprehensive food and water security systems for homestead resilience and emergency preparedness. Covers storage methods, rotation systems, backup water sources, and long-term sustainability planning.",
+            thumbnailUrl: "https://i.ytimg.com/vi/security2def/mqdefault.jpg",
+            channelTitle: "The Prepared Mind",
+            publishedAt: "2024-10-08T00:00:00Z",
+            viewCount: 21876,
+            likeCount: 987,
+            topicId: "homestead-security"
+          },
+          {
+            id: "security3ghi",
+            title: "Emergency Communication Systems",
+            description: "Setting up reliable communication systems for remote homestead locations including ham radio setup, cellular boosters, satellite communication options, and backup power systems for emergency communications.",
+            thumbnailUrl: "https://i.ytimg.com/vi/security3ghi/mqdefault.jpg",
+            channelTitle: "Practical Prepper",
+            publishedAt: "2024-10-03T00:00:00Z",
+            viewCount: 18234,
+            likeCount: 743,
+            topicId: "homestead-security"
+          }
+        ],
+        "soil-building-in-arid-climates": [
+          {
+            id: "soil1jkl",
+            title: "Desert Soil Improvement Techniques",
+            description: "Proven methods for building fertile soil in desert and arid climate conditions. Covers soil amendment strategies, organic matter incorporation, mineral balancing, and creating microbial activity in challenging desert environments.",
+            thumbnailUrl: "https://i.ytimg.com/vi/soil1jkl/mqdefault.jpg",
+            channelTitle: "Desert Farming Initiative",
+            publishedAt: "2024-10-14T00:00:00Z",
+            viewCount: 29345,
+            likeCount: 1298,
+            topicId: "soil-building-in-arid-climates"
+          },
+          {
+            id: "soil2mno",
+            title: "Mulching for Water Retention",
+            description: "Using mulch and cover crops to improve soil moisture retention and structure in dry climates. Demonstrates mulch types, application techniques, cover crop selection, and integrated soil building strategies.",
+            thumbnailUrl: "https://i.ytimg.com/vi/soil2mno/mqdefault.jpg",
+            channelTitle: "Arid Land Permaculture",
+            publishedAt: "2024-10-10T00:00:00Z",
+            viewCount: 17865,
+            likeCount: 743,
+            topicId: "soil-building-in-arid-climates"
+          },
+          {
+            id: "soil3pqr",
+            title: "Composting in Hot Dry Climates",
+            description: "Effective composting methods specifically adapted for arid and semi-arid regions. Covers moisture management, temperature control, composting materials selection, and troubleshooting common hot climate composting challenges.",
+            thumbnailUrl: "https://i.ytimg.com/vi/soil3pqr/mqdefault.jpg",
+            channelTitle: "Desert Dwellers",
+            publishedAt: "2024-10-05T00:00:00Z",
+            viewCount: 23457,
+            likeCount: 1065,
+            topicId: "soil-building-in-arid-climates"
+          }
         ]
       };
       
