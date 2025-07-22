@@ -52,44 +52,504 @@ export default function handler(req, res) {
     if (pathSegments.length === 3 && pathSegments[0] === 'topics' && pathSegments[2] === 'videos') {
       const slug = pathSegments[1];
       
-      // Mock video data that was working before
-      const sampleVideos = [
-        {
-          id: "nZTQIiJiFn4",
-          title: "Our Beehive SWARMED! Too Much HONEY!",
-          description: "Our beehive was almost lost when the bees swarmed to find more space to live. The hive was totally full of honey!",
-          thumbnailUrl: "https://i.ytimg.com/vi/nZTQIiJiFn4/mqdefault.jpg",
-          channelTitle: "Self Sufficient Me",
-          publishedAt: "2024-10-15T00:00:00Z",
-          viewCount: 25843,
-          likeCount: 1203,
-          topicId: slug
-        },
-        {
-          id: "ileODNqkqwM",
-          title: "Part 5 | Debt free, off-grid home build — Concrete block walls!",
-          description: "Building concrete block walls for off-grid homestead construction on a budget.",
-          thumbnailUrl: "https://i.ytimg.com/vi/ileODNqkqwM/mqdefault.jpg",
-          channelTitle: "Off Grid Life",
-          publishedAt: "2024-10-10T00:00:00Z",
-          viewCount: 34562,
-          likeCount: 987,
-          topicId: slug
-        },
-        {
-          id: "B6qk0IbCC5U",
-          title: "Make $10,000 per acre with Pastured Pigs | Joel Salatin",
-          description: "Joel Salatin demonstrates profitable pastured pig systems for small homesteads.",
-          thumbnailUrl: "https://i.ytimg.com/vi/B6qk0IbCC5U/mqdefault.jpg",
-          channelTitle: "Farm Like A Lunatic with Joel Salatin",
-          publishedAt: "2024-10-08T00:00:00Z",
-          viewCount: 45672,
-          likeCount: 1534,
-          topicId: slug
-        }
-      ];
+      // Topic-specific video data - different videos for each topic
+      const videosByTopic = {
+        "beekeeping": [
+          {
+            id: "nZTQIiJiFn4",
+            title: "Our Beehive SWARMED! Too Much HONEY!",
+            description: "Our beehive was almost lost when the bees swarmed to find more space to live. The hive was totally full of honey!",
+            thumbnailUrl: "https://i.ytimg.com/vi/nZTQIiJiFn4/mqdefault.jpg",
+            channelTitle: "Self Sufficient Me",
+            publishedAt: "2024-10-15T00:00:00Z",
+            viewCount: 25843,
+            likeCount: 1203,
+            topicId: slug
+          },
+          {
+            id: "jeFxOUZreXI",
+            title: "HOW TO START BEEKEEPING for the Absolute Beginner",
+            description: "Complete beginner's guide to starting your beekeeping journey with proper techniques and safety.",
+            thumbnailUrl: "https://i.ytimg.com/vi/jeFxOUZreXI/mqdefault.jpg",
+            channelTitle: "Beekeeping Made Simple",
+            publishedAt: "2024-10-12T00:00:00Z",
+            viewCount: 18543,
+            likeCount: 892,
+            topicId: slug
+          },
+          {
+            id: "u85saevOZrI",
+            title: "Homestead Beekeeping the Natural and Organic Way",
+            description: "Learn natural and organic beekeeping methods for sustainable homestead honey production.",
+            thumbnailUrl: "https://i.ytimg.com/vi/u85saevOZrI/mqdefault.jpg",
+            channelTitle: "Homesteaders of America",
+            publishedAt: "2024-10-08T00:00:00Z",
+            viewCount: 22176,
+            likeCount: 1045,
+            topicId: slug
+          }
+        ],
+        "composting": [
+          {
+            id: "nxTzuasQLFo",
+            title: "How to make Compost - The Simplest Easy Method To Compost Piles!",
+            description: "Learn the simplest method to create nutrient-rich compost for your homestead garden.",
+            thumbnailUrl: "https://i.ytimg.com/vi/nxTzuasQLFo/mqdefault.jpg",
+            channelTitle: "Growit Buildit",
+            publishedAt: "2024-10-14T00:00:00Z",
+            viewCount: 31245,
+            likeCount: 1534,
+            topicId: slug
+          },
+          {
+            id: "LX6XJnKaiCs",
+            title: "I Build a DIY Worm Farm",
+            description: "Building a DIY worm farm for efficient composting and soil improvement on your homestead.",
+            thumbnailUrl: "https://i.ytimg.com/vi/LX6XJnKaiCs/mqdefault.jpg",
+            channelTitle: "Greenhorn Grove",
+            publishedAt: "2024-10-11T00:00:00Z",
+            viewCount: 19876,
+            likeCount: 743,
+            topicId: slug
+          },
+          {
+            id: "HLbwOkAf-iw",
+            title: "Here are 5 ways you can make compost at home",
+            description: "Five effective ways to make compost at home while reducing waste and improving your garden soil.",
+            thumbnailUrl: "https://i.ytimg.com/vi/HLbwOkAf-iw/mqdefault.jpg",
+            channelTitle: "Self Sufficient Me",
+            publishedAt: "2024-10-05T00:00:00Z",
+            viewCount: 28432,
+            likeCount: 1298,
+            topicId: slug
+          }
+        ],
+        "diy-home-maintenance": [
+          {
+            id: "ileODNqkqwM",
+            title: "Part 5 | Debt free, off-grid home build — Concrete block walls!",
+            description: "Building concrete block walls for off-grid homestead construction on a budget.",
+            thumbnailUrl: "https://i.ytimg.com/vi/ileODNqkqwM/mqdefault.jpg",
+            channelTitle: "Off Grid Life",
+            publishedAt: "2024-10-10T00:00:00Z",
+            viewCount: 34562,
+            likeCount: 987,
+            topicId: slug
+          },
+          {
+            id: "Oxs2xdHAasY",
+            title: "DIY Barndominium Cost Breakdown",
+            description: "Complete cost breakdown for building your own barndominium with DIY methods and materials.",
+            thumbnailUrl: "https://i.ytimg.com/vi/Oxs2xdHAasY/mqdefault.jpg",
+            channelTitle: "Modern Builds",
+            publishedAt: "2024-10-07T00:00:00Z",
+            viewCount: 42168,
+            likeCount: 1876,
+            topicId: slug
+          },
+          {
+            id: "WX0kk3i1YhY",
+            title: "Why we're shutting down our homestead",
+            description: "Honest discussion about the challenges and decisions involved in homestead management.",
+            thumbnailUrl: "https://i.ytimg.com/vi/WX0kk3i1YhY/mqdefault.jpg",
+            channelTitle: "Homestead Heart",
+            publishedAt: "2024-10-03T00:00:00Z",
+            viewCount: 15987,
+            likeCount: 432,
+            topicId: slug
+          }
+        ],
+        "organic-gardening": [
+          {
+            id: "7Txv1ndELhM",
+            title: "Inside Living Off Grid In Arizona Desert On 40 Acre Homestead Tour",
+            description: "Tour of a 40-acre Arizona desert homestead showing organic gardening in arid conditions.",
+            thumbnailUrl: "https://i.ytimg.com/vi/7Txv1ndELhM/mqdefault.jpg",
+            channelTitle: "Big Super Living In Arizona",
+            publishedAt: "2024-10-13T00:00:00Z",
+            viewCount: 38451,
+            likeCount: 1642,
+            topicId: slug
+          },
+          {
+            id: "OHIT75qoBQ8",
+            title: "Buying Land in Arizona? | Watch This First!",
+            description: "Essential tips for purchasing land in Arizona for organic farming and homesteading projects.",
+            thumbnailUrl: "https://i.ytimg.com/vi/OHIT75qoBQ8/mqdefault.jpg",
+            channelTitle: "Edge of Nowhere Farm",
+            publishedAt: "2024-10-09T00:00:00Z",
+            viewCount: 29384,
+            likeCount: 1298,
+            topicId: slug
+          },
+          {
+            id: "NufN8cJOFx4",
+            title: "Start a Homestead Under 10k? | Arizona High Desert",
+            description: "How to start an organic gardening homestead in Arizona's high desert on a tight budget.",
+            thumbnailUrl: "https://i.ytimg.com/vi/NufN8cJOFx4/mqdefault.jpg",
+            channelTitle: "Frugal Off Grid",
+            publishedAt: "2024-10-06T00:00:00Z",
+            viewCount: 33576,
+            likeCount: 1534,
+            topicId: slug
+          }
+        ],
+        "raising-chickens": [
+          {
+            id: "6PfrwNBY1eU",
+            title: "How Many Eggs Did My 6 Backyard Hens Lay This Week?",
+            description: "Weekly egg production tracking and management tips for backyard chicken flocks.",
+            thumbnailUrl: "https://i.ytimg.com/vi/6PfrwNBY1eU/mqdefault.jpg",
+            channelTitle: "Bre Ellis",
+            publishedAt: "2024-10-12T00:00:00Z",
+            viewCount: 21453,
+            likeCount: 987,
+            topicId: slug
+          },
+          {
+            id: "wuOd5_M9yDQ",
+            title: "Raising Chickens: Everything You Need To Know!",
+            description: "Complete guide to raising healthy chickens on your homestead from start to finish.",
+            thumbnailUrl: "https://i.ytimg.com/vi/wuOd5_M9yDQ/mqdefault.jpg",
+            channelTitle: "Epic Homesteading",
+            publishedAt: "2024-10-09T00:00:00Z",
+            viewCount: 45672,
+            likeCount: 2143,
+            topicId: slug
+          },
+          {
+            id: "mQYc7v39WzY",
+            title: "6 Reasons to Add Sheep to Your Homestead",
+            description: "Benefits of adding sheep to your homestead operation for beginners.",
+            thumbnailUrl: "https://i.ytimg.com/vi/mQYc7v39WzY/mqdefault.jpg",
+            channelTitle: "PJ Howland",
+            publishedAt: "2024-10-04T00:00:00Z",
+            viewCount: 18734,
+            likeCount: 823,
+            topicId: slug
+          }
+        ],
+        "livestock-management": [
+          {
+            id: "B6qk0IbCC5U",
+            title: "Make $10,000 per acre with Pastured Pigs | Joel Salatin",
+            description: "Joel Salatin demonstrates profitable pastured pig systems for small homesteads.",
+            thumbnailUrl: "https://i.ytimg.com/vi/B6qk0IbCC5U/mqdefault.jpg",
+            channelTitle: "Farm Like A Lunatic with Joel Salatin",
+            publishedAt: "2024-10-08T00:00:00Z",
+            viewCount: 45672,
+            likeCount: 1534,
+            topicId: slug
+          },
+          {
+            id: "j9oT-iLBOl4",
+            title: "Regenerating the Desert in Arizona: From Wasteland to Farmland",
+            description: "Transforming desert land into productive livestock farming operations in Arizona.",
+            thumbnailUrl: "https://i.ytimg.com/vi/j9oT-iLBOl4/mqdefault.jpg",
+            channelTitle: "Heifer USA",
+            publishedAt: "2024-10-05T00:00:00Z",
+            viewCount: 32145,
+            likeCount: 1298,
+            topicId: slug
+          },
+          {
+            id: "IxdU46sw_7E",
+            title: "How To Start A Farm From Scratch In 2025",
+            description: "Complete guide to starting a livestock farm operation from the ground up.",
+            thumbnailUrl: "https://i.ytimg.com/vi/IxdU46sw_7E/mqdefault.jpg",
+            channelTitle: "Plane View Farm",
+            publishedAt: "2024-10-01T00:00:00Z",
+            viewCount: 28976,
+            likeCount: 1187,
+            topicId: slug
+          }
+        ],
+        // Add the remaining 8 topics with similar structure
+        "water-harvesting": [
+          {
+            id: "F24XPaTYns4",
+            title: "Arizona Homesteading: Rainwater Harvesting",
+            description: "Effective rainwater harvesting techniques for Arizona homesteads and desert climates.",
+            thumbnailUrl: "https://i.ytimg.com/vi/F24XPaTYns4/mqdefault.jpg",
+            channelTitle: "Frugal Off Grid",
+            publishedAt: "2024-10-11T00:00:00Z",
+            viewCount: 27654,
+            likeCount: 1143,
+            topicId: slug
+          },
+          {
+            id: "79s_PJ0E2CQ",
+            title: "Rain Water Harvesting System Top Mistakes! Don't Make These!",
+            description: "Common mistakes to avoid when building rainwater harvesting systems for your homestead.",
+            thumbnailUrl: "https://i.ytimg.com/vi/79s_PJ0E2CQ/mqdefault.jpg",
+            channelTitle: "Country Living Experience: A Homesteading Journey",
+            publishedAt: "2024-10-08T00:00:00Z",
+            viewCount: 19834,
+            likeCount: 876,
+            topicId: slug
+          },
+          {
+            id: "Al4dXQUMgaY",
+            title: "EPIC 40,000 Gallon Off Grid Rainwater System Tour In The Desert",
+            description: "Tour of a massive 40,000-gallon rainwater harvesting system in desert conditions.",
+            thumbnailUrl: "https://i.ytimg.com/vi/Al4dXQUMgaY/mqdefault.jpg",
+            channelTitle: "Handeeman",
+            publishedAt: "2024-10-04T00:00:00Z",
+            viewCount: 52431,
+            likeCount: 2187,
+            topicId: slug
+          }
+        ],
+        "food-preservation": [
+          {
+            id: "A5pAwOPty9M",
+            title: "Preserving our Harvest: Tour an 1840 Larder, Pantry and Root Cellar",
+            description: "Tour of historical food preservation methods including larder, pantry and root cellar systems.",
+            thumbnailUrl: "https://i.ytimg.com/vi/A5pAwOPty9M/mqdefault.jpg",
+            channelTitle: "Waardenburg Family Farm",
+            publishedAt: "2024-10-13T00:00:00Z",
+            viewCount: 34567,
+            likeCount: 1432,
+            topicId: slug
+          },
+          {
+            id: "5SRBpnxahME",
+            title: "How to preserve elk meat | Arizona Elk Hunt",
+            description: "Professional meat preservation techniques for hunting success and long-term storage.",
+            thumbnailUrl: "https://i.ytimg.com/vi/5SRBpnxahME/mqdefault.jpg",
+            channelTitle: "YETI",
+            publishedAt: "2024-10-09T00:00:00Z",
+            viewCount: 18765,
+            likeCount: 743,
+            topicId: slug
+          },
+          {
+            id: "BGs1zOFU9Y0",
+            title: "Our Off Grid Food Storage Journey",
+            description: "Complete journey of building off-grid food storage systems for homestead security.",
+            thumbnailUrl: "https://i.ytimg.com/vi/BGs1zOFU9Y0/mqdefault.jpg",
+            channelTitle: "a_fellow_homesteader",
+            publishedAt: "2024-10-05T00:00:00Z",
+            viewCount: 23456,
+            likeCount: 987,
+            topicId: slug
+          }
+        ],
+        "solar-energy": [
+          {
+            id: "solar1abc",
+            title: "Off-Grid Solar System Basics",
+            description: "Introduction to off-grid solar systems for homestead energy independence.",
+            thumbnailUrl: "https://i.ytimg.com/vi/solar1abc/mqdefault.jpg",
+            channelTitle: "Solar Power With Will Prowse",
+            publishedAt: "2024-10-12T00:00:00Z",
+            viewCount: 41234,
+            likeCount: 1876,
+            topicId: slug
+          },
+          {
+            id: "solar2def",
+            title: "DIY Solar Installation Guide",
+            description: "Step-by-step guide to installing solar panels on your homestead.",
+            thumbnailUrl: "https://i.ytimg.com/vi/solar2def/mqdefault.jpg",
+            channelTitle: "Solar Living Institute",
+            publishedAt: "2024-10-08T00:00:00Z",
+            viewCount: 29876,
+            likeCount: 1321,
+            topicId: slug
+          },
+          {
+            id: "solar3ghi",
+            title: "Solar Battery Storage Solutions",
+            description: "Choosing and installing battery storage for your homestead solar system.",
+            thumbnailUrl: "https://i.ytimg.com/vi/solar3ghi/mqdefault.jpg",
+            channelTitle: "Off Grid Garage",
+            publishedAt: "2024-10-03T00:00:00Z",
+            viewCount: 35467,
+            likeCount: 1543,
+            topicId: slug
+          }
+        ],
+        "permaculture-design": [
+          {
+            id: "perma1xyz",
+            title: "Permaculture Principles for Homesteads",
+            description: "Applying permaculture design principles to create sustainable homesteads.",
+            thumbnailUrl: "https://i.ytimg.com/vi/perma1xyz/mqdefault.jpg",
+            channelTitle: "Geoff Lawton Online",
+            publishedAt: "2024-10-14T00:00:00Z",
+            viewCount: 28934,
+            likeCount: 1234,
+            topicId: slug
+          },
+          {
+            id: "perma2uvw",
+            title: "Food Forest Design and Implementation",
+            description: "Creating productive food forests using permaculture design methods.",
+            thumbnailUrl: "https://i.ytimg.com/vi/perma2uvw/mqdefault.jpg",
+            channelTitle: "Stefan Sobkowiak",
+            publishedAt: "2024-10-10T00:00:00Z",
+            viewCount: 22456,
+            likeCount: 987,
+            topicId: slug
+          },
+          {
+            id: "perma3rst",
+            title: "Water Management in Permaculture",
+            description: "Designing water catchment and management systems for permaculture homesteads.",
+            thumbnailUrl: "https://i.ytimg.com/vi/perma3rst/mqdefault.jpg",
+            channelTitle: "Permaculture Design Course",
+            publishedAt: "2024-10-06T00:00:00Z",
+            viewCount: 19723,
+            likeCount: 834,
+            topicId: slug
+          }
+        ],
+        "off-grid-water-systems": [
+          {
+            id: "water1mno",
+            title: "Well Drilling and Water Sources",
+            description: "Finding and developing water sources for off-grid homestead living.",
+            thumbnailUrl: "https://i.ytimg.com/vi/water1mno/mqdefault.jpg",
+            channelTitle: "Kris Harbour Natural Building",
+            publishedAt: "2024-10-11T00:00:00Z",
+            viewCount: 31245,
+            likeCount: 1432,
+            topicId: slug
+          },
+          {
+            id: "water2pqr",
+            title: "Gravity Fed Water Systems",
+            description: "Building gravity-fed water distribution systems for remote homesteads.",
+            thumbnailUrl: "https://i.ytimg.com/vi/water2pqr/mqdefault.jpg",
+            channelTitle: "Simple Living Alaska",
+            publishedAt: "2024-10-07T00:00:00Z",
+            viewCount: 24567,
+            likeCount: 1098,
+            topicId: slug
+          },
+          {
+            id: "water3stu",
+            title: "Water Purification and Treatment",
+            description: "Water treatment and purification methods for safe homestead water supplies.",
+            thumbnailUrl: "https://i.ytimg.com/vi/water3stu/mqdefault.jpg",
+            channelTitle: "Modern Survivalist",
+            publishedAt: "2024-10-02T00:00:00Z",
+            viewCount: 18934,
+            likeCount: 743,
+            topicId: slug
+          }
+        ],
+        "herbal-medicine": [
+          {
+            id: "herb1jkl",
+            title: "Medicinal Plant Cultivation",
+            description: "Growing and harvesting medicinal plants on your homestead.",
+            thumbnailUrl: "https://i.ytimg.com/vi/herb1jkl/mqdefault.jpg",
+            channelTitle: "Mountain Rose Herbs",
+            publishedAt: "2024-10-13T00:00:00Z",
+            viewCount: 26789,
+            likeCount: 1189,
+            topicId: slug
+          },
+          {
+            id: "herb2ghi",
+            title: "Making Herbal Remedies at Home",
+            description: "Preparing tinctures, salves, and remedies from homegrown herbs.",
+            thumbnailUrl: "https://i.ytimg.com/vi/herb2ghi/mqdefault.jpg",
+            channelTitle: "Herbal Academy",
+            publishedAt: "2024-10-09T00:00:00Z",
+            viewCount: 19456,
+            likeCount: 823,
+            topicId: slug
+          },
+          {
+            id: "herb3def",
+            title: "Herb Drying and Storage Methods",
+            description: "Proper techniques for drying and storing medicinal herbs long-term.",
+            thumbnailUrl: "https://i.ytimg.com/vi/herb3def/mqdefault.jpg",
+            channelTitle: "Traditional Medicinals",
+            publishedAt: "2024-10-04T00:00:00Z",
+            viewCount: 22134,
+            likeCount: 954,
+            topicId: slug
+          }
+        ],
+        "homestead-security": [
+          {
+            id: "security1abc",
+            title: "Perimeter Security for Rural Properties",
+            description: "Securing your homestead property with effective perimeter protection.",
+            thumbnailUrl: "https://i.ytimg.com/vi/security1abc/mqdefault.jpg",
+            channelTitle: "Modern Homesteading",
+            publishedAt: "2024-10-12T00:00:00Z",
+            viewCount: 33456,
+            likeCount: 1456,
+            topicId: slug
+          },
+          {
+            id: "security2def",
+            title: "Food and Water Security Planning",
+            description: "Building food and water security systems for homestead resilience.",
+            thumbnailUrl: "https://i.ytimg.com/vi/security2def/mqdefault.jpg",
+            channelTitle: "The Prepared Mind",
+            publishedAt: "2024-10-08T00:00:00Z",
+            viewCount: 21876,
+            likeCount: 987,
+            topicId: slug
+          },
+          {
+            id: "security3ghi",
+            title: "Emergency Communication Systems",
+            description: "Setting up reliable communication systems for remote homestead locations.",
+            thumbnailUrl: "https://i.ytimg.com/vi/security3ghi/mqdefault.jpg",
+            channelTitle: "Practical Prepper",
+            publishedAt: "2024-10-03T00:00:00Z",
+            viewCount: 18234,
+            likeCount: 743,
+            topicId: slug
+          }
+        ],
+        "soil-building-in-arid-climates": [
+          {
+            id: "soil1jkl",
+            title: "Desert Soil Improvement Techniques",
+            description: "Building fertile soil in desert and arid climate conditions.",
+            thumbnailUrl: "https://i.ytimg.com/vi/soil1jkl/mqdefault.jpg",
+            channelTitle: "Desert Farming Initiative",
+            publishedAt: "2024-10-14T00:00:00Z",
+            viewCount: 29345,
+            likeCount: 1298,
+            topicId: slug
+          },
+          {
+            id: "soil2mno",
+            title: "Mulching for Water Retention",
+            description: "Using mulch and cover crops to improve soil in dry climates.",
+            thumbnailUrl: "https://i.ytimg.com/vi/soil2mno/mqdefault.jpg",
+            channelTitle: "Arid Land Permaculture",
+            publishedAt: "2024-10-10T00:00:00Z",
+            viewCount: 17865,
+            likeCount: 743,
+            topicId: slug
+          },
+          {
+            id: "soil3pqr",
+            title: "Composting in Hot Dry Climates",
+            description: "Effective composting methods for arid and semi-arid regions.",
+            thumbnailUrl: "https://i.ytimg.com/vi/soil3pqr/mqdefault.jpg",
+            channelTitle: "Desert Dwellers",
+            publishedAt: "2024-10-05T00:00:00Z",
+            viewCount: 23457,
+            likeCount: 1065,
+            topicId: slug
+          }
+        ]
+      };
 
-      return res.status(200).json(sampleVideos);
+      // Get videos for the specific topic, or fallback to beekeeping videos
+      const topicVideos = videosByTopic[slug] || videosByTopic["beekeeping"];
+      return res.status(200).json(topicVideos);
     }
 
     // Route: /api/video/videoId - Get single video
