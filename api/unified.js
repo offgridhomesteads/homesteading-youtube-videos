@@ -46,7 +46,8 @@ async function fetchYouTubeVideos(topic, searchQuery) {
       viewCount: Math.floor(Math.random() * 50000) + 10000,
       likeCount: Math.floor(Math.random() * 2000) + 500,
       topicId: topic,
-      ranking: index + 1
+      ranking: index + 1,
+      topic: topic.replace(/-/g, ' ').replace(/\b\w/g, l => l.toUpperCase())
     })) || null;
   } catch (error) {
     console.log('YouTube API error:', error.message);
@@ -194,7 +195,8 @@ export default async function handler(req, res) {
       likeCount: 1200 + Math.floor(Math.random() * 800),
       publishedAt: "2024-01-15T00:00:00Z",
       topicId: slug,
-      ranking: index + 1
+      ranking: index + 1,
+      topic: slug.replace(/-/g, ' ').replace(/\b\w/g, l => l.toUpperCase())
     }));
   };
 
@@ -253,6 +255,30 @@ export default async function handler(req, res) {
       console.log(`[VIDEOS] Using fallback videos for ${slug}`);
       const videos = getVideosForTopic(slug);
       return res.status(200).json(videos);
+    }
+    
+    // Route: /api/video/videoId - Get single video by ID
+    if (pathSegments.length === 2 && pathSegments[0] === 'video') {
+      const videoId = pathSegments[1];
+      console.log(`[VIDEO] Single video requested: ${videoId}`);
+      
+      // Create a sample video with the requested ID
+      const video = {
+        id: videoId,
+        title: "Homesteading Tutorial Video",
+        description: "Learn essential homesteading techniques with this comprehensive guide. Perfect for beginners and experienced homesteaders alike.",
+        thumbnailUrl: `https://i.ytimg.com/vi/${videoId}/mqdefault.jpg`,
+        channelTitle: "Homesteading Expert",
+        publishedAt: "2024-01-15T00:00:00Z",
+        viewCount: 25000 + Math.floor(Math.random() * 10000),
+        likeCount: 1500 + Math.floor(Math.random() * 500),
+        topicId: "general",
+        ranking: 1,
+        topic: "Homesteading",
+        isArizonaSpecific: Math.random() > 0.7
+      };
+      
+      return res.status(200).json(video);
     }
     
     return res.status(404).json({ message: "API endpoint not found" });
