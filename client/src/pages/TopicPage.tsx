@@ -38,31 +38,33 @@ export default function TopicPage() {
   const { slug } = useParams();
 
   const { data: topic, isLoading: topicLoading } = useQuery<Topic>({
-    queryKey: ["/api", "topic", slug],
+    queryKey: ["/api/topics", slug],
     queryFn: async () => {
       console.log('Fetching topic data for slug:', slug);
-      const res = await fetch(`/api?action=topic&slug=${slug}`);
+      const baseUrl = import.meta.env.DEV ? 'http://localhost:5000' : '';
+      const res = await fetch(`${baseUrl}/api/topics/${slug}`);
       if (!res.ok) throw new Error(`${res.status}: ${res.statusText}`);
       const data = await res.json();
       console.log('Topic data received:', data);
-      console.log('Expected slug:', slug, 'Received slug:', data.slug);
       return data;
     },
     enabled: !!slug,
   });
 
   const { data: videos, isLoading: videosLoading } = useQuery<YoutubeVideo[]>({
-    queryKey: ["/api", "videos", slug],
+    queryKey: ["/api/topics", slug, "videos"],
     queryFn: async () => {
       console.log('Fetching videos for slug:', slug);
-      const url = `/api?action=videos&slug=${slug}`;
+      const baseUrl = import.meta.env.DEV ? 'http://localhost:5000' : '';
+      const url = `${baseUrl}/api/topics/${slug}/videos`;
       console.log('Making request to:', url);
       const res = await fetch(url);
       if (!res.ok) throw new Error(`${res.status}: ${res.statusText}`);
       const data = await res.json();
       console.log('Videos data received:', data.length, 'videos');
-      console.log('First video sample:', data[0]);
-      console.log('Response headers:', Object.fromEntries(res.headers.entries()));
+      if (data.length > 0) {
+        console.log('First video sample:', data[0]);
+      }
       return data;
     },
     enabled: !!slug,
