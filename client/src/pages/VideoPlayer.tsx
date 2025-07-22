@@ -78,6 +78,15 @@ export default function VideoPlayer() {
           </a>
         </div>
 
+        {/* Ranking Text */}
+        {video.ranking && (
+          <div className="text-center">
+            <h2 className="text-lg font-semibold text-accent-red">
+              #{video.ranking} video on YouTube for {video.topic || 'Homesteading'}
+            </h2>
+          </div>
+        )}
+
         {/* Video Player */}
         <div className="bg-white rounded-lg shadow-md overflow-hidden">
           <div className="aspect-video w-full">
