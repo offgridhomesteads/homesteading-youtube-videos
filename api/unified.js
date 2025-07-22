@@ -223,6 +223,26 @@ export default async function handler(req, res) {
       const slug = pathSegments[1];
       console.log(`[VIDEOS] Videos requested for topic: ${slug}`);
       
+      // Get topic name for this slug
+      const topicNames = {
+        "beekeeping": "Beekeeping",
+        "composting": "Composting", 
+        "diy-home-maintenance": "DIY Home Maintenance",
+        "food-preservation": "Food Preservation",
+        "herbal-medicine": "Herbal Medicine",
+        "homestead-security": "Homestead Security",
+        "livestock-management": "Livestock Management",
+        "off-grid-water-systems": "Off-Grid Water Systems",
+        "organic-gardening": "Organic Gardening",
+        "permaculture-design": "Permaculture Design",
+        "raising-chickens": "Raising Chickens",
+        "soil-building-in-arid-climates": "Soil Building in Arid Climates",
+        "solar-energy": "Solar Energy",
+        "water-harvesting": "Water Harvesting"
+      };
+      
+      const topicName = topicNames[slug] || slug.replace(/-/g, ' ').replace(/\b\w/g, l => l.toUpperCase());
+      
       // Generate search query for YouTube API
       const searchQueries = {
         "beekeeping": "homesteading beekeeping Arizona honey bee management",
@@ -248,13 +268,23 @@ export default async function handler(req, res) {
       
       if (youtubeVideos && youtubeVideos.length > 0) {
         console.log(`[VIDEOS] Using real YouTube videos for ${slug}`);
-        return res.status(200).json(youtubeVideos);
+        // Add topic name to each video
+        const videosWithTopic = youtubeVideos.map(video => ({
+          ...video,
+          topic: topicName
+        }));
+        return res.status(200).json(videosWithTopic);
       }
       
       // Fallback to sample videos if YouTube API fails
       console.log(`[VIDEOS] Using fallback videos for ${slug}`);
       const videos = getVideosForTopic(slug);
-      return res.status(200).json(videos);
+      // Add topic name to fallback videos too
+      const videosWithTopic = videos.map(video => ({
+        ...video,
+        topic: topicName
+      }));
+      return res.status(200).json(videosWithTopic);
     }
     
     // Route: /api/video/videoId - Get single video by ID
