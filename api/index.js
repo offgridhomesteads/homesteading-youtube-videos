@@ -37,13 +37,22 @@ export default async function handler(req, res) {
     try {
       // Try Neon serverless first - fix DATABASE_URL format
       let dbUrl = process.env.DATABASE_URL;
-      if (dbUrl.startsWith("psql '") && dbUrl.endsWith("'")) {
+      if (dbUrl && dbUrl.startsWith("psql '") && dbUrl.endsWith("'")) {
         dbUrl = dbUrl.slice(6, -1); // Remove "psql '" prefix and "'" suffix
       }
       
       const { neon } = await import('@neondatabase/serverless');
       sql = neon(dbUrl);
       console.log('Successfully connected to Neon database for request:', query.get('action'), query.get('slug'));
+      
+      // Test if tables exist - if not, fall back to mock data
+      try {
+        await sql`SELECT 1 FROM topics LIMIT 1`;
+        console.log('Database tables exist, using real data');
+      } catch (tableError) {
+        console.log('Database tables do not exist, falling back to mock data');
+        throw new Error('Tables not found');
+      }
     } catch (importError) {
       console.error('Failed to import @neondatabase/serverless:', importError.message);
       
