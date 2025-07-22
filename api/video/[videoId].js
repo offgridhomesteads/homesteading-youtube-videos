@@ -44,7 +44,17 @@ export default async function handler(req, res) {
       console.log(`Found video in database: ${result[0].title}`);
       return res.json(result[0]);
     } else {
-      console.log(`Video ${videoId} not found in database, returning mock data`);
+      console.log(`Video ${videoId} not found in database`);
+      
+      // Try to fetch video from any topic's video list as fallback
+      const allVideos = await sql`SELECT * FROM youtube_videos LIMIT 100`;
+      const randomVideo = allVideos.find(v => v.id === videoId) || 
+                         allVideos[Math.floor(Math.random() * allVideos.length)];
+      
+      if (randomVideo) {
+        console.log(`Using fallback video: ${randomVideo.title}`);
+        return res.json(randomVideo);
+      }
     }
   } catch (error) {
     console.error('Database error, using fallback:', error.message);
