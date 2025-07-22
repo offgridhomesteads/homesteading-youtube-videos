@@ -64,7 +64,7 @@ function App() {
                 </div>
               </div>
               <div className="border-t border-gray-600 mt-8 pt-6 text-center text-gray-300">
-                <p>&copy; 2025 by Academy of Self-Reliance. All rights reserved.</p>
+                <p>&copy; 2025 by <a href="https://AcademyOSR.com/" target="_blank" rel="nofollow">Academy of Self-Reliance</a>. All rights reserved.</p>
               </div>
             </div>
           </footer>
