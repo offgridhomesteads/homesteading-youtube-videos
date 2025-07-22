@@ -36,6 +36,26 @@ async function fetchYouTubeVideos(topic, searchQuery) {
     
     const data = await response.json();
     
+    // Get proper topic name
+    const topicNames = {
+      "beekeeping": "Beekeeping",
+      "composting": "Composting", 
+      "diy-home-maintenance": "DIY Home Maintenance",
+      "food-preservation": "Food Preservation",
+      "herbal-medicine": "Herbal Medicine",
+      "homestead-security": "Homestead Security",
+      "livestock-management": "Livestock Management",
+      "off-grid-water-systems": "Off-Grid Water Systems",
+      "organic-gardening": "Organic Gardening",
+      "permaculture-design": "Permaculture Design",
+      "raising-chickens": "Raising Chickens",
+      "soil-building-in-arid-climates": "Soil Building in Arid Climates",
+      "solar-energy": "Solar Energy",
+      "water-harvesting": "Water Harvesting"
+    };
+    
+    const topicDisplayName = topicNames[topic] || topic.replace(/-/g, ' ').replace(/\b\w/g, l => l.toUpperCase());
+
     return data.items?.map((item, index) => ({
       id: item.id.videoId,
       title: decodeHtmlEntities(item.snippet.title),
@@ -47,7 +67,7 @@ async function fetchYouTubeVideos(topic, searchQuery) {
       likeCount: Math.floor(Math.random() * 2000) + 500,
       topicId: topic,
       ranking: index + 1,
-      topic: topic.replace(/-/g, ' ').replace(/\b\w/g, l => l.toUpperCase())
+      topic: topicDisplayName
     })) || null;
   } catch (error) {
     console.log('YouTube API error:', error.message);
@@ -74,65 +94,7 @@ export default async function handler(req, res) {
   const pathSegments = urlPath.replace('/api', '').split('/').filter(Boolean);
   console.log('Path segments:', pathSegments);
 
-  // Handle video endpoint: /api/video/VIDEO_ID
-  if (pathSegments[0] === 'video' && pathSegments[1]) {
-    const videoId = pathSegments[1];
-    console.log(`[VIDEO] Request for video ID: ${videoId}`);
-    
-    // Try to fetch real video details from YouTube API
-    const YOUTUBE_API_KEY = process.env.YOUTUBE_API_KEY;
-    
-    if (YOUTUBE_API_KEY) {
-      try {
-        const response = await fetch(`https://www.googleapis.com/youtube/v3/videos?part=snippet,statistics,contentDetails&id=${videoId}&key=${YOUTUBE_API_KEY}`);
-        
-        if (response.ok) {
-          const data = await response.json();
-          const video = data.items?.[0];
-          
-          if (video) {
-            const snippet = video.snippet;
-            const stats = video.statistics;
-            
-            return res.json({
-              id: videoId,
-              title: decodeHtmlEntities(snippet.title),
-              description: decodeHtmlEntities(snippet.description || 'Learn valuable homesteading techniques and sustainable living practices.'),
-              thumbnailUrl: snippet.thumbnails.maxres?.url || snippet.thumbnails.high?.url || `https://i.ytimg.com/vi/${videoId}/mqdefault.jpg`,
-              videoUrl: `https://www.youtube.com/watch?v=${videoId}`,
-              channelTitle: decodeHtmlEntities(snippet.channelTitle),
-              viewCount: parseInt(stats.viewCount || '0'),
-              likeCount: parseInt(stats.likeCount || '0'),
-              publishedAt: snippet.publishedAt,
-              duration: video.contentDetails.duration,
-              topicId: "homesteading",
-              isArizonaSpecific: snippet.title.toLowerCase().includes('arizona') || snippet.description.toLowerCase().includes('arizona')
-            });
-          }
-        }
-      } catch (error) {
-        console.log('YouTube API error for video details:', error.message);
-      }
-    }
-    
-    // Fallback data with more realistic information
-    const videoData = {
-      id: videoId,
-      title: `Essential Homesteading Skills - ${videoId.slice(-4).toUpperCase()}`,
-      description: "Learn valuable homesteading techniques and sustainable living practices. This comprehensive guide covers essential skills for modern homesteaders looking to become more self-reliant and connected to the land.",
-      thumbnailUrl: `https://i.ytimg.com/vi/${videoId}/mqdefault.jpg`,
-      videoUrl: `https://www.youtube.com/watch?v=${videoId}`,
-      channelTitle: "Homesteading Mastery",
-      viewCount: 25000 + Math.floor(Math.random() * 50000),
-      likeCount: 1800 + Math.floor(Math.random() * 1200),
-      publishedAt: "2024-06-15T00:00:00Z",
-      duration: "PT15M30S",
-      topicId: "homesteading",
-      isArizonaSpecific: false
-    };
-    
-    return res.json(videoData);
-  }
+
 
   // Handle topics endpoints
   const topicsData = [
@@ -315,11 +277,13 @@ export default async function handler(req, res) {
         const slug = topicData.slug;
         const topicName = topicNames[slug] || topicData.name;
         
+        console.log(`[VIDEO] Searching topic ${slug} for video ${videoId}...`);
+        
         // Check fallback videos first (more reliable for development)
         const fallbackVideos = getVideosForTopic(slug);
         const foundFallback = fallbackVideos.find(v => v.id === videoId);
         if (foundFallback) {
-          console.log(`[VIDEO] Found video ${videoId} in topic ${slug} with ranking ${foundFallback.ranking}`);
+          console.log(`[VIDEO] Found video ${videoId} in fallback data for topic ${slug} (${topicName}) with ranking ${foundFallback.ranking}`);
           return res.status(200).json({
             ...foundFallback,
             topic: topicName,
@@ -351,11 +315,11 @@ export default async function handler(req, res) {
         if (youtubeVideos) {
           const foundVideo = youtubeVideos.find(v => v.id === videoId);
           if (foundVideo) {
-            console.log(`[VIDEO] Found video ${videoId} in YouTube data for topic ${slug} with ranking ${foundVideo.ranking}`);
+            console.log(`[VIDEO] Found video ${videoId} in YouTube data for topic ${slug} (${topicName}) with ranking ${foundVideo.ranking}`);
             return res.status(200).json({
               ...foundVideo,
-              topic: topicName,
-              topicId: slug
+              topic: topicName,  // Ensure topic name is included
+              topicId: slug      // Ensure topicId is set correctly
             });
           }
         }
