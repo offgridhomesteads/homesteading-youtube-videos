@@ -4,20 +4,8 @@
   "outputDirectory": "dist/public",
   "rewrites": [
     {
-      "source": "/api/video/(.*)",
-      "destination": "/api/video-direct.js"
-    },
-    {
-      "source": "/api/topics",
-      "destination": "/api/index-backup.js"
-    },
-    {
-      "source": "/api/topics/(.*)",
-      "destination": "/api/index-backup.js"
-    },
-    {
-      "source": "/api",
-      "destination": "/api/index-backup.js"
+      "source": "/api/(.*)",
+      "destination": "/api/unified.js"
     },
     {
       "source": "/(.*)",
