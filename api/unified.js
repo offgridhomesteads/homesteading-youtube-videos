@@ -1,13 +1,4 @@
-// Single consolidated API handler for all endpoints
-const { neonConfig, Pool } = require('@neondatabase/serverless');
-const ws = require('ws');
-
-// Configure Neon for production
-if (process.env.DATABASE_URL) {
-  neonConfig.webSocketConstructor = ws;
-}
-
-// Mock topics data - same data structure as server
+// Topics data
 const topicsData = [
   { id: "beekeeping", slug: "beekeeping", name: "Beekeeping", description: "Learn the art of beekeeping and honey production for sustainable homestead living." },
   { id: "composting", slug: "composting", name: "Composting", description: "Master composting techniques to create nutrient-rich soil for your homestead garden." },
@@ -25,7 +16,7 @@ const topicsData = [
   { id: "water-harvesting", slug: "water-harvesting", name: "Water Harvesting", description: "Collect and store rainwater for sustainable homestead water supply." }
 ];
 
-// All authentic videos from database - comprehensive coverage for all 14 topics
+// Authentic videos from database
 const storedVideos = {
   "beekeeping": [
     { id: "nZTQIiJiFn4", title: "Our Beehive SWARMED! Too Much HONEY!", channelTitle: "Self Sufficient Me", description: "Our beehive was almost lost when the bees swarmed to find more space to live. The hive was totally full of honey!", ranking: 1 },
@@ -99,19 +90,27 @@ const storedVideos = {
   ]
 };
 
-// YouTube API functions (placeholder)
-async function fetchYouTubeVideos(slug, searchQuery) {
-  // Always return null to use stored authentic videos
-  console.log(`[YouTube API] Skipping API call for ${slug}, using stored videos`);
-  return null;
-}
+// Topic name mapping
+const topicNames = {
+  "beekeeping": "Beekeeping",
+  "composting": "Composting", 
+  "diy-home-maintenance": "DIY Home Maintenance",
+  "food-preservation": "Food Preservation",
+  "herbal-medicine": "Herbal Medicine",
+  "homestead-security": "Homestead Security",
+  "livestock-management": "Livestock Management",
+  "off-grid-water-systems": "Off-Grid Water Systems",
+  "organic-gardening": "Organic Gardening",
+  "permaculture-design": "Permaculture Design",
+  "raising-chickens": "Raising Chickens",
+  "soil-building-in-arid-climates": "Soil Building in Arid Climates",
+  "solar-energy": "Solar Energy",
+  "water-harvesting": "Water Harvesting"
+};
 
-module.exports = async function handler(req, res) {
+export default function handler(req, res) {
   const { method, url } = req;
-  const pathSegments = url.split('/').filter(Boolean).slice(1); // Remove 'api' prefix
-
-  console.log(`[API] ${method} ${url} -> pathSegments: [${pathSegments.join(', ')}]`);
-
+  
   // CORS headers
   res.setHeader('Access-Control-Allow-Origin', '*');
   res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS');
@@ -122,6 +121,9 @@ module.exports = async function handler(req, res) {
   }
 
   try {
+    const pathSegments = url.split('/').filter(Boolean).slice(1); // Remove 'api' prefix
+    console.log(`[API] ${method} ${url} -> pathSegments: [${pathSegments.join(', ')}]`);
+
     // Route: /api/topics - Get all topics
     if (pathSegments.length === 1 && pathSegments[0] === 'topics') {
       console.log('[TOPICS] Returning all topics');
@@ -133,34 +135,12 @@ module.exports = async function handler(req, res) {
       const slug = pathSegments[1];
       console.log(`[VIDEOS] Getting videos for topic: ${slug}`);
       
-      // Get topic name mapping
-      const topicNames = {
-        "beekeeping": "Beekeeping",
-        "composting": "Composting", 
-        "diy-home-maintenance": "DIY Home Maintenance",
-        "food-preservation": "Food Preservation",
-        "herbal-medicine": "Herbal Medicine",
-        "homestead-security": "Homestead Security",
-        "livestock-management": "Livestock Management",
-        "off-grid-water-systems": "Off-Grid Water Systems",
-        "organic-gardening": "Organic Gardening",
-        "permaculture-design": "Permaculture Design",
-        "raising-chickens": "Raising Chickens",
-        "soil-building-in-arid-climates": "Soil Building in Arid Climates",
-        "solar-energy": "Solar Energy",
-        "water-harvesting": "Water Harvesting"
-      };
-      
       const topicName = topicNames[slug] || slug.replace(/-/g, ' ').replace(/\b\w/g, l => l.toUpperCase());
-
-      // Return stored authentic videos directly
-      console.log(`[VIDEOS] Using stored authentic videos for ${slug}`);
       const videos = storedVideos[slug] || [];
       
       if (videos.length > 0) {
         const processedVideos = videos.map(video => ({
           ...video,
-          description: video.description,
           thumbnailUrl: `https://i.ytimg.com/vi/${video.id}/mqdefault.jpg`,
           publishedAt: "2024-10-15T00:00:00Z",
           viewCount: 25000 + Math.floor(Math.random() * 30000),
@@ -171,46 +151,13 @@ module.exports = async function handler(req, res) {
         return res.status(200).json(processedVideos);
       }
       
-      // Return informative message when no data available
-      console.log(`[VIDEOS] No cached videos available for ${slug}`);
-      return res.status(200).json([{
-        id: "quota-notice",
-        title: "Video Content Temporarily Limited",
-        description: "Our video service is currently at capacity due to high demand. We're working to expand our daily video quota. Please check back in a few hours for fresh homesteading content!",
-        channelTitle: "Homesteading YouTube Videos",
-        thumbnailUrl: "data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMzIwIiBoZWlnaHQ9IjE4MCIgdmlld0JveD0iMCAwIDMyMCAxODAiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+CjxyZWN0IHdpZHRoPSIzMjAiIGhlaWdodD0iMTgwIiBmaWxsPSIjRjVGNUY1Ii8+Cjx0ZXh0IHg9IjE2MCIgeT0iODAiIGZpbGw9IiM2NjY2NjYiIGZvbnQtZmFtaWx5PSJBcmlhbCIgZm9udC1zaXplPSIxNCIgdGV4dC1hbmNob3I9Im1pZGRsZSI+VmlkZW8gU2VydmljZSBhdCBDYXBhY2l0eTwvdGV4dD4KPHRleHQgeD0iMTYwIiB5PSIxMDAiIGZpbGw9IiM5OTk5OTkiIGZvbnQtZmFtaWx5PSJBcmlhbCIgZm9udC1zaXplPSIxMiIgdGV4dC1hbmNob3I9Im1pZGRsZSI+Q2hlY2sgYmFjayBpbiBhIGZldyBob3VyczwvdGV4dD4KPC9zdmc+",
-        viewCount: 0,
-        likeCount: 0,
-        publishedAt: new Date().toISOString(),
-        topicId: slug,
-        ranking: 1,
-        topic: topicName,
-        isQuotaNotice: true
-      }]);
+      return res.status(200).json([]);
     }
     
     // Route: /api/video/videoId - Get single video by ID
     if (pathSegments.length === 2 && pathSegments[0] === 'video') {
       const videoId = pathSegments[1];
       console.log(`[VIDEO] Single video requested: ${videoId}`);
-      
-      // Get topic name mapping
-      const topicNames = {
-        "beekeeping": "Beekeeping",
-        "composting": "Composting", 
-        "diy-home-maintenance": "DIY Home Maintenance",
-        "food-preservation": "Food Preservation",
-        "herbal-medicine": "Herbal Medicine",
-        "homestead-security": "Homestead Security",
-        "livestock-management": "Livestock Management",
-        "off-grid-water-systems": "Off-Grid Water Systems",
-        "organic-gardening": "Organic Gardening",
-        "permaculture-design": "Permaculture Design",
-        "raising-chickens": "Raising Chickens",
-        "soil-building-in-arid-climates": "Soil Building in Arid Climates",
-        "solar-energy": "Solar Energy",
-        "water-harvesting": "Water Harvesting"
-      };
       
       // Search through stored videos to find the video and its correct topic
       for (const [topicSlug, videos] of Object.entries(storedVideos)) {
@@ -231,10 +178,8 @@ module.exports = async function handler(req, res) {
         }
       }
       
-      // If video not found in stored videos, return fallback
-      console.log(`[VIDEO] Video ${videoId} not found in stored data, using fallback`);
-      
-      const video = {
+      // If video not found, return fallback
+      return res.status(200).json({
         id: videoId,
         title: "Homesteading Tutorial Video",
         description: "Learn essential homesteading techniques with this comprehensive guide. Perfect for beginners and experienced homesteaders alike.",
@@ -246,9 +191,7 @@ module.exports = async function handler(req, res) {
         topicId: "beekeeping",
         topic: "Beekeeping",
         ranking: 1
-      };
-      
-      return res.status(200).json(video);
+      });
     }
 
     // Route not found
@@ -261,4 +204,4 @@ module.exports = async function handler(req, res) {
       message: error.message
     });
   }
-};
+}
