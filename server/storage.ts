@@ -24,6 +24,7 @@ export interface IStorage {
   
   // Video operations
   getVideosByTopic(topicId: string, limit?: number): Promise<YoutubeVideo[]>;
+  getVideoById(videoId: string): Promise<YoutubeVideo | undefined>;
   upsertVideo(video: InsertYoutubeVideo): Promise<YoutubeVideo>;
   getVideosByTopicSlug(slug: string, limit?: number): Promise<YoutubeVideo[]>;
   deleteOldVideosForTopic(topicId: string, keepIds: string[]): Promise<void>;
@@ -82,6 +83,11 @@ export class DatabaseStorage implements IStorage {
       .where(eq(youtubeVideos.topicId, topicId))
       .orderBy(desc(youtubeVideos.popularityScore))
       .limit(limit);
+  }
+
+  async getVideoById(videoId: string): Promise<YoutubeVideo | undefined> {
+    const [video] = await db.select().from(youtubeVideos).where(eq(youtubeVideos.id, videoId));
+    return video;
   }
 
   async getVideosByTopicSlug(slug: string, limit = 12): Promise<YoutubeVideo[]> {
