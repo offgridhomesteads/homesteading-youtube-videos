@@ -23,6 +23,7 @@ export interface YoutubeVideo {
   ranking: number;
   lastUpdated: string;
   createdAt: string;
+  topic?: string;
 }
 
 export interface SharePlatform {
