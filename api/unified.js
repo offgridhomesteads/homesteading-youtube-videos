@@ -1,5 +1,22 @@
 // Single unified API handler for all endpoints - stays under Vercel function limit
 
+// Decode HTML entities in video titles and descriptions
+function decodeHtmlEntities(text) {
+  const htmlEntities = {
+    '&amp;': '&',
+    '&lt;': '<',
+    '&gt;': '>',
+    '&quot;': '"',
+    '&#39;': "'",
+    '&#x27;': "'",
+    '&apos;': "'"
+  };
+  
+  return text.replace(/&[#\w]+;/g, (entity) => {
+    return htmlEntities[entity] || entity;
+  });
+}
+
 // YouTube API service for fetching real homesteading videos
 async function fetchYouTubeVideos(topic, searchQuery) {
   const YOUTUBE_API_KEY = process.env.YOUTUBE_API_KEY;
@@ -21,10 +38,10 @@ async function fetchYouTubeVideos(topic, searchQuery) {
     
     return data.items?.map((item, index) => ({
       id: item.id.videoId,
-      title: item.snippet.title,
-      description: item.snippet.description,
+      title: decodeHtmlEntities(item.snippet.title),
+      description: decodeHtmlEntities(item.snippet.description || ''),
       thumbnailUrl: item.snippet.thumbnails.medium?.url || `https://i.ytimg.com/vi/${item.id.videoId}/mqdefault.jpg`,
-      channelTitle: item.snippet.channelTitle,
+      channelTitle: decodeHtmlEntities(item.snippet.channelTitle),
       publishedAt: item.snippet.publishedAt,
       viewCount: Math.floor(Math.random() * 50000) + 10000,
       likeCount: Math.floor(Math.random() * 2000) + 500,
