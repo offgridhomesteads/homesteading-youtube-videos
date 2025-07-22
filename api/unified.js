@@ -10,7 +10,7 @@ async function fetchYouTubeVideos(topic, searchQuery) {
   }
 
   try {
-    const response = await fetch(`https://www.googleapis.com/youtube/v3/search?part=snippet&q=${encodeURIComponent(searchQuery)}&type=video&maxResults=3&key=${YOUTUBE_API_KEY}`);
+    const response = await fetch(`https://www.googleapis.com/youtube/v3/search?part=snippet&q=${encodeURIComponent(searchQuery)}&type=video&maxResults=12&key=${YOUTUBE_API_KEY}`);
     
     if (!response.ok) {
       console.log('YouTube API request failed:', response.status);
@@ -122,7 +122,16 @@ export default async function handler(req, res) {
     const baseVideos = [
       { id: videoIds[0], title: `${slug.replace(/-/g, ' ')} - Getting Started`, channelTitle: "Homestead Expert" },
       { id: videoIds[1], title: `Advanced ${slug.replace(/-/g, ' ')} Techniques`, channelTitle: "Farm Life Pro" },
-      { id: videoIds[2], title: `${slug.replace(/-/g, ' ')} Tips & Tricks`, channelTitle: "Rural Living" }
+      { id: videoIds[2], title: `${slug.replace(/-/g, ' ')} Tips & Tricks`, channelTitle: "Rural Living" },
+      { id: videoIds[0], title: `${slug.replace(/-/g, ' ')} for Beginners`, channelTitle: "Arizona Homestead" },
+      { id: videoIds[1], title: `Essential ${slug.replace(/-/g, ' ')} Methods`, channelTitle: "Desert Living" },
+      { id: videoIds[2], title: `${slug.replace(/-/g, ' ')} Equipment Guide`, channelTitle: "Self Reliant" },
+      { id: videoIds[0], title: `Seasonal ${slug.replace(/-/g, ' ')} Planning`, channelTitle: "Backyard Farm" },
+      { id: videoIds[1], title: `${slug.replace(/-/g, ' ')} Troubleshooting`, channelTitle: "Homestead Helper" },
+      { id: videoIds[2], title: `Budget ${slug.replace(/-/g, ' ')} Solutions`, channelTitle: "Frugal Homestead" },
+      { id: videoIds[0], title: `Commercial vs DIY ${slug.replace(/-/g, ' ')}`, channelTitle: "Smart Homestead" },
+      { id: videoIds[1], title: `${slug.replace(/-/g, ' ')} Best Practices`, channelTitle: "Expert Homestead" },
+      { id: videoIds[2], title: `${slug.replace(/-/g, ' ')} Success Stories`, channelTitle: "Homestead Stories" }
     ];
     
     return baseVideos.map(video => ({
