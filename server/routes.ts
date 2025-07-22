@@ -88,6 +88,23 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   });
 
+  // Get individual video by ID
+  app.get("/api/video/:videoId", async (req, res) => {
+    try {
+      const { videoId } = req.params;
+      const video = await storage.getVideoById(videoId);
+      
+      if (!video) {
+        return res.status(404).json({ message: "Video not found" });
+      }
+
+      res.json(video);
+    } catch (error) {
+      console.error("Error fetching video:", error);
+      res.status(500).json({ message: "Failed to fetch video" });
+    }
+  });
+
   // Force refresh videos for a topic (for testing/manual updates)
   app.post("/api/topics/:slug/refresh", async (req, res) => {
     try {
