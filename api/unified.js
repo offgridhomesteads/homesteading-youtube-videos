@@ -374,53 +374,53 @@ export default function handler(req, res) {
           {
             id: "perma1xyz",
             title: "Permaculture Principles for Homesteads",
-            description: "Applying permaculture design principles to create sustainable homesteads.",
+            description: "Comprehensive overview of applying the 12 core permaculture principles to homestead design and management. Covers ethics of earth care, people care, and fair share while demonstrating practical implementation strategies for sustainable living systems.",
             thumbnailUrl: "https://i.ytimg.com/vi/perma1xyz/mqdefault.jpg",
             channelTitle: "Geoff Lawton Online",
             publishedAt: "2024-10-14T00:00:00Z",
             viewCount: 28934,
             likeCount: 1234,
-            topicId: slug
+            topicId: "permaculture-design"
           },
           {
             id: "perma2uvw",
             title: "Food Forest Design and Implementation",
-            description: "Creating productive food forests using permaculture design methods.",
+            description: "Step-by-step guide to designing and establishing productive food forest systems. Covers tree guild creation, understory planning, nitrogen fixation strategies, and multi-layered food production for long-term homestead sustainability.",
             thumbnailUrl: "https://i.ytimg.com/vi/perma2uvw/mqdefault.jpg",
             channelTitle: "Stefan Sobkowiak",
             publishedAt: "2024-10-10T00:00:00Z",
             viewCount: 22456,
             likeCount: 987,
-            topicId: slug
+            topicId: "permaculture-design"
           },
           {
             id: "perma3rst",
             title: "Water Management in Permaculture",
-            description: "Designing water catchment and management systems for permaculture homesteads.",
+            description: "Advanced water design strategies for permaculture homesteads including swales, ponds, greywater systems, and integrated water catchment. Shows how to work with natural water flows to create resilient landscape systems.",
             thumbnailUrl: "https://i.ytimg.com/vi/perma3rst/mqdefault.jpg",
             channelTitle: "Permaculture Design Course",
             publishedAt: "2024-10-06T00:00:00Z",
             viewCount: 19723,
             likeCount: 834,
-            topicId: slug
+            topicId: "permaculture-design"
           }
         ],
         "off-grid-water-systems": [
           {
             id: "water1mno",
             title: "Well Drilling and Water Sources",
-            description: "Finding and developing water sources for off-grid homestead living.",
+            description: "Comprehensive guide to locating, drilling, and developing water sources for off-grid properties. Covers water table assessment, drilling techniques, pump selection, and water quality testing for safe homestead water supplies.",
             thumbnailUrl: "https://i.ytimg.com/vi/water1mno/mqdefault.jpg",
             channelTitle: "Kris Harbour Natural Building",
             publishedAt: "2024-10-11T00:00:00Z",
             viewCount: 31245,
             likeCount: 1432,
-            topicId: slug
+            topicId: "off-grid-water-systems"
           },
           {
             id: "water2pqr",
             title: "Gravity Fed Water Systems",
-            description: "Building gravity-fed water distribution systems for remote homesteads.",
+            description: "Engineering and building gravity-fed water distribution systems for remote homesteads. Demonstrates elevation planning, pipe sizing, pressure calculations, and storage tank placement for reliable water delivery without electricity.",
             thumbnailUrl: "https://i.ytimg.com/vi/water2pqr/mqdefault.jpg",
             channelTitle: "Simple Living Alaska",
             publishedAt: "2024-10-07T00:00:00Z",
