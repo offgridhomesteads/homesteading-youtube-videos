@@ -58,7 +58,7 @@ export default function handler(req, res) {
           {
             id: "nZTQIiJiFn4",
             title: "Our Beehive SWARMED! Too Much HONEY!",
-            description: "Our beehive was almost lost when the bees swarmed to find more space to live. The hive was totally full of honey!",
+            description: "Mark shares the dramatic experience of his beehive swarming due to overcrowding from excessive honey production. He explains what causes bee swarms, how to prevent them, and demonstrates proper hive management techniques to avoid losing your bee colony.",
             thumbnailUrl: "https://i.ytimg.com/vi/nZTQIiJiFn4/mqdefault.jpg",
             channelTitle: "Self Sufficient Me",
             publishedAt: "2024-10-15T00:00:00Z",
@@ -69,7 +69,7 @@ export default function handler(req, res) {
           {
             id: "jeFxOUZreXI",
             title: "HOW TO START BEEKEEPING for the Absolute Beginner",
-            description: "Complete beginner's guide to starting your beekeeping journey with proper techniques and safety.",
+            description: "Comprehensive beginner's tutorial covering essential equipment, hive placement, bee colony basics, safety gear, and step-by-step instructions for your first beekeeping season. Includes costs, timing, and common mistakes to avoid.",
             thumbnailUrl: "https://i.ytimg.com/vi/jeFxOUZreXI/mqdefault.jpg",
             channelTitle: "Beekeeping Made Simple",
             publishedAt: "2024-10-12T00:00:00Z",
@@ -80,7 +80,7 @@ export default function handler(req, res) {
           {
             id: "u85saevOZrI",
             title: "Homestead Beekeeping the Natural and Organic Way",
-            description: "Learn natural and organic beekeeping methods for sustainable homestead honey production.",
+            description: "Explores natural beekeeping methods that work with bee biology rather than against it. Covers treatment-free approaches, natural hive materials, organic disease prevention, and sustainable honey harvesting practices for homesteaders.",
             thumbnailUrl: "https://i.ytimg.com/vi/u85saevOZrI/mqdefault.jpg",
             channelTitle: "Homesteaders of America",
             publishedAt: "2024-10-08T00:00:00Z",
@@ -93,7 +93,7 @@ export default function handler(req, res) {
           {
             id: "nxTzuasQLFo",
             title: "How to make Compost - The Simplest Easy Method To Compost Piles!",
-            description: "Learn the simplest method to create nutrient-rich compost for your homestead garden.",
+            description: "Step-by-step demonstration of the easiest composting method using a simple pile system. Shows proper layering of brown and green materials, optimal moisture levels, turning techniques, and timeline from start to finished compost.",
             thumbnailUrl: "https://i.ytimg.com/vi/nxTzuasQLFo/mqdefault.jpg",
             channelTitle: "Growit Buildit",
             publishedAt: "2024-10-14T00:00:00Z",
@@ -104,7 +104,7 @@ export default function handler(req, res) {
           {
             id: "LX6XJnKaiCs",
             title: "I Build a DIY Worm Farm",
-            description: "Building a DIY worm farm for efficient composting and soil improvement on your homestead.",
+            description: "Complete build tutorial for a homemade vermicomposting system using affordable materials. Demonstrates bin construction, bedding preparation, worm selection, feeding schedules, and harvesting worm castings for garden use.",
             thumbnailUrl: "https://i.ytimg.com/vi/LX6XJnKaiCs/mqdefault.jpg",
             channelTitle: "Greenhorn Grove",
             publishedAt: "2024-10-11T00:00:00Z",
@@ -115,7 +115,7 @@ export default function handler(req, res) {
           {
             id: "HLbwOkAf-iw",
             title: "Here are 5 ways you can make compost at home",
-            description: "Five effective ways to make compost at home while reducing waste and improving your garden soil.",
+            description: "Mark demonstrates five different composting methods suitable for various spaces and needs: traditional pile, tumbler system, trench composting, bokashi fermentation, and leaf mold creation. Includes pros and cons of each method.",
             thumbnailUrl: "https://i.ytimg.com/vi/HLbwOkAf-iw/mqdefault.jpg",
             channelTitle: "Self Sufficient Me",
             publishedAt: "2024-10-05T00:00:00Z",
@@ -128,7 +128,7 @@ export default function handler(req, res) {
           {
             id: "ileODNqkqwM",
             title: "Part 5 | Debt free, off-grid home build — Concrete block walls!",
-            description: "Building concrete block walls for off-grid homestead construction on a budget.",
+            description: "Detailed walkthrough of laying concrete block walls for an off-grid home build. Shows foundation preparation, block placement techniques, mortar mixing, reinforcement installation, and cost-saving tips for DIY builders on tight budgets.",
             thumbnailUrl: "https://i.ytimg.com/vi/ileODNqkqwM/mqdefault.jpg",
             channelTitle: "Off Grid Life",
             publishedAt: "2024-10-10T00:00:00Z",
@@ -139,7 +139,7 @@ export default function handler(req, res) {
           {
             id: "Oxs2xdHAasY",
             title: "DIY Barndominium Cost Breakdown",
-            description: "Complete cost breakdown for building your own barndominium with DIY methods and materials.",
+            description: "Comprehensive analysis of barndominium construction costs including materials, labor, permits, and hidden expenses. Compares DIY vs contractor pricing with real numbers from actual builds and money-saving strategies.",
             thumbnailUrl: "https://i.ytimg.com/vi/Oxs2xdHAasY/mqdefault.jpg",
             channelTitle: "Modern Builds",
             publishedAt: "2024-10-07T00:00:00Z",
@@ -150,7 +150,7 @@ export default function handler(req, res) {
           {
             id: "WX0kk3i1YhY",
             title: "Why we're shutting down our homestead",
-            description: "Honest discussion about the challenges and decisions involved in homestead management.",
+            description: "Candid discussion about the realities of homesteading including financial challenges, work-life balance, infrastructure maintenance costs, and difficult decisions that led to closing their homestead operation after several years.",
             thumbnailUrl: "https://i.ytimg.com/vi/WX0kk3i1YhY/mqdefault.jpg",
             channelTitle: "Homestead Heart",
             publishedAt: "2024-10-03T00:00:00Z",
@@ -163,7 +163,7 @@ export default function handler(req, res) {
           {
             id: "7Txv1ndELhM",
             title: "Inside Living Off Grid In Arizona Desert On 40 Acre Homestead Tour",
-            description: "Tour of a 40-acre Arizona desert homestead showing organic gardening in arid conditions.",
+            description: "Comprehensive tour of a 40-acre off-grid desert homestead showcasing innovative organic gardening techniques for arid climates. Features greenhouse operations, water-wise growing methods, soil building in desert conditions, and crop selection for extreme heat.",
             thumbnailUrl: "https://i.ytimg.com/vi/7Txv1ndELhM/mqdefault.jpg",
             channelTitle: "Big Super Living In Arizona",
             publishedAt: "2024-10-13T00:00:00Z",
@@ -174,7 +174,7 @@ export default function handler(req, res) {
           {
             id: "OHIT75qoBQ8",
             title: "Buying Land in Arizona? | Watch This First!",
-            description: "Essential tips for purchasing land in Arizona for organic farming and homesteading projects.",
+            description: "Critical factors to consider when purchasing Arizona land for farming and homesteading: water rights, soil quality, zoning restrictions, access roads, utilities availability, and hidden costs that could impact your organic gardening plans.",
             thumbnailUrl: "https://i.ytimg.com/vi/OHIT75qoBQ8/mqdefault.jpg",
             channelTitle: "Edge of Nowhere Farm",
             publishedAt: "2024-10-09T00:00:00Z",
@@ -185,7 +185,7 @@ export default function handler(req, res) {
           {
             id: "NufN8cJOFx4",
             title: "Start a Homestead Under 10k? | Arizona High Desert",
-            description: "How to start an organic gardening homestead in Arizona's high desert on a tight budget.",
+            description: "Budget-focused approach to establishing an Arizona high desert homestead with minimal investment. Covers land acquisition strategies, basic infrastructure setup, drought-resistant crop selection, and organic growing methods suited for harsh desert conditions.",
             thumbnailUrl: "https://i.ytimg.com/vi/NufN8cJOFx4/mqdefault.jpg",
             channelTitle: "Frugal Off Grid",
             publishedAt: "2024-10-06T00:00:00Z",
@@ -269,7 +269,7 @@ export default function handler(req, res) {
           {
             id: "F24XPaTYns4",
             title: "Arizona Homesteading: Rainwater Harvesting",
-            description: "Effective rainwater harvesting techniques for Arizona homesteads and desert climates.",
+            description: "Practical demonstration of rainwater collection systems specifically designed for Arizona's arid climate. Shows guttering installation, storage tank selection, filtration methods, and maximizing water capture during brief desert storms.",
             thumbnailUrl: "https://i.ytimg.com/vi/F24XPaTYns4/mqdefault.jpg",
             channelTitle: "Frugal Off Grid",
             publishedAt: "2024-10-11T00:00:00Z",
@@ -280,7 +280,7 @@ export default function handler(req, res) {
           {
             id: "79s_PJ0E2CQ",
             title: "Rain Water Harvesting System Top Mistakes! Don't Make These!",
-            description: "Common mistakes to avoid when building rainwater harvesting systems for your homestead.",
+            description: "Reveals the most common and costly mistakes people make when installing rainwater harvesting systems. Covers improper tank placement, inadequate filtration, mosquito breeding prevention, overflow management, and maintenance failures that can ruin your investment.",
             thumbnailUrl: "https://i.ytimg.com/vi/79s_PJ0E2CQ/mqdefault.jpg",
             channelTitle: "Country Living Experience: A Homesteading Journey",
             publishedAt: "2024-10-08T00:00:00Z",
@@ -291,7 +291,7 @@ export default function handler(req, res) {
           {
             id: "Al4dXQUMgaY",
             title: "EPIC 40,000 Gallon Off Grid Rainwater System Tour In The Desert",
-            description: "Tour of a massive 40,000-gallon rainwater harvesting system in desert conditions.",
+            description: "Incredible walkthrough of a massive off-grid rainwater collection system in the desert. Features multiple catchment surfaces, sophisticated pump systems, automated controls, and demonstrates how to achieve water independence even in extremely dry climates.",
             thumbnailUrl: "https://i.ytimg.com/vi/Al4dXQUMgaY/mqdefault.jpg",
             channelTitle: "Handeeman",
             publishedAt: "2024-10-04T00:00:00Z",
