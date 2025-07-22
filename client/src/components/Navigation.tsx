@@ -19,7 +19,7 @@ export default function Navigation() {
         <nav className="flex items-center justify-between">
           <Link href="/" className="flex items-center space-x-3 hover:opacity-80 transition-opacity">
             <Leaf className="text-2xl text-green-400" />
-            <h1 className="text-2xl font-lora font-bold">Operation Self-Reliance</h1>
+            <h1 className="text-2xl font-lora font-bold">Homesteading YouTube Videos</h1>
           </Link>
           
           {/* Desktop Navigation */}
