@@ -98,7 +98,37 @@ export async function registerRoutes(app: Express): Promise<Server> {
         return res.status(404).json({ message: "Video not found" });
       }
 
-      res.json(video);
+      // Get topic name mapping
+      const topicNames = {
+        "beekeeping": "Beekeeping",
+        "composting": "Composting", 
+        "diy-home-maintenance": "DIY Home Maintenance",
+        "food-preservation": "Food Preservation",
+        "herbal-medicine": "Herbal Medicine",
+        "homestead-security": "Homestead Security",
+        "livestock-management": "Livestock Management",
+        "off-grid-water-systems": "Off-Grid Water Systems",
+        "organic-gardening": "Organic Gardening",
+        "permaculture-design": "Permaculture Design",
+        "raising-chickens": "Raising Chickens",
+        "soil-building-in-arid-climates": "Soil Building in Arid Climates",
+        "solar-energy": "Solar Energy",
+        "water-harvesting": "Water Harvesting"
+      };
+
+      // Add topic name to video response
+      const topicName = topicNames[video.topicId as keyof typeof topicNames] || video.topicId?.replace(/-/g, ' ').replace(/\b\w/g, l => l.toUpperCase()) || "Homesteading";
+
+      console.log(`[VIDEO ENDPOINT] Video ${videoId} has topicId: ${video.topicId}, mapped to topic: ${topicName}`);
+
+      const response = {
+        ...video,
+        topic: topicName
+      };
+
+      console.log(`[VIDEO ENDPOINT] Response includes topic field: ${!!response.topic}`);
+      
+      res.json(response);
     } catch (error) {
       console.error("Error fetching video:", error);
       res.status(500).json({ message: "Failed to fetch video" });
