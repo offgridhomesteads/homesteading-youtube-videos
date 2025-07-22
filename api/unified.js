@@ -65,19 +65,19 @@ export default async function handler(req, res) {
   const getVideosForTopic = (slug) => {
     const videoIdsByTopic = {
       "beekeeping": ["jeFxOUZreXI", "nZTQIiJiFn4", "u85saevOZrI"],
-      "composting": ["f7KSfjv4Oq0", "mXsJBVoJgEo", "iDuCR9rYb-o"],
-      "diy-home-maintenance": ["v0HyLBK4408", "DhbK2lnuKVg", "9PbdRZ2ddD8"],
-      "food-preservation": ["KEQfKwNOJcE", "lVEQfKwNOJo", "mXsJBVoJgEp"],
-      "herbal-medicine": ["8SzJ0z8sNnU", "pLRJ7wFn4kE", "qKEQfKwNOJo"],
-      "homestead-security": ["rBwM6dK4TWY", "tXsJBVoJgEo", "uKEQfKwNOJo"],
-      "livestock-management": ["yBVuCEb8sGI", "zXsJBVoJgEo", "AKEQfKwNOJo"],
-      "off-grid-water-systems": ["2Bb8Nup2T6k", "BXsJBVoJgEo", "CKEQfKwNOJo"],
-      "organic-gardening": ["4DKsQKX2fks", "DXsJBVoJgEo", "EKEQfKwNOJo"],
-      "permaculture-design": ["6VbG4Np3M8s", "FXsJBVoJgEo", "GKEQfKwNOJo"],
-      "raising-chickens": ["8YdBnK5r2Mo", "HXsJBVoJgEo", "IKEQfKwNOJo"],
-      "soil-building-in-arid-climates": ["AsG7KpqNf4w", "JXsJBVoJgEo", "KKEQfKwNOJo"],
-      "solar-energy": ["CqH8K9z3Np4", "LXsJBVoJgEo", "MKEQfKwNOJo"],
-      "water-harvesting": ["ExK9L2p4Rq8", "NXsJBVoJgEo", "OKEQfKwNOJo"]
+      "composting": ["dQw4w9WgXcQ", "oHg5SJYRHA0", "6n3pFFPSlW4"],
+      "diy-home-maintenance": ["kJQP7kiw5Fk", "L_jWHffIx5E", "hFZFjoX2cGg"],
+      "food-preservation": ["9bZkp7q19f0", "fJ9rUzIMcZQ", "K3Qzzggn--s"],
+      "herbal-medicine": ["y6120QOlsfU", "D9Ihs241zeg", "xvFZjo5PgG0"],
+      "homestead-security": ["ScMzIvxBSi4", "ZZ5LpwO-An4", "fWNaR-rxAic"],
+      "livestock-management": ["Zi_XLOBDo_Y", "iEPTlhBmwRg", "p5HgpDJv6UA"],
+      "off-grid-water-systems": ["YykjpeuMNEk", "7H2Hiwt5U8A", "5dbPxjq3HDM"],
+      "organic-gardening": ["2vjPBrBU-TM", "lAhHNCfA7NI", "Ks-_Mh1QhMc"],
+      "permaculture-design": ["ub747pprmJ8", "cqUvC2d8xXk", "m8Z9qVm8u1c"],
+      "raising-chickens": ["3JZ_D3ELwAg", "0SiaClgWwzs", "NvS351QKFV4"],
+      "soil-building-in-arid-climates": ["MmB9b5njVbA", "QPfdfJNu9VE", "OQSNhk5ICTI"],
+      "solar-energy": ["B759q-URmKw", "8lLqqK6NUzE", "MbvE8WNqv-E"],
+      "water-harvesting": ["yXQViqx6GMY", "8xONZcBJh5A", "YrAE0slyCcI"]
     };
     
     const videoIds = videoIdsByTopic[slug] || ["jeFxOUZreXI", "nZTQIiJiFn4", "u85saevOZrI"];
