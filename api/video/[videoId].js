@@ -21,8 +21,16 @@ export default async function handler(req, res) {
       throw new Error('DATABASE_URL not configured');
     }
     
+    // Fix DATABASE_URL format - extract the actual connection string
+    let dbUrl = process.env.DATABASE_URL;
+    if (dbUrl.startsWith("psql '") && dbUrl.endsWith("'")) {
+      dbUrl = dbUrl.slice(6, -1); // Remove "psql '" prefix and "'" suffix
+    }
+    
+    console.log(`[DB] Using connection string length: ${dbUrl.length}`);
+    
     const { neon } = await import('@neondatabase/serverless');
-    const sql = neon(process.env.DATABASE_URL);
+    const sql = neon(dbUrl);
     
     console.log(`[DB] Attempting connection...`);
     
