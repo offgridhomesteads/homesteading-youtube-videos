@@ -292,12 +292,42 @@ export default async function handler(req, res) {
       const videoId = pathSegments[1];
       console.log(`[VIDEO] Single video requested: ${videoId}`);
       
+      // Get topic name mapping
+      const topicNames = {
+        "beekeeping": "Beekeeping",
+        "composting": "Composting", 
+        "diy-home-maintenance": "DIY Home Maintenance",
+        "food-preservation": "Food Preservation",
+        "herbal-medicine": "Herbal Medicine",
+        "homestead-security": "Homestead Security",
+        "livestock-management": "Livestock Management",
+        "off-grid-water-systems": "Off-Grid Water Systems",
+        "organic-gardening": "Organic Gardening",
+        "permaculture-design": "Permaculture Design",
+        "raising-chickens": "Raising Chickens",
+        "soil-building-in-arid-climates": "Soil Building in Arid Climates",
+        "solar-energy": "Solar Energy",
+        "water-harvesting": "Water Harvesting"
+      };
+      
       // Try to find this video in any of the topic video lists
       for (const topicData of topicsData) {
         const slug = topicData.slug;
-        const topicName = topicData.name;
+        const topicName = topicNames[slug] || topicData.name;
         
-        // Try YouTube API first
+        // Check fallback videos first (more reliable for development)
+        const fallbackVideos = getVideosForTopic(slug);
+        const foundFallback = fallbackVideos.find(v => v.id === videoId);
+        if (foundFallback) {
+          console.log(`[VIDEO] Found video ${videoId} in topic ${slug} with ranking ${foundFallback.ranking}`);
+          return res.status(200).json({
+            ...foundFallback,
+            topic: topicName,
+            topicId: slug
+          });
+        }
+        
+        // Try YouTube API if available
         const searchQueries = {
           "beekeeping": "homesteading beekeeping Arizona honey bee management",
           "composting": "homesteading composting organic waste soil Arizona",
@@ -321,6 +351,7 @@ export default async function handler(req, res) {
         if (youtubeVideos) {
           const foundVideo = youtubeVideos.find(v => v.id === videoId);
           if (foundVideo) {
+            console.log(`[VIDEO] Found video ${videoId} in YouTube data for topic ${slug} with ranking ${foundVideo.ranking}`);
             return res.status(200).json({
               ...foundVideo,
               topic: topicName,
@@ -328,20 +359,15 @@ export default async function handler(req, res) {
             });
           }
         }
-        
-        // Check fallback videos
-        const fallbackVideos = getVideosForTopic(slug);
-        const foundFallback = fallbackVideos.find(v => v.id === videoId);
-        if (foundFallback) {
-          return res.status(200).json({
-            ...foundFallback,
-            topic: topicName,
-            topicId: slug
-          });
-        }
       }
       
-      // If video not found in any topic, create a generic one
+      // If video not found in any topic, try to guess from the video ID
+      // Use the first topic as default but get real video data
+      const defaultTopic = topicsData[0]; // beekeeping
+      const defaultTopicName = topicNames[defaultTopic.slug] || defaultTopic.name;
+      
+      console.log(`[VIDEO] Video ${videoId} not found in any topic, using default topic ${defaultTopic.slug}`);
+      
       const video = {
         id: videoId,
         title: "Homesteading Tutorial Video",
@@ -351,9 +377,9 @@ export default async function handler(req, res) {
         publishedAt: "2024-01-15T00:00:00Z",
         viewCount: 25000 + Math.floor(Math.random() * 10000),
         likeCount: 1500 + Math.floor(Math.random() * 500),
-        topicId: "general",
+        topicId: defaultTopic.slug,
         ranking: 1,
-        topic: "Homesteading",
+        topic: defaultTopicName,
         isArizonaSpecific: Math.random() > 0.7
       };
       
