@@ -19,7 +19,7 @@ async function fetchYouTubeVideos(topic, searchQuery) {
     
     const data = await response.json();
     
-    return data.items?.map(item => ({
+    return data.items?.map((item, index) => ({
       id: item.id.videoId,
       title: item.snippet.title,
       description: item.snippet.description,
@@ -29,7 +29,7 @@ async function fetchYouTubeVideos(topic, searchQuery) {
       viewCount: Math.floor(Math.random() * 50000) + 10000,
       likeCount: Math.floor(Math.random() * 2000) + 500,
       topicId: topic,
-      ranking: Math.floor(Math.random() * 10) + 1
+      ranking: index + 1
     })) || null;
   } catch (error) {
     console.log('YouTube API error:', error.message);
@@ -134,7 +134,7 @@ export default async function handler(req, res) {
       { id: videoIds[2], title: `${slug.replace(/-/g, ' ')} Success Stories`, channelTitle: "Homestead Stories" }
     ];
     
-    return baseVideos.map(video => ({
+    return baseVideos.map((video, index) => ({
       ...video,
       description: `Learn about ${slug.replace(/-/g, ' ')} with this comprehensive guide...`,
       thumbnailUrl: `https://i.ytimg.com/vi/${video.id}/mqdefault.jpg`,
@@ -142,7 +142,7 @@ export default async function handler(req, res) {
       likeCount: 1200 + Math.floor(Math.random() * 800),
       publishedAt: "2024-01-15T00:00:00Z",
       topicId: slug,
-      ranking: Math.floor(Math.random() * 10) + 1
+      ranking: index + 1
     }));
   };
 
