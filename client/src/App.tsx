@@ -6,6 +6,7 @@ import { TooltipProvider } from "@/components/ui/tooltip";
 import Navigation from "@/components/Navigation";
 import Home from "@/pages/Home";
 import TopicPage from "@/pages/TopicPage";
+import VideoPlayer from "@/pages/VideoPlayer";
 import NotFound from "@/pages/not-found";
 
 function Router() {
@@ -13,6 +14,7 @@ function Router() {
     <Switch>
       <Route path="/" component={Home} />
       <Route path="/topics/:slug" component={TopicPage} />
+      <Route path="/video/:videoId" component={VideoPlayer} />
       <Route component={NotFound} />
     </Switch>
   );
