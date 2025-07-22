@@ -134,9 +134,48 @@ export default async function handler(req, res) {
             }
           ];
         }
+
+        // Handle mock video lookup for fallback
+        if (query.includes('SELECT * FROM youtube_videos WHERE id')) {
+          const videoId = values[0];
+          console.log('Mock SQL: Looking for video with ID:', videoId);
+          // Return a mock video for testing
+          return [{
+            id: videoId,
+            title: "Sample Homesteading Video",
+            description: "This is a sample video for testing the video player functionality.",
+            thumbnailUrl: `https://picsum.photos/480/360?random=${videoId}`,
+            videoUrl: `https://www.youtube.com/watch?v=${videoId}`,
+            channelTitle: "Homestead Expert",
+            viewCount: 15000,
+            likeCount: 1200,
+            publishedAt: "2024-01-15T00:00:00Z",
+            duration: "PT10M30S",
+            popularityScore: 95.5,
+            topicId: "beekeeping",
+            createdAt: "2024-01-15T00:00:00Z",
+            updatedAt: "2024-01-15T00:00:00Z"
+          }];
+        }
         
         return [];
       };
+    }
+
+    // Handle individual video endpoint: /api/video/VIDEO_ID
+    if (pathSegments[0] === 'video' && pathSegments[1]) {
+      const videoId = pathSegments[1];
+      console.log(`Video endpoint called for ID: ${videoId}`);
+      try {
+        const result = await sql`SELECT * FROM youtube_videos WHERE id = ${videoId}`;
+        if (result.length === 0) {
+          return res.status(404).json({ message: "Video not found" });
+        }
+        return res.json(result[0]);
+      } catch (error) {
+        console.error('Error fetching individual video:', error);
+        return res.status(500).json({ message: "Failed to fetch video" });
+      }
     }
     
     // Route: /api/topics/slug/videos - Get videos for topic
