@@ -31,9 +31,9 @@ function App() {
             <div className="container mx-auto px-4">
               <div className="grid md:grid-cols-3 gap-8">
                 <div>
-                  <h3 className="font-lora font-bold text-xl mb-4">Operation Self-Reliance</h3>
+                  <h3 className="font-lora font-bold text-xl mb-4">Homesteading YouTube Videos</h3>
                   <p className="text-gray-300">
-                    Your trusted source for Arizona homesteading education and sustainable living resources.
+                    Your trusted source for curated homesteading videos and sustainable living education.
                   </p>
                 </div>
                 <div>
@@ -64,7 +64,7 @@ function App() {
                 </div>
               </div>
               <div className="border-t border-gray-600 mt-8 pt-6 text-center text-gray-300">
-                <p>&copy; 2024 Operation Self-Reliance. All rights reserved.</p>
+                <p>&copy; 2025 by Academy of Self-Reliance. All rights reserved.</p>
               </div>
             </div>
           </footer>
