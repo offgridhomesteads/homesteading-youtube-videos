@@ -304,70 +304,70 @@ export default function handler(req, res) {
           {
             id: "A5pAwOPty9M",
             title: "Preserving our Harvest: Tour an 1840 Larder, Pantry and Root Cellar",
-            description: "Tour of historical food preservation methods including larder, pantry and root cellar systems.",
+            description: "Historical tour showcasing traditional food preservation methods used on 19th-century homesteads. Demonstrates proper larder setup, pantry organization, and root cellar construction for year-round food storage without modern refrigeration.",
             thumbnailUrl: "https://i.ytimg.com/vi/A5pAwOPty9M/mqdefault.jpg",
             channelTitle: "Waardenburg Family Farm",
             publishedAt: "2024-10-13T00:00:00Z",
             viewCount: 34567,
             likeCount: 1432,
-            topicId: slug
+            topicId: "food-preservation"
           },
           {
             id: "5SRBpnxahME",
             title: "How to preserve elk meat | Arizona Elk Hunt",
-            description: "Professional meat preservation techniques for hunting success and long-term storage.",
+            description: "Professional field dressing and meat preservation techniques for large game hunting. Covers proper cooling, butchering, vacuum sealing, and long-term freezer storage to maximize meat quality and prevent spoilage.",
             thumbnailUrl: "https://i.ytimg.com/vi/5SRBpnxahME/mqdefault.jpg",
             channelTitle: "YETI",
             publishedAt: "2024-10-09T00:00:00Z",
             viewCount: 18765,
             likeCount: 743,
-            topicId: slug
+            topicId: "food-preservation"
           },
           {
             id: "BGs1zOFU9Y0",
             title: "Our Off Grid Food Storage Journey",
-            description: "Complete journey of building off-grid food storage systems for homestead security.",
+            description: "Complete journey of designing and building comprehensive off-grid food storage systems. Features multiple preservation methods including dehydration, canning, fermentation, and cold storage solutions for homestead food security.",
             thumbnailUrl: "https://i.ytimg.com/vi/BGs1zOFU9Y0/mqdefault.jpg",
             channelTitle: "a_fellow_homesteader",
             publishedAt: "2024-10-05T00:00:00Z",
             viewCount: 23456,
             likeCount: 987,
-            topicId: slug
+            topicId: "food-preservation"
           }
         ],
         "solar-energy": [
           {
             id: "solar1abc",
             title: "Off-Grid Solar System Basics",
-            description: "Introduction to off-grid solar systems for homestead energy independence.",
+            description: "Comprehensive introduction to designing off-grid solar systems for complete energy independence. Covers system sizing calculations, component selection, battery bank design, and realistic power consumption planning for homestead applications.",
             thumbnailUrl: "https://i.ytimg.com/vi/solar1abc/mqdefault.jpg",
             channelTitle: "Solar Power With Will Prowse",
             publishedAt: "2024-10-12T00:00:00Z",
             viewCount: 41234,
             likeCount: 1876,
-            topicId: slug
+            topicId: "solar-energy"
           },
           {
             id: "solar2def",
             title: "DIY Solar Installation Guide",
-            description: "Step-by-step guide to installing solar panels on your homestead.",
+            description: "Step-by-step tutorial for safely installing solar panels on your homestead. Includes roof mounting techniques, electrical wiring, grounding requirements, permit processes, and troubleshooting common installation problems.",
             thumbnailUrl: "https://i.ytimg.com/vi/solar2def/mqdefault.jpg",
             channelTitle: "Solar Living Institute",
             publishedAt: "2024-10-08T00:00:00Z",
             viewCount: 29876,
             likeCount: 1321,
-            topicId: slug
+            topicId: "solar-energy"
           },
           {
             id: "solar3ghi",
             title: "Solar Battery Storage Solutions",
-            description: "Choosing and installing battery storage for your homestead solar system.",
+            description: "Complete guide to selecting and installing battery storage systems for homestead solar setups. Compares lithium vs lead-acid options, sizing calculations, wiring configurations, and maintenance requirements for long-term reliability.",
             thumbnailUrl: "https://i.ytimg.com/vi/solar3ghi/mqdefault.jpg",
             channelTitle: "Off Grid Garage",
             publishedAt: "2024-10-03T00:00:00Z",
             viewCount: 35467,
             likeCount: 1543,
-            topicId: slug
+            topicId: "solar-energy"
           }
         ],
         "permaculture-design": [
@@ -628,7 +628,111 @@ export default function handler(req, res) {
             topicId: "composting"
           }
         ],
-        // Add key videos from other topics for video player lookup
+        "diy-home-maintenance": [
+          {
+            id: "ileODNqkqwM",
+            title: "Part 5 | Debt free, off-grid home build — Concrete block walls!",
+            description: "Detailed walkthrough of laying concrete block walls for an off-grid home build. Shows foundation preparation, block placement techniques, mortar mixing, reinforcement installation, and cost-saving tips for DIY builders on tight budgets.",
+            thumbnailUrl: "https://i.ytimg.com/vi/ileODNqkqwM/mqdefault.jpg",
+            channelTitle: "Off Grid Life",
+            publishedAt: "2024-10-10T00:00:00Z",
+            viewCount: 34562,
+            likeCount: 987,
+            topicId: "diy-home-maintenance"
+          },
+          {
+            id: "Oxs2xdHAasY",
+            title: "DIY Barndominium Cost Breakdown",
+            description: "Comprehensive analysis of barndominium construction costs including materials, labor, permits, and hidden expenses. Compares DIY vs contractor pricing with real numbers from actual builds and money-saving strategies.",
+            thumbnailUrl: "https://i.ytimg.com/vi/Oxs2xdHAasY/mqdefault.jpg",
+            channelTitle: "Modern Builds",
+            publishedAt: "2024-10-07T00:00:00Z",
+            viewCount: 42168,
+            likeCount: 1876,
+            topicId: "diy-home-maintenance"
+          },
+          {
+            id: "WX0kk3i1YhY",
+            title: "Why we're shutting down our homestead",
+            description: "Candid discussion about the realities of homesteading including financial challenges, work-life balance, infrastructure maintenance costs, and difficult decisions that led to closing their homestead operation after several years.",
+            thumbnailUrl: "https://i.ytimg.com/vi/WX0kk3i1YhY/mqdefault.jpg",
+            channelTitle: "Homestead Heart",
+            publishedAt: "2024-10-03T00:00:00Z",
+            viewCount: 15987,
+            likeCount: 432,
+            topicId: "diy-home-maintenance"
+          }
+        ],
+        "organic-gardening": [
+          {
+            id: "7Txv1ndELhM",
+            title: "Inside Living Off Grid In Arizona Desert On 40 Acre Homestead Tour",
+            description: "Comprehensive tour of a 40-acre off-grid desert homestead showcasing innovative organic gardening techniques for arid climates. Features greenhouse operations, water-wise growing methods, soil building in desert conditions, and crop selection for extreme heat.",
+            thumbnailUrl: "https://i.ytimg.com/vi/7Txv1ndELhM/mqdefault.jpg",
+            channelTitle: "Big Super Living In Arizona",
+            publishedAt: "2024-10-13T00:00:00Z",
+            viewCount: 38451,
+            likeCount: 1642,
+            topicId: "organic-gardening"
+          },
+          {
+            id: "OHIT75qoBQ8",
+            title: "Buying Land in Arizona? | Watch This First!",
+            description: "Critical factors to consider when purchasing Arizona land for farming and homesteading: water rights, soil quality, zoning restrictions, access roads, utilities availability, and hidden costs that could impact your organic gardening plans.",
+            thumbnailUrl: "https://i.ytimg.com/vi/OHIT75qoBQ8/mqdefault.jpg",
+            channelTitle: "Edge of Nowhere Farm",
+            publishedAt: "2024-10-09T00:00:00Z",
+            viewCount: 29384,
+            likeCount: 1298,
+            topicId: "organic-gardening"
+          },
+          {
+            id: "NufN8cJOFx4",
+            title: "Start a Homestead Under 10k? | Arizona High Desert",
+            description: "Budget-focused approach to establishing an Arizona high desert homestead with minimal investment. Covers land acquisition strategies, basic infrastructure setup, drought-resistant crop selection, and organic growing methods suited for harsh desert conditions.",
+            thumbnailUrl: "https://i.ytimg.com/vi/NufN8cJOFx4/mqdefault.jpg",
+            channelTitle: "Frugal Off Grid",
+            publishedAt: "2024-10-06T00:00:00Z",
+            viewCount: 33576,
+            likeCount: 1534,
+            topicId: "organic-gardening"
+          }
+        ],
+        "raising-chickens": [
+          {
+            id: "6PfrwNBY1eU",
+            title: "How Many Eggs Did My 6 Backyard Hens Lay This Week?",
+            description: "Bre tracks her weekly egg production from 6 backyard hens, analyzing factors that affect laying rates including diet, weather, daylight hours, and breed differences. Includes practical tips for maximizing egg production in small flocks.",
+            thumbnailUrl: "https://i.ytimg.com/vi/6PfrwNBY1eU/mqdefault.jpg",
+            channelTitle: "Bre Ellis",
+            publishedAt: "2024-10-12T00:00:00Z",
+            viewCount: 21453,
+            likeCount: 987,
+            topicId: "raising-chickens"
+          },
+          {
+            id: "wuOd5_M9yDQ",
+            title: "Raising Chickens: Everything You Need To Know!",
+            description: "Comprehensive beginner's guide covering chicken coop design, breed selection, feeding requirements, healthcare basics, predator protection, and egg collection. Perfect for new homesteaders planning their first flock.",
+            thumbnailUrl: "https://i.ytimg.com/vi/wuOd5_M9yDQ/mqdefault.jpg",
+            channelTitle: "Epic Homesteading",
+            publishedAt: "2024-10-09T00:00:00Z",
+            viewCount: 45672,
+            likeCount: 2143,
+            topicId: "raising-chickens"
+          },
+          {
+            id: "mQYc7v39WzY",
+            title: "6 Reasons to Add Sheep to Your Homestead",
+            description: "PJ explains why sheep make excellent additions to homestead operations: natural lawn mowing, wool production, meat source, land clearing abilities, relatively low maintenance needs, and integration with other livestock systems.",
+            thumbnailUrl: "https://i.ytimg.com/vi/mQYc7v39WzY/mqdefault.jpg",
+            channelTitle: "PJ Howland",
+            publishedAt: "2024-10-04T00:00:00Z",
+            viewCount: 18734,
+            likeCount: 823,
+            topicId: "raising-chickens"
+          }
+        ],
         "water-harvesting": [
           {
             id: "F24XPaTYns4",
