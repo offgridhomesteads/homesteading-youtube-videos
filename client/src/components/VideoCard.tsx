@@ -29,12 +29,19 @@ export default function VideoCard({ video, showRanking = true }: VideoCardProps)
               {video.ranking}
             </div>
           )}
-          <img
-            src={video.thumbnailUrl}
-            alt={video.title}
-            className="video-thumbnail rounded-lg object-cover w-full md:w-80 h-48 md:h-45"
-            loading="lazy"
-          />
+          <a
+            href={`/video/${video.id}`}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="block hover:opacity-90 transition-opacity"
+          >
+            <img
+              src={video.thumbnailUrl}
+              alt={video.title}
+              className="video-thumbnail rounded-lg object-cover w-full md:w-80 h-48 md:h-45 cursor-pointer"
+              loading="lazy"
+            />
+          </a>
           {video.isArizonaSpecific && (
             <div className="absolute bottom-2 right-2 bg-border-green text-white px-2 py-1 rounded text-xs font-medium">
               Specialized Content
