@@ -292,7 +292,56 @@ export default async function handler(req, res) {
       const videoId = pathSegments[1];
       console.log(`[VIDEO] Single video requested: ${videoId}`);
       
-      // Create a sample video with the requested ID
+      // Try to find this video in any of the topic video lists
+      for (const topicData of topicsData) {
+        const slug = topicData.slug;
+        const topicName = topicData.name;
+        
+        // Try YouTube API first
+        const searchQueries = {
+          "beekeeping": "homesteading beekeeping Arizona honey bee management",
+          "composting": "homesteading composting organic waste soil Arizona",
+          "diy-home-maintenance": "homestead maintenance repair DIY Arizona",
+          "food-preservation": "homesteading food preservation canning dehydrating Arizona",
+          "herbal-medicine": "homesteading herbal medicine medicinal plants Arizona",
+          "homestead-security": "homestead security property protection rural Arizona",
+          "livestock-management": "homesteading livestock animals farm Arizona",
+          "off-grid-water-systems": "homesteading off grid water systems Arizona",
+          "organic-gardening": "homesteading organic gardening vegetables Arizona",
+          "permaculture-design": "homesteading permaculture design sustainable Arizona",
+          "raising-chickens": "homesteading raising chickens backyard poultry Arizona",
+          "soil-building-in-arid-climates": "homesteading soil building arid climate Arizona desert",
+          "solar-energy": "homesteading solar energy off grid Arizona",
+          "water-harvesting": "homesteading water harvesting rainwater Arizona desert"
+        };
+        
+        const searchQuery = searchQueries[slug] || `${slug.replace(/-/g, ' ')} homesteading Arizona`;
+        const youtubeVideos = await fetchYouTubeVideos(slug, searchQuery);
+        
+        if (youtubeVideos) {
+          const foundVideo = youtubeVideos.find(v => v.id === videoId);
+          if (foundVideo) {
+            return res.status(200).json({
+              ...foundVideo,
+              topic: topicName,
+              topicId: slug
+            });
+          }
+        }
+        
+        // Check fallback videos
+        const fallbackVideos = getVideosForTopic(slug);
+        const foundFallback = fallbackVideos.find(v => v.id === videoId);
+        if (foundFallback) {
+          return res.status(200).json({
+            ...foundFallback,
+            topic: topicName,
+            topicId: slug
+          });
+        }
+      }
+      
+      // If video not found in any topic, create a generic one
       const video = {
         id: videoId,
         title: "Homesteading Tutorial Video",
