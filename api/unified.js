@@ -241,12 +241,70 @@ export default async function handler(req, res) {
         return res.status(200).json(videosWithTopic);
       }
       
-      // No fallback - return error when YouTube API fails
-      console.log(`[VIDEOS] YouTube API failed for ${slug}, no videos available`);
-      return res.status(503).json({ 
-        error: "Video service temporarily unavailable", 
-        message: "Unable to fetch videos from YouTube. Please try again later." 
-      });
+      // Fallback to database when YouTube API quota exceeded
+      console.log(`[VIDEOS] YouTube API quota exceeded, checking database for ${slug}...`);
+      
+      // Try to connect to database for cached videos (production only)
+      try {
+        if (process.env.DATABASE_URL) {
+          // Simple database connection (production environment)
+          const { Pool, neonConfig } = await import('@neondatabase/serverless');
+          const ws = await import('ws');
+          neonConfig.webSocketConstructor = ws.default;
+          
+          const pool = new Pool({ connectionString: process.env.DATABASE_URL });
+          const client = await pool.connect();
+          
+          const result = await client.query(
+            `SELECT yv.*, t.name as topic_name 
+             FROM youtube_videos yv 
+             JOIN topics t ON yv.topic_id = t.id 
+             WHERE t.slug = $1 
+             ORDER BY yv.ranking ASC 
+             LIMIT 12`,
+            [slug]
+          );
+          
+          client.release();
+          
+          if (result.rows.length > 0) {
+            console.log(`[VIDEOS] Using ${result.rows.length} cached database videos for ${slug}`);
+            const cachedVideos = result.rows.map(row => ({
+              id: row.id,
+              title: row.title,
+              description: row.description,
+              thumbnailUrl: row.thumbnail_url,
+              channelTitle: row.channel_title,
+              publishedAt: row.published_at,
+              viewCount: row.view_count,
+              likeCount: row.like_count,
+              topicId: row.topic_id,
+              ranking: row.ranking,
+              topic: topicName
+            }));
+            return res.status(200).json(cachedVideos);
+          }
+        }
+      } catch (dbError) {
+        console.log(`[VIDEOS] Database lookup failed: ${dbError.message}`);
+      }
+      
+      // Return informative message when no data available
+      console.log(`[VIDEOS] No cached videos available for ${slug}`);
+      return res.status(200).json([{
+        id: "quota-notice",
+        title: "Video Content Temporarily Limited",
+        description: "Our video service is currently at capacity due to high demand. We're working to expand our daily video quota. Please check back in a few hours for fresh homesteading content!",
+        channelTitle: "Homesteading YouTube Videos",
+        thumbnailUrl: "data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMzIwIiBoZWlnaHQ9IjE4MCIgdmlld0JveD0iMCAwIDMyMCAxODAiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+CjxyZWN0IHdpZHRoPSIzMjAiIGhlaWdodD0iMTgwIiBmaWxsPSIjRjVGNUY1Ii8+Cjx0ZXh0IHg9IjE2MCIgeT0iODAiIGZpbGw9IiM2NjY2NjYiIGZvbnQtZmFtaWx5PSJBcmlhbCIgZm9udC1zaXplPSIxNCIgdGV4dC1hbmNob3I9Im1pZGRsZSI+VmlkZW8gU2VydmljZSBhdCBDYXBhY2l0eTwvdGV4dD4KPHRleHQgeD0iMTYwIiB5PSIxMDAiIGZpbGw9IiM5OTk5OTkiIGZvbnQtZmFtaWx5PSJBcmlhbCIgZm9udC1zaXplPSIxMiIgdGV4dC1hbmNob3I9Im1pZGRsZSI+Q2hlY2sgYmFjayBpbiBhIGZldyBob3VyczwvdGV4dD4KPC9zdmc+",
+        viewCount: 0,
+        likeCount: 0,
+        publishedAt: new Date().toISOString(),
+        topicId: slug,
+        ranking: 1,
+        topic: topicName,
+        isQuotaNotice: true
+      }]);
     }
     
     // Route: /api/video/videoId - Get single video by ID
