@@ -130,8 +130,16 @@ export default function TopicPage() {
             </div>
           ) : videos && videos.length > 0 ? (
             <div className="grid md:grid-cols-2 gap-6">
-              {videos.map((video) => (
-                <VideoCard key={video.id} video={video} topicName={topic.name} />
+              {videos.map((video, index) => (
+                <VideoCard 
+                  key={video.id} 
+                  video={{
+                    ...video,
+                    ranking: index + 1
+                  }} 
+                  topicName={topic.name}
+                  showRanking={true}
+                />
               ))}
             </div>
           ) : (
