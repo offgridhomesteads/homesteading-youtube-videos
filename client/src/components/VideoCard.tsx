@@ -1,4 +1,5 @@
 import type { YoutubeVideo } from "@/lib/types";
+import { Link } from "wouter";
 import SocialShareButtons from "./SocialShareButtons";
 
 interface VideoCardProps {
@@ -31,10 +32,8 @@ export default function VideoCard({ video, showRanking = true, topicName }: Vide
               {video.ranking}
             </div>
           )}
-          <a
+          <Link
             href={`/video/${video.id}`}
-            target="_blank"
-            rel="noopener noreferrer"
             className="block hover:opacity-90 transition-opacity"
           >
             <img
@@ -43,7 +42,7 @@ export default function VideoCard({ video, showRanking = true, topicName }: Vide
               className="video-thumbnail rounded-lg object-cover w-full md:w-80 h-48 md:h-45 cursor-pointer"
               loading="lazy"
             />
-          </a>
+          </Link>
           {video.isArizonaSpecific && (
             <div className="absolute bottom-2 right-2 bg-border-green text-white px-2 py-1 rounded text-xs font-medium">
               Specialized Content
