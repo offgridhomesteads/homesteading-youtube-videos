@@ -43,9 +43,11 @@ export default function Home() {
           <h1 className="text-4xl md:text-5xl font-lora font-bold text-dark-blue mb-6">
             Homesteading YouTube Videos
           </h1>
-          {/* DEPLOYMENT FIX: Force complete rebuild - July 20, 2025 14:44 */}
-          <p className="text-lg leading-relaxed text-text-gray">
-            Discover the best homesteading videos from YouTube across 14 essential topics. Our handpicked selection features expert tutorials on organic gardening, raising chickens, water harvesting, solar energy, and more. High-quality content updated daily to help you master self-sufficient living.
+          <p className="text-lg leading-relaxed text-text-gray mb-4">
+            Discover the best homesteading videos from YouTube today across 14 essential topics. Our handpicked selection features expert tutorials on organic gardening, raising chickens, water harvesting, solar energy, and more. High-quality content updated daily to help you master self-sufficient living.
+          </p>
+          <p className="text-sm text-text-gray/80 italic">
+            This service is part of the Academy of Self-Reliance's contribution to the Operation Self-Reliance Initiative, supporting Americans in developing essential homesteading skills and sustainable living practices.
           </p>
         </div>
 
