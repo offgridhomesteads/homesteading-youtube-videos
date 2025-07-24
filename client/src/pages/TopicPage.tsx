@@ -129,18 +129,54 @@ export default function TopicPage() {
               <Loader2 className="w-8 h-8 animate-spin text-dark-blue" />
             </div>
           ) : videos && videos.length > 0 ? (
-            <div className="grid md:grid-cols-2 gap-6">
-              {videos.map((video, index) => (
-                <VideoCard 
-                  key={video.id} 
-                  video={{
-                    ...video,
-                    ranking: index + 1
-                  }} 
-                  topicName={topic.name}
-                  showRanking={true}
-                />
-              ))}
+            <div className="space-y-8">
+              {/* Top 10 General Videos */}
+              <div className="grid md:grid-cols-2 gap-6">
+                {videos.slice(0, 10).map((video, index) => (
+                  <VideoCard 
+                    key={video.id} 
+                    video={{
+                      ...video,
+                      ranking: index + 1
+                    }} 
+                    topicName={topic.name}
+                    showRanking={true}
+                  />
+                ))}
+              </div>
+              
+              {/* Arizona-Specific Section Divider */}
+              {videos.length > 10 && (
+                <div className="text-center py-6">
+                  <div className="flex items-center justify-center mb-4">
+                    <div className="flex-1 h-px bg-border-green"></div>
+                    <div className="px-6 py-2 bg-border-green text-white text-sm font-semibold rounded-full">
+                      Arizona-Specific Content
+                    </div>
+                    <div className="flex-1 h-px bg-border-green"></div>
+                  </div>
+                  <p className="text-text-gray text-sm">
+                    These videos focus specifically on Arizona homesteading conditions and techniques
+                  </p>
+                </div>
+              )}
+              
+              {/* Arizona-Specific Videos */}
+              {videos.length > 10 && (
+                <div className="grid md:grid-cols-2 gap-6">
+                  {videos.slice(10).map((video, index) => (
+                    <VideoCard 
+                      key={video.id} 
+                      video={{
+                        ...video,
+                        ranking: index + 11
+                      }} 
+                      topicName={topic.name}
+                      showRanking={true}
+                    />
+                  ))}
+                </div>
+              )}
             </div>
           ) : (
             <div className="text-center py-12">
