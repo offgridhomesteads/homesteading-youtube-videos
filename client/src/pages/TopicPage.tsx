@@ -150,7 +150,7 @@ export default function TopicPage() {
             {getTopicHeading(topic.name)}
           </h1>
           <p className="text-lg text-text-gray">
-            Discover the best techniques for {topic.name.toLowerCase()}. These expert-selected videos cover everything from basics to advanced techniques, with a focus on sustainable practices and practical solutions.
+            These are the top videos on YouTube today for {topic.name.toLowerCase()}. Our expert-curated selection covers everything from basics to advanced techniques, with a focus on sustainable practices and practical solutions for homesteaders.
           </p>
         </div>
 
