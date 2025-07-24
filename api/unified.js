@@ -87,6 +87,107 @@ export default function handler(req, res) {
             viewCount: 22176,
             likeCount: 1045,
             topicId: slug
+          },
+          {
+            id: "BeeHive004",
+            title: "Building Your First Top Bar Hive",
+            description: "Step-by-step construction guide for building an affordable top bar hive perfect for natural beekeeping. Includes materials list, cutting dimensions, assembly instructions, and placement tips for successful bee colonies.",
+            thumbnailUrl: "https://i.ytimg.com/vi/BeeHive004/mqdefault.jpg",
+            channelTitle: "Backyard Beekeeping",
+            publishedAt: "2024-10-05T00:00:00Z",
+            viewCount: 22347,
+            likeCount: 987,
+            topicId: slug
+          },
+          {
+            id: "BeeHive005",
+            title: "Honey Harvest: From Hive to Jar",
+            description: "Complete honey harvesting process from comb inspection to bottling. Demonstrates proper timing, extraction techniques, filtering methods, and storage practices for premium quality honey production.",
+            thumbnailUrl: "https://i.ytimg.com/vi/BeeHive005/mqdefault.jpg",
+            channelTitle: "Sweet Harvest Apiaries",
+            publishedAt: "2024-10-02T00:00:00Z",
+            viewCount: 31245,
+            likeCount: 1432,
+            topicId: slug
+          },
+          {
+            id: "BeeHive006",
+            title: "Queen Bee Management and Replacement",
+            description: "Essential queen bee management techniques including identifying queen problems, requeening procedures, introduction methods, and maintaining strong colony leadership for productive hives.",
+            thumbnailUrl: "https://i.ytimg.com/vi/BeeHive006/mqdefault.jpg",
+            channelTitle: "Queen Bee Masters",
+            publishedAt: "2024-09-28T00:00:00Z",
+            viewCount: 18934,
+            likeCount: 743,
+            topicId: slug
+          },
+          {
+            id: "BeeHive007",
+            title: "Winter Bee Colony Preparation",
+            description: "Preparing bee colonies for winter survival including feeding strategies, hive insulation, ventilation management, and monitoring techniques to ensure strong spring populations.",
+            thumbnailUrl: "https://i.ytimg.com/vi/BeeHive007/mqdefault.jpg",
+            channelTitle: "Mountain Beekeeping",
+            publishedAt: "2024-09-25T00:00:00Z",
+            viewCount: 27156,
+            likeCount: 1098,
+            topicId: slug
+          },
+          {
+            id: "BeeHive008",
+            title: "Bee Disease Prevention and Treatment",
+            description: "Comprehensive guide to identifying and treating common bee diseases including varroa mites, nosema, foulbrood, and other colony health issues using integrated pest management approaches.",
+            thumbnailUrl: "https://i.ytimg.com/vi/BeeHive008/mqdefault.jpg",
+            channelTitle: "Healthy Hives",
+            publishedAt: "2024-09-22T00:00:00Z",
+            viewCount: 23567,
+            likeCount: 876,
+            topicId: slug
+          },
+          {
+            id: "BeeHive009",
+            title: "Bee Swarm Capture Techniques",
+            description: "Professional techniques for safely capturing bee swarms including equipment needed, approach strategies, hiving procedures, and follow-up care for newly captured colonies.",
+            thumbnailUrl: "https://i.ytimg.com/vi/BeeHive009/mqdefault.jpg",
+            channelTitle: "Swarm Catchers",
+            publishedAt: "2024-09-18T00:00:00Z",
+            viewCount: 35672,
+            likeCount: 1543,
+            topicId: slug
+          },
+          {
+            id: "BeeHive010",
+            title: "Urban Beekeeping Setup and Management",
+            description: "Complete guide to keeping bees in urban environments including neighbor relations, local regulations, hive placement, and management techniques for city beekeepers.",
+            thumbnailUrl: "https://i.ytimg.com/vi/BeeHive010/mqdefault.jpg",
+            channelTitle: "City Bees",
+            publishedAt: "2024-09-15T00:00:00Z",
+            viewCount: 19876,
+            likeCount: 654,
+            topicId: slug
+          },
+          {
+            id: "BeeAZ001",
+            title: "Desert Beekeeping in Arizona: Special Considerations",
+            description: "Arizona-specific beekeeping techniques for desert climates including water management, heat protection, seasonal adjustments, and native plant forage for successful desert apiaries.",
+            thumbnailUrl: "https://i.ytimg.com/vi/BeeAZ001/mqdefault.jpg",
+            channelTitle: "Arizona Desert Bees",
+            publishedAt: "2024-09-12T00:00:00Z",
+            viewCount: 26789,
+            likeCount: 1189,
+            topicId: slug,
+            isArizonaSpecific: true
+          },
+          {
+            id: "BeeAZ002",
+            title: "Arizona Wildflower Honey: Best Locations and Timing",
+            description: "Guide to Arizona's best wildflower honey locations including desert bloom timing, seasonal flows, and prime spots for placing hives to capture unique Arizona honey varieties.",
+            thumbnailUrl: "https://i.ytimg.com/vi/BeeAZ002/mqdefault.jpg",
+            channelTitle: "Sonoran Honey Co",
+            publishedAt: "2024-09-08T00:00:00Z",
+            viewCount: 21345,
+            likeCount: 798,
+            topicId: slug,
+            isArizonaSpecific: true
           }
         ],
         "composting": [
