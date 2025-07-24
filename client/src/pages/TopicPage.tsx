@@ -201,7 +201,7 @@ export default function TopicPage() {
                       key={video.id} 
                       video={{
                         ...video,
-                        ranking: index + 11
+                        ranking: index + 1
                       }} 
                       topicName={topic.name}
                       showRanking={true}
