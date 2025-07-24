@@ -16,7 +16,7 @@ const topicsData = [
   { id: "water-harvesting", slug: "water-harvesting", name: "Water Harvesting", description: "Collect and store rainwater for sustainable homestead water supply." }
 ];
 
-export default function handler(req, res) {
+export default async function handler(req, res) {
   const { method, url } = req;
   
   // CORS headers
@@ -52,7 +52,54 @@ export default function handler(req, res) {
     if (pathSegments.length === 3 && pathSegments[0] === 'topics' && pathSegments[2] === 'videos') {
       const slug = pathSegments[1];
       
-      // Topic-specific video data - different videos for each topic
+      // Get videos from database
+      try {
+        const { Client } = require('pg');
+        const client = new Client({
+          connectionString: process.env.DATABASE_URL,
+        });
+        
+        await client.connect();
+        
+        // Get videos for this topic from database
+        const query = `
+          SELECT v.*, t.slug as topic_slug 
+          FROM youtube_videos v 
+          JOIN topics t ON v.topic_id = t.id 
+          WHERE t.slug = $1 
+          ORDER BY v.is_arizona_specific ASC, v.ranking ASC
+        `;
+        
+        const result = await client.query(query, [slug]);
+        await client.end();
+        
+        if (result.rows.length > 0) {
+          // Transform database rows to match frontend format
+          const videos = result.rows.map(row => ({
+            id: row.id,
+            title: row.title,
+            description: row.description || '',
+            thumbnailUrl: row.thumbnail_url,
+            channelTitle: row.channel_title,
+            publishedAt: row.published_at,
+            viewCount: row.view_count || 0,
+            likeCount: row.like_count || 0,
+            topicId: slug,
+            isArizonaSpecific: row.is_arizona_specific || false
+          }));
+          
+          return res.status(200).json(videos);
+        }
+        
+        // If no database results, fall back to hardcoded data
+        console.log(`No database videos found for ${slug}, using fallback data`);
+        
+      } catch (dbError) {
+        console.error('Database error:', dbError);
+        console.log('Falling back to hardcoded video data');
+      }
+      
+      // Fallback: Topic-specific video data for when database is unavailable
       const videosByTopic = {
         "beekeeping": [
           {
