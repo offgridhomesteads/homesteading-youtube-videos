@@ -1,4 +1,16 @@
 // Production API handler - stable working version before ranking text
+
+// Function to decode HTML entities like &#39; to apostrophes
+function decodeHTMLEntities(text) {
+  if (!text) return text;
+  return text
+    .replace(/&#39;/g, "'")
+    .replace(/&quot;/g, '"')
+    .replace(/&amp;/g, '&')
+    .replace(/&lt;/g, '<')
+    .replace(/&gt;/g, '>');
+}
+
 const topicsData = [
   { id: "beekeeping", slug: "beekeeping", name: "Beekeeping", description: "Learn the art of beekeeping and honey production for sustainable homestead living." },
   { id: "composting", slug: "composting", name: "Composting", description: "Master composting techniques to create nutrient-rich soil for your homestead garden." },
@@ -77,10 +89,10 @@ export default async function handler(req, res) {
           // Transform database rows to match frontend format
           const videos = result.rows.map(row => ({
             id: row.id,
-            title: row.title,
-            description: row.description || '',
+            title: decodeHTMLEntities(row.title),
+            description: decodeHTMLEntities(row.description || ''),
             thumbnailUrl: row.thumbnail_url,
-            channelTitle: row.channel_title,
+            channelTitle: decodeHTMLEntities(row.channel_title),
             publishedAt: row.published_at,
             viewCount: row.view_count || 0,
             likeCount: row.like_count || 0,
@@ -2009,7 +2021,14 @@ export default async function handler(req, res) {
 
       // Get videos for the specific topic, or fallback to beekeeping videos
       const topicVideos = videosByTopic[slug] || videosByTopic["beekeeping"];
-      return res.status(200).json(topicVideos);
+      // Apply HTML entity decoding to fallback data
+      const decodedVideos = topicVideos.map(video => ({
+        ...video,
+        title: decodeHTMLEntities(video.title),
+        description: decodeHTMLEntities(video.description),
+        channelTitle: decodeHTMLEntities(video.channelTitle)
+      }));
+      return res.status(200).json(decodedVideos);
     }
 
     // Route: /api/video/videoId - Get single video
