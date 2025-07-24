@@ -2035,19 +2035,47 @@ export default async function handler(req, res) {
     if (pathSegments.length === 2 && pathSegments[0] === 'video') {
       const videoId = pathSegments[1];
       
-      // Simplified video response to prevent slug errors
-      const video = {
-        id: videoId,
-        title: "Homesteading Tutorial Video",
-        description: "Learn essential homesteading techniques with this comprehensive guide. Perfect for beginners and experienced homesteaders alike.",
-        thumbnailUrl: `https://i.ytimg.com/vi/${videoId}/mqdefault.jpg`,
-        channelTitle: "Homesteading Guide",
-        publishedAt: "2024-10-15T00:00:00Z",
-        viewCount: 15000,
-        likeCount: 500,
-        topicId: "beekeeping"
-      };
-      return res.status(200).json(video);
+      // Define a subset of popular videos for lookup (with correct topicIds)
+      const allVideos = [
+        // Beekeeping videos
+        { id: "UxX1KL4g5qQ", title: "We Are Bringing Back Bees to Our 1/2 Acre Homestead!", description: "We are reintroducing honey bees back on our homestead for pollination of our fruit trees and to be more self reliant. Pollinator ...", thumbnailUrl: "https://i.ytimg.com/vi/UxX1KL4g5qQ/mqdefault.jpg", channelTitle: "Ali's Organic Garden & Homestead", publishedAt: "2024-05-10T16:14:14Z", viewCount: 24984, likeCount: 2030, topicId: "beekeeping" },
+        { id: "nZTQIiJiFn4", title: "Our Beehive SWARMED! Too Much HONEY!", description: "Our beehive was almost lost when the bees swarmed to find more space to live. The hive was totally full of honey!", thumbnailUrl: "https://i.ytimg.com/vi/nZTQIiJiFn4/mqdefault.jpg", channelTitle: "Self Sufficient Me", publishedAt: "2024-10-29T10:54:44Z", viewCount: 59789, likeCount: 832, topicId: "beekeeping" },
+        // Composting videos
+        { id: "0oWTHYExjkA", title: "I Found the Easiest Compost System!", description: "This simple composting method has transformed my garden productivity with minimal effort and maximum results.", thumbnailUrl: "https://i.ytimg.com/vi/0oWTHYExjkA/mqdefault.jpg", channelTitle: "Greenhorn Grove", publishedAt: "2025-03-12T10:00:03Z", viewCount: 14902, likeCount: 1124, topicId: "composting" },
+        { id: "nxTzuasQLFo", title: "How to make Compost - The Simplest Easy Method To Compost Piles!", description: "Complete guide start to finish on composting. This is the most basic and simple way to compost. In this video you will learn: ...", thumbnailUrl: "https://i.ytimg.com/vi/nxTzuasQLFo/mqdefault.jpg", channelTitle: "Growit Buildit", publishedAt: "2020-11-14T16:45:01Z", viewCount: 32685, likeCount: 2084, topicId: "composting" },
+        // DIY Home Maintenance videos  
+        { id: "VTDe1f56z9g", title: "Building Our Dream Home from Scratch | Complete Off-Grid Build", description: "Follow our complete journey building an off-grid home from foundation to finish. Real costs, real challenges, real solutions.", thumbnailUrl: "https://i.ytimg.com/vi/VTDe1f56z9g/mqdefault.jpg", channelTitle: "Off Grid with Doug & Stacy", publishedAt: "2024-08-15T14:20:30Z", viewCount: 156789, likeCount: 8920, topicId: "diy-home-maintenance" },
+        // Water Harvesting videos
+        { id: "bkU0qA6Qx40", title: "Rainwater Harvesting for a Desert Home", description: "We walk through a rainwater harvesting system for a desert home in Arizona. With only 6\" of annual rainfall, we use large tanks to ...", thumbnailUrl: "https://i.ytimg.com/vi/bkU0qA6Qx40/mqdefault.jpg", channelTitle: "Wild Desert Garden", publishedAt: "2023-06-19T22:18:02Z", viewCount: 5034, likeCount: 397, topicId: "water-harvesting", isArizonaSpecific: true }
+      ];
+      
+      // Find the video by searching through all videos
+      const foundVideo = allVideos.find(video => video.id === videoId);
+      
+      if (foundVideo) {
+        // Apply HTML entity decoding to found video
+        const decodedVideo = {
+          ...foundVideo,
+          title: decodeHTMLEntities(foundVideo.title),
+          description: decodeHTMLEntities(foundVideo.description),
+          channelTitle: decodeHTMLEntities(foundVideo.channelTitle)
+        };
+        return res.status(200).json(decodedVideo);
+      } else {
+        // Fallback for videos not found in our data
+        const video = {
+          id: videoId,
+          title: "Homesteading Tutorial Video",
+          description: "Learn essential homesteading techniques with this comprehensive guide. Perfect for beginners and experienced homesteaders alike.",
+          thumbnailUrl: `https://i.ytimg.com/vi/${videoId}/mqdefault.jpg`,
+          channelTitle: "Homesteading Guide",
+          publishedAt: "2024-10-15T00:00:00Z",
+          viewCount: 15000,
+          likeCount: 500,
+          topicId: "beekeeping"
+        };
+        return res.status(200).json(video);
+      }
     }
 
     return res.status(404).json({ error: 'Route not found' });
