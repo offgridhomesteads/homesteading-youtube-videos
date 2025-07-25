@@ -129,17 +129,36 @@ export default async function handler(req, res) {
     if (pathSegments.length === 1 && pathSegments[0] === 'debug') {
       console.log(`[${timestamp}] Debug endpoint called`);
       try {
-        const testQuery = "SELECT COUNT(*) as total FROM youtube_videos";
-        console.log(`[${timestamp}] Testing database connection...`);
-        const result = await pool.query(testQuery);
-        console.log(`[${timestamp}] Database test successful: ${result.rows[0].total} total videos`);
+        // Test multiple database queries
+        console.log(`[${timestamp}] Testing database schema...`);
+        
+        const tablesResult = await pool.query("SELECT table_name FROM information_schema.tables WHERE table_schema = 'public' ORDER BY table_name");
+        console.log(`[${timestamp}] Tables found:`, tablesResult.rows.map(r => r.table_name));
+        
+        const videoCountQuery = "SELECT COUNT(*) as total FROM youtube_videos";
+        console.log(`[${timestamp}] Testing video count...`);
+        const videoResult = await pool.query(videoCountQuery);
+        console.log(`[${timestamp}] Video count: ${videoResult.rows[0].total}`);
+        
+        // Test specific topic query
+        const topicQuery = "SELECT COUNT(*) as count FROM youtube_videos WHERE topic_id = 'beekeeping'";
+        const topicResult = await pool.query(topicQuery);
+        console.log(`[${timestamp}] Beekeeping videos: ${topicResult.rows[0].count}`);
+        
+        // Sample video data
+        const sampleQuery = "SELECT id, title, topic_id FROM youtube_videos LIMIT 3";
+        const sampleResult = await pool.query(sampleQuery);
+        console.log(`[${timestamp}] Sample videos:`, sampleResult.rows);
         
         return res.status(200).json({
           status: "success",
           timestamp,
           database: {
             connected: true,
-            totalVideos: result.rows[0].total
+            totalVideos: videoResult.rows[0].total,
+            tables: tablesResult.rows.map(r => r.table_name),
+            beekeepingVideos: topicResult.rows[0].count,
+            sampleVideos: sampleResult.rows
           },
           environment: {
             nodeEnv: process.env.NODE_ENV,
@@ -152,6 +171,7 @@ export default async function handler(req, res) {
           status: "database_error",
           timestamp,
           error: error.message,
+          stack: error.stack,
           environment: {
             nodeEnv: process.env.NODE_ENV,
             hasDatabaseUrl: !!process.env.DATABASE_URL
