@@ -2081,7 +2081,7 @@ export default async function handler(req, res) {
       ];
       
       // Find the video by searching through all videos
-      const foundVideo = allVideos.find(video => video.id === videoId);
+      let foundVideo = allVideos.find(video => video.id === videoId);
       
       if (foundVideo) {
         // Apply HTML entity decoding to found video
@@ -2092,21 +2092,62 @@ export default async function handler(req, res) {
           channelTitle: decodeHTMLEntities(foundVideo.channelTitle)
         };
         return res.status(200).json(decodedVideo);
-      } else {
-        // Fallback for videos not found in our data
-        const video = {
-          id: videoId,
-          title: "Homesteading Tutorial Video",
-          description: "Learn essential homesteading techniques with this comprehensive guide. Perfect for beginners and experienced homesteaders alike.",
-          thumbnailUrl: `https://i.ytimg.com/vi/${videoId}/mqdefault.jpg`,
-          channelTitle: "Homesteading Guide",
-          publishedAt: "2024-10-15T00:00:00Z",
-          viewCount: 15000,
-          likeCount: 500,
-          topicId: "beekeeping"
-        };
-        return res.status(200).json(video);
       }
+      
+      // If not found in lookup array, search all topic endpoints for the video
+      const allTopicSlugs = [
+        'beekeeping', 'composting', 'diy-home-maintenance', 'food-preservation',
+        'herbal-medicine', 'homestead-security', 'livestock-management', 
+        'off-grid-water-systems', 'organic-gardening', 'permaculture-design',
+        'raising-chickens', 'soil-building-in-arid-climates', 'solar-energy', 'water-harvesting'
+      ];
+      
+      // Search through all topic data to find this video
+      for (const topicSlug of allTopicSlugs) {
+        try {
+          // Try database first for this topic
+          if (pool) {
+            const result = await pool.query(
+              'SELECT * FROM youtube_videos WHERE topic_id = $1 AND id = $2 LIMIT 1',
+              [topicSlug, videoId]
+            );
+            
+            if (result.rows.length > 0) {
+              const row = result.rows[0];
+              const video = {
+                id: row.id,
+                title: decodeHTMLEntities(row.title),
+                description: decodeHTMLEntities(row.description || ''),
+                thumbnailUrl: row.thumbnail_url,
+                channelTitle: decodeHTMLEntities(row.channel_title),
+                publishedAt: row.published_at,
+                viewCount: row.view_count || 0,
+                likeCount: row.like_count || 0,
+                topicId: topicSlug,
+                isArizonaSpecific: row.is_arizona_specific || false
+              };
+              return res.status(200).json(video);
+            }
+          }
+        } catch (dbError) {
+          // Continue to next topic if database fails
+          continue;
+        }
+      }
+      
+      // Final fallback for videos not found anywhere
+      const video = {
+        id: videoId,
+        title: "Homesteading Tutorial Video",
+        description: "Learn essential homesteading techniques with this comprehensive guide. Perfect for beginners and experienced homesteaders alike.",
+        thumbnailUrl: `https://i.ytimg.com/vi/${videoId}/mqdefault.jpg`,
+        channelTitle: "Homesteading Guide",
+        publishedAt: "2024-10-15T00:00:00Z",
+        viewCount: 15000,
+        likeCount: 500,
+        topicId: "beekeeping"
+      };
+      return res.status(200).json(video);
     }
 
     return res.status(404).json({ error: 'Route not found' });
