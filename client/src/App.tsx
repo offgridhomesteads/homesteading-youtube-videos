@@ -7,12 +7,14 @@ import Navigation from "@/components/Navigation";
 import Home from "@/pages/Home";
 import TopicPage from "@/pages/TopicPage";
 import VideoPlayer from "@/pages/VideoPlayer";
+import About from "@/pages/About";
 import NotFound from "@/pages/not-found";
 
 function Router() {
   return (
     <Switch>
       <Route path="/" component={Home} />
+      <Route path="/about" component={About} />
       <Route path="/topics/:slug" component={TopicPage} />
       <Route path="/video/:videoId" component={VideoPlayer} />
       <Route component={NotFound} />
