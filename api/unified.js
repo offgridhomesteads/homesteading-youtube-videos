@@ -146,6 +146,17 @@ const videosByTopic = {
       viewCount: 98765,
       likeCount: 5678,
       topicId: "organic-gardening"
+    },
+    {
+      id: "lN8pQrK2VmT",
+      title: "Companion Planting Guide - Maximize Your Garden Yield",
+      description: "Learn which plants grow best together and how to use companion planting for pest control.",
+      thumbnailUrl: "https://i.ytimg.com/vi/lN8pQrK2VmT/mqdefault.jpg",
+      channelTitle: "Organic Garden Pro",
+      publishedAt: "2024-07-08T14:35:20Z",
+      viewCount: 156789,
+      likeCount: 8234,
+      topicId: "organic-gardening"
     }
   ],
   "raising-chickens": [
@@ -158,6 +169,17 @@ const videosByTopic = {
       publishedAt: "2024-06-30T13:15:30Z",
       viewCount: 345678,
       likeCount: 18901,
+      topicId: "raising-chickens"
+    },
+    {
+      id: "sB4mHgNt9Wk",
+      title: "Chicken Coop Design - Predator-Proof Construction",
+      description: "Build a secure chicken coop that protects your flock from predators while maximizing comfort.",
+      thumbnailUrl: "https://i.ytimg.com/vi/sB4mHgNt9Wk/mqdefault.jpg",
+      channelTitle: "Backyard Chickens",
+      publishedAt: "2024-05-15T11:45:18Z",
+      viewCount: 234567,
+      likeCount: 12456,
       topicId: "raising-chickens"
     }
   ],
@@ -172,6 +194,185 @@ const videosByTopic = {
       viewCount: 187654,
       likeCount: 9876,
       topicId: "water-harvesting"
+    },
+    {
+      id: "8vM9XKzHGzs",
+      title: "5000 Gallon Rainwater Harvesting System - Desert Installation",
+      description: "Installing a large-scale rainwater collection system in arid conditions for maximum water storage.",
+      thumbnailUrl: "https://i.ytimg.com/vi/8vM9XKzHGzs/mqdefault.jpg",
+      channelTitle: "Desert Water Solutions",
+      publishedAt: "2024-06-12T15:40:28Z",
+      viewCount: 145632,
+      likeCount: 7890,
+      topicId: "water-harvesting"
+    }
+  ],
+  "livestock-management": [
+    {
+      id: "mK8HLqzVRbc",
+      title: "Rotational Grazing System - Complete Guide for Small Farms",
+      description: "Learn how to implement rotational grazing to improve pasture health and livestock productivity.",
+      thumbnailUrl: "https://i.ytimg.com/vi/mK8HLqzVRbc/mqdefault.jpg",
+      channelTitle: "Grassland Management",
+      publishedAt: "2024-05-08T12:25:15Z",
+      viewCount: 234567,
+      likeCount: 12890,
+      topicId: "livestock-management"
+    },
+    {
+      id: "nP7YHztgLko",
+      title: "Raising Goats for Beginners - Everything You Need to Know",
+      description: "Complete beginner's guide to raising goats including housing, feeding, and health management.",
+      thumbnailUrl: "https://i.ytimg.com/vi/nP7YHztgLko/mqdefault.jpg",
+      channelTitle: "Homestead Goats",
+      publishedAt: "2024-07-03T10:15:42Z",
+      viewCount: 189456,
+      likeCount: 9876,
+      topicId: "livestock-management"
+    }
+  ],
+  "food-preservation": [
+    {
+      id: "tR6nKP45QWo",
+      title: "Canning Vegetables from Garden to Jar - Complete Process",
+      description: "Step-by-step guide to safely preserving your harvest through proper canning techniques.",
+      thumbnailUrl: "https://i.ytimg.com/vi/tR6nKP45QWo/mqdefault.jpg",
+      channelTitle: "Preservation Kitchen",
+      publishedAt: "2024-08-20T14:30:18Z",
+      viewCount: 156789,
+      likeCount: 8456,
+      topicId: "food-preservation"
+    },
+    {
+      id: "xY9mNc7RtWs",
+      title: "Dehydrating Food for Long-Term Storage - Best Methods",
+      description: "Master food dehydration techniques for creating shelf-stable preserved foods.",
+      thumbnailUrl: "https://i.ytimg.com/vi/xY9mNc7RtWs/mqdefault.jpg",
+      channelTitle: "Food Storage Pro",
+      publishedAt: "2024-06-25T16:45:33Z",
+      viewCount: 98765,
+      likeCount: 5432,
+      topicId: "food-preservation"
+    }
+  ],
+  "permaculture-design": [
+    {
+      id: "qL8bFv6NmPk",
+      title: "Permaculture Food Forest Design - 5 Year Transformation",
+      description: "Watch the complete transformation of bare land into a productive food forest using permaculture principles.",
+      thumbnailUrl: "https://i.ytimg.com/vi/qL8bFv6NmPk/mqdefault.jpg",
+      channelTitle: "Food Forest Academy",
+      publishedAt: "2024-04-15T11:20:25Z",
+      viewCount: 345678,
+      likeCount: 18765,
+      topicId: "permaculture-design"
+    },
+    {
+      id: "wN3tLmQ8YzE",
+      title: "Water Swales and Earthworks - Permaculture Water Management",
+      description: "Learn to design and build swales, berms, and earthworks for natural water management.",
+      thumbnailUrl: "https://i.ytimg.com/vi/wN3tLmQ8YzE/mqdefault.jpg",
+      channelTitle: "Earthworks Design",
+      publishedAt: "2024-07-18T09:35:12Z",
+      viewCount: 187456,
+      likeCount: 9234,
+      topicId: "permaculture-design"
+    }
+  ],
+  "solar-energy": [
+    {
+      id: "pR4xTnBgL9w",
+      title: "Off-Grid Solar System Installation - Complete DIY Guide",
+      description: "Build your own off-grid solar power system from planning to installation and maintenance.",
+      thumbnailUrl: "https://i.ytimg.com/vi/pR4xTnBgL9w/mqdefault.jpg",
+      channelTitle: "Solar Power DIY",
+      publishedAt: "2024-05-30T13:15:40Z",
+      viewCount: 456789,
+      likeCount: 23456,
+      topicId: "solar-energy"
+    },
+    {
+      id: "vK2mHbQrN8s",
+      title: "Solar Battery Bank Setup - Lithium vs Lead Acid Comparison",
+      description: "Compare battery technologies and learn proper setup for reliable off-grid power storage.",
+      thumbnailUrl: "https://i.ytimg.com/vi/vK2mHbQrN8s/mqdefault.jpg",
+      channelTitle: "Energy Storage Solutions",
+      publishedAt: "2024-08-05T15:25:18Z",
+      viewCount: 234567,
+      likeCount: 12345,
+      topicId: "solar-energy"
+    }
+  ],
+  "herbal-medicine": [
+    {
+      id: "zM8wHfGpR3k",
+      title: "Growing Medicinal Herbs - Complete Garden Setup",
+      description: "Establish a productive medicinal herb garden with the most useful healing plants.",
+      thumbnailUrl: "https://i.ytimg.com/vi/zM8wHfGpR3k/mqdefault.jpg",
+      channelTitle: "Herbal Medicine Garden",
+      publishedAt: "2024-04-28T10:45:22Z",
+      viewCount: 123456,
+      likeCount: 6789,
+      topicId: "herbal-medicine"
+    },
+    {
+      id: "bP9qTnKs4Lw",
+      title: "Making Herbal Tinctures at Home - Traditional Methods",
+      description: "Learn traditional techniques for extracting and preserving medicinal compounds from herbs.",
+      thumbnailUrl: "https://i.ytimg.com/vi/bP9qTnKs4Lw/mqdefault.jpg",
+      channelTitle: "Traditional Herbalism",
+      publishedAt: "2024-06-08T12:30:45Z",
+      viewCount: 87654,
+      likeCount: 4567,
+      topicId: "herbal-medicine"
+    }
+  ],
+  "homestead-security": [
+    {
+      id: "cQ7vLmN9XtR",
+      title: "Perimeter Security for Rural Properties - Complete System",
+      description: "Design and implement comprehensive security systems for remote homestead properties.",
+      thumbnailUrl: "https://i.ytimg.com/vi/cQ7vLmN9XtR/mqdefault.jpg",
+      channelTitle: "Rural Security Solutions",
+      publishedAt: "2024-07-12T14:20:35Z",
+      viewCount: 198765,
+      likeCount: 9876,
+      topicId: "homestead-security"
+    },
+    {
+      id: "fH6tKmPsN2w",
+      title: "Early Warning Systems for Remote Homesteads",
+      description: "Set up motion sensors, cameras, and alert systems to monitor your property remotely.",
+      thumbnailUrl: "https://i.ytimg.com/vi/fH6tKmPsN2w/mqdefault.jpg",
+      channelTitle: "Homestead Defense",
+      publishedAt: "2024-05-25T16:15:28Z",
+      viewCount: 145678,
+      likeCount: 7890,
+      topicId: "homestead-security"
+    }
+  ],
+  "soil-building-in-arid-climates": [
+    {
+      id: "dK9mLnQ8VtP",
+      title: "Desert Soil Building - Transforming Sand into Fertile Earth",
+      description: "Proven techniques for building organic matter and improving soil in extremely dry conditions.",
+      thumbnailUrl: "https://i.ytimg.com/vi/dK9mLnQ8VtP/mqdefault.jpg",
+      channelTitle: "Desert Agriculture",
+      publishedAt: "2024-06-18T11:40:15Z",
+      viewCount: 167890,
+      likeCount: 8456,
+      topicId: "soil-building-in-arid-climates"
+    },
+    {
+      id: "gT4nBwRs7Qm",
+      title: "Mulching Strategies for Dry Climate Gardens",
+      description: "Effective mulching techniques to retain moisture and build soil in arid environments.",
+      thumbnailUrl: "https://i.ytimg.com/vi/gT4nBwRs7Qm/mqdefault.jpg",
+      channelTitle: "Dry Climate Gardening",
+      publishedAt: "2024-08-12T09:25:42Z",
+      viewCount: 123456,
+      likeCount: 6543,
+      topicId: "soil-building-in-arid-climates"
     }
   ]
 };
