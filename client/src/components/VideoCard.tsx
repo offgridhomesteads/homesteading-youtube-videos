@@ -1,6 +1,7 @@
 import type { YoutubeVideo } from "@/lib/types";
 import { Link } from "wouter";
 import SocialShareButtons from "./SocialShareButtons";
+// Updated to use Link component for internal routing
 
 interface VideoCardProps {
   video: YoutubeVideo;
