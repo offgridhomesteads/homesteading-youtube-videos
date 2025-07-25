@@ -38,6 +38,9 @@ const topicsData = [
 
 // Database query functions
 async function getVideosForTopic(topicSlug) {
+  const timestamp = new Date().toISOString();
+  console.log(`[${timestamp}] getVideosForTopic called with slug: ${topicSlug}`);
+  
   try {
     const query = `
       SELECT id, title, description, thumbnail_url as "thumbnailUrl", channel_title as "channelTitle", published_at as "publishedAt", 
@@ -48,7 +51,11 @@ async function getVideosForTopic(topicSlug) {
       LIMIT 12
     `;
     
+    console.log(`[${timestamp}] Executing query for topic: ${topicSlug}`);
+    
     const result = await pool.query(query, [topicSlug]);
+    console.log(`[${timestamp}] Query result: ${result.rows.length} videos found for ${topicSlug}`);
+    
     return result.rows.map(video => ({
       ...video,
       title: decodeHTMLEntities(video.title),
@@ -58,7 +65,8 @@ async function getVideosForTopic(topicSlug) {
       likeCount: parseInt(video.likeCount) || 0
     }));
   } catch (error) {
-    console.error(`Database error for topic ${topicSlug}:`, error);
+    console.error(`[${timestamp}] Database error for topic ${topicSlug}:`, error.message);
+    console.error(`[${timestamp}] Full error:`, error);
     return [];
   }
 }
@@ -93,6 +101,11 @@ async function getVideoById(videoId) {
 }
 
 export default async function handler(req, res) {
+  const timestamp = new Date().toISOString();
+  console.log(`[${timestamp}] API Handler called - URL: ${req.url}`);
+  console.log(`[${timestamp}] Database URL exists: ${!!process.env.DATABASE_URL}`);
+  console.log(`[${timestamp}] Node ENV: ${process.env.NODE_ENV}`);
+  
   const { method, url } = req;
   
   // CORS headers
