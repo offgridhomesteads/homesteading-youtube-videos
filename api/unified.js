@@ -110,6 +110,69 @@ const videosByTopic = {
       likeCount: 1928,
       topicId: "diy-home-maintenance"
     }
+  ],
+  "off-grid-water-systems": [
+    {
+      id: "ZW2isvAr2cs",
+      title: "Building a Gravity Fed Water System for My Off Grid Cabin",
+      description: "Complete guide to building a reliable gravity-fed water system for off-grid living.",
+      thumbnailUrl: "https://i.ytimg.com/vi/ZW2isvAr2cs/mqdefault.jpg",
+      channelTitle: "Steve1989 Outdoors",
+      publishedAt: "2024-08-15T14:30:22Z",
+      viewCount: 234567,
+      likeCount: 12345,
+      topicId: "off-grid-water-systems"
+    },
+    {
+      id: "PtV98H-9pBw",
+      title: "Off Grid Water System - Cheap and Easy Setup",
+      description: "Learn how to set up an affordable and efficient water system for your off-grid property.",
+      thumbnailUrl: "https://i.ytimg.com/vi/PtV98H-9pBw/mqdefault.jpg",
+      channelTitle: "Off Grid Alaska",
+      publishedAt: "2024-07-10T11:45:18Z",
+      viewCount: 156789,
+      likeCount: 8901,
+      topicId: "off-grid-water-systems"
+    }
+  ],
+  "organic-gardening": [
+    {
+      id: "u85saevOZrI", 
+      title: "Growing Food in the Desert - Complete Guide",
+      description: "Master the techniques for successful organic gardening in arid desert conditions.",
+      thumbnailUrl: "https://i.ytimg.com/vi/u85saevOZrI/mqdefault.jpg",
+      channelTitle: "Desert Gardening",
+      publishedAt: "2024-05-22T16:20:45Z",
+      viewCount: 98765,
+      likeCount: 5678,
+      topicId: "organic-gardening"
+    }
+  ],
+  "raising-chickens": [
+    {
+      id: "ZGJVIsB77NU",
+      title: "How to Raise Chickens - Complete Beginner's Guide",
+      description: "Everything you need to know to successfully raise chickens on your homestead.",
+      thumbnailUrl: "https://i.ytimg.com/vi/ZGJVIsB77NU/mqdefault.jpg",
+      channelTitle: "Homestead Helper",
+      publishedAt: "2024-06-30T13:15:30Z",
+      viewCount: 345678,
+      likeCount: 18901,
+      topicId: "raising-chickens"
+    }
+  ],
+  "water-harvesting": [
+    {
+      id: "3KjFWp7fVvs",
+      title: "Rainwater Harvesting System Build - From Start to Finish",
+      description: "Complete step-by-step guide to building an effective rainwater harvesting system.",
+      thumbnailUrl: "https://i.ytimg.com/vi/3KjFWp7fVvs/mqdefault.jpg",
+      channelTitle: "Sustainable Living",
+      publishedAt: "2024-04-18T09:30:15Z",
+      viewCount: 187654,
+      likeCount: 9876,
+      topicId: "water-harvesting"
+    }
   ]
 };
 
