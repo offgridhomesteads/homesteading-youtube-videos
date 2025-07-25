@@ -1,6 +1,7 @@
-// Database-First API - Production Ready with PostgreSQL Integration
+// Database-First API - Vercel Compatible with CommonJS pg import
 
-import { Pool } from 'pg';
+import pkg from 'pg';
+const { Pool } = pkg;
 
 // Database connection setup
 const pool = new Pool({
