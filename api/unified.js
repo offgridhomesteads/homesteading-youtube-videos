@@ -125,6 +125,41 @@ export default async function handler(req, res) {
       return res.status(200).json(topicsData);
     }
 
+    // Route: /api/debug - Test deployment status
+    if (pathSegments.length === 1 && pathSegments[0] === 'debug') {
+      console.log(`[${timestamp}] Debug endpoint called`);
+      try {
+        const testQuery = "SELECT COUNT(*) as total FROM youtube_videos";
+        console.log(`[${timestamp}] Testing database connection...`);
+        const result = await pool.query(testQuery);
+        console.log(`[${timestamp}] Database test successful: ${result.rows[0].total} total videos`);
+        
+        return res.status(200).json({
+          status: "success",
+          timestamp,
+          database: {
+            connected: true,
+            totalVideos: result.rows[0].total
+          },
+          environment: {
+            nodeEnv: process.env.NODE_ENV,
+            hasDatabaseUrl: !!process.env.DATABASE_URL
+          }
+        });
+      } catch (error) {
+        console.error(`[${timestamp}] Database test failed:`, error);
+        return res.status(200).json({
+          status: "database_error",
+          timestamp,
+          error: error.message,
+          environment: {
+            nodeEnv: process.env.NODE_ENV,
+            hasDatabaseUrl: !!process.env.DATABASE_URL
+          }
+        });
+      }
+    }
+
     // Route: /api/topics/slug - Get single topic
     if (pathSegments.length === 2 && pathSegments[0] === 'topics') {
       const slug = pathSegments[1];
