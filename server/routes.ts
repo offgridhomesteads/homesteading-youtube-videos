@@ -1,6 +1,8 @@
 import type { Express } from "express";
 import { createServer, type Server } from "http";
 import { storage } from "./storage";
+import { initializeCronJobs, runDailyUpdate } from "./cronService.js";
+import { updateTopicVideos } from "./youtubeService.js";
 import { YouTubeService } from "./services/youtubeService";
 import { CronService } from "./services/cronService";
 
@@ -8,6 +10,47 @@ import { CronService } from "./services/cronService";
 const youtubeService = new YouTubeService(process.env.YOUTUBE_API_KEY!);
 
 export async function registerRoutes(app: Express): Promise<Server> {
+  // Initialize YouTube video update cron jobs
+  const cronService = initializeCronJobs();
+  
+  // Manual video update endpoint for testing
+  app.post('/api/update-videos', async (req, res) => {
+    try {
+      if (cronService.isUpdating()) {
+        return res.status(429).json({ 
+          message: 'Video update already in progress',
+          nextScheduled: '6:00 AM Eastern Time daily'
+        });
+      }
+      
+      const topicId = req.body.topicId;
+      if (topicId) {
+        console.log(`Manual update requested for topic: ${topicId}`);
+        await updateTopicVideos(topicId);
+        res.json({ 
+          message: `Successfully updated videos for ${topicId}`,
+          nextScheduled: '6:00 AM Eastern Time daily'
+        });
+      } else {
+        console.log('Manual update requested for all topics');
+        const startTime = new Date();
+        await runDailyUpdate();
+        const duration = Math.round((new Date() - startTime) / 1000);
+        res.json({ 
+          message: 'Successfully updated all topics',
+          duration: `${duration} seconds`,
+          nextScheduled: '6:00 AM Eastern Time daily'
+        });
+      }
+    } catch (error) {
+      console.error('Manual update failed:', error);
+      res.status(500).json({ 
+        message: 'Update failed', 
+        error: error.message,
+        nextScheduled: '6:00 AM Eastern Time daily'
+      });
+    }
+  });
   // Initialize topics and start cron jobs
   await CronService.initializeTopics();
   CronService.initializeCronJobs();
