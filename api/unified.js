@@ -40,11 +40,11 @@ const topicsData = [
 async function getVideosForTopic(topicSlug) {
   try {
     const query = `
-      SELECT id, title, description, "thumbnailUrl", "channelTitle", "publishedAt", 
-             "viewCount", "likeCount", "topicId"
+      SELECT id, title, description, thumbnail_url as "thumbnailUrl", channel_title as "channelTitle", published_at as "publishedAt", 
+             view_count as "viewCount", like_count as "likeCount", topic_id as "topicId"
       FROM youtube_videos 
-      WHERE "topicId" = $1 
-      ORDER BY "ranking" ASC, "popularityScore" DESC 
+      WHERE topic_id = $1 
+      ORDER BY ranking ASC, popularity_score DESC 
       LIMIT 12
     `;
     
@@ -66,8 +66,8 @@ async function getVideosForTopic(topicSlug) {
 async function getVideoById(videoId) {
   try {
     const query = `
-      SELECT id, title, description, "thumbnailUrl", "channelTitle", "publishedAt", 
-             "viewCount", "likeCount", "topicId"
+      SELECT id, title, description, thumbnail_url as "thumbnailUrl", channel_title as "channelTitle", published_at as "publishedAt", 
+             view_count as "viewCount", like_count as "likeCount", topic_id as "topicId"
       FROM youtube_videos 
       WHERE id = $1 
       LIMIT 1
