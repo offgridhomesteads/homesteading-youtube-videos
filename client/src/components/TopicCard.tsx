@@ -75,12 +75,28 @@ export default function TopicCard({ topic }: TopicCardProps) {
   };
 
   const renderImage = () => {
+    // Use custom image for beekeeping, SVG for others
+    if (topic.slug === 'beekeeping') {
+      return (
+        <img 
+          src="/images/beekeeping.png"
+          alt={`${topic.name} videos`}
+          className="video-thumbnail rounded-lg w-full md:w-80 h-48 md:h-45 cursor-pointer transition-opacity hover:opacity-80 object-cover"
+        />
+      );
+    }
+    
     const svgContent = getSvgContent(topic.slug);
     if (svgContent) {
+      // Scale SVG to fill the entire container (320x180)
+      const scaledSvgContent = svgContent.replace(
+        'width="120" height="120" viewBox="0 0 120 120"',
+        'width="100%" height="100%" viewBox="0 0 120 120" preserveAspectRatio="none"'
+      );
       return (
         <div 
-          className="video-thumbnail rounded-lg object-cover w-full md:w-80 h-48 md:h-45 cursor-pointer transition-opacity hover:opacity-80 flex items-center justify-center bg-white"
-          dangerouslySetInnerHTML={{ __html: svgContent }}
+          className="video-thumbnail rounded-lg w-full md:w-80 h-48 md:h-45 cursor-pointer transition-opacity hover:opacity-80 bg-white overflow-hidden"
+          dangerouslySetInnerHTML={{ __html: scaledSvgContent }}
           role="img"
           aria-label={`${topic.name} videos`}
         />
