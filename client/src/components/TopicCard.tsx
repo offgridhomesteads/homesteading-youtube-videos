@@ -1,6 +1,5 @@
 import { Link } from "wouter";
 import { ArrowRight } from "lucide-react";
-import beekeepingImage from "@assets/beekeeping_1753489556018.png";
 import type { Topic } from "@/lib/types";
 
 // Helper function to create topic headings with "Top" or "Best" - Updated July 20, 2025
@@ -80,7 +79,7 @@ export default function TopicCard({ topic }: TopicCardProps) {
     if (topic.slug === 'beekeeping') {
       return (
         <img 
-          src={beekeepingImage}
+          src="/images/beekeeping.png"
           alt={`${topic.name} videos`}
           className="video-thumbnail rounded-lg w-full md:w-80 h-48 md:h-45 cursor-pointer transition-opacity hover:opacity-80 object-cover"
         />
