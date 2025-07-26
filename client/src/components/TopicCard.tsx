@@ -79,7 +79,7 @@ export default function TopicCard({ topic }: TopicCardProps) {
     if (topic.slug === 'beekeeping') {
       return (
         <img 
-          src="/images/beekeeping.png"
+          src="/images/beekeeping.jpg"
           alt={`${topic.name} videos`}
           className="video-thumbnail rounded-lg w-full md:w-80 h-48 md:h-45 cursor-pointer transition-opacity hover:opacity-80 object-cover"
         />
