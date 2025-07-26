@@ -75,11 +75,21 @@ export default function TopicCard({ topic }: TopicCardProps) {
   };
 
   const renderImage = () => {
-    // Use custom image for beekeeping, SVG for others
+    // Use custom images for specific topics, SVG for others
     if (topic.slug === 'beekeeping') {
       return (
         <img 
           src="/images/beekeeping.jpg"
+          alt={`${topic.name} videos`}
+          className="video-thumbnail rounded-lg w-full md:w-80 h-48 md:h-45 cursor-pointer transition-opacity hover:opacity-80 object-cover"
+        />
+      );
+    }
+    
+    if (topic.slug === 'composting') {
+      return (
+        <img 
+          src="/images/composting-videos.jpg"
           alt={`${topic.name} videos`}
           className="video-thumbnail rounded-lg w-full md:w-80 h-48 md:h-45 cursor-pointer transition-opacity hover:opacity-80 object-cover"
         />
