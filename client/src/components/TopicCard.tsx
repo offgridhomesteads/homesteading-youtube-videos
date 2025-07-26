@@ -79,14 +79,15 @@ export default function TopicCard({ topic }: TopicCardProps) {
     if (topic.slug === 'beekeeping') {
       return (
         <img 
-          src="/images/beekeeping.png?v=1"
+          src="/images/beekeeping.png?v=3"
           alt={`${topic.name} videos`}
-          className="video-thumbnail rounded-lg w-full md:w-80 h-48 md:h-45 cursor-pointer transition-opacity hover:opacity-80 object-cover"
-          onError={(e) => {
-            console.error('Failed to load beekeeping image:', e);
-            e.currentTarget.style.display = 'none';
+          className="video-thumbnail rounded-lg w-full md:w-80 h-48 md:h-45 cursor-pointer transition-opacity hover:opacity-80 object-cover border-4 border-red-500"
+          style={{ 
+            minWidth: '320px', 
+            minHeight: '180px',
+            backgroundColor: 'red',
+            zIndex: 1000
           }}
-          onLoad={() => console.log('Beekeeping image loaded successfully')}
         />
       );
     }
