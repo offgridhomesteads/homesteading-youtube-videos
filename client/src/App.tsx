@@ -1,4 +1,4 @@
-import { Switch, Route } from "wouter";
+import { Switch, Route, Link } from "wouter";
 import { queryClient } from "./lib/queryClient";
 import { QueryClientProvider } from "@tanstack/react-query";
 import { Toaster } from "@/components/ui/toaster";
@@ -35,7 +35,11 @@ function App() {
             <div className="container mx-auto px-4">
               <div className="grid md:grid-cols-3 gap-8">
                 <div>
-                  <h3 className="font-lora font-bold text-xl mb-4">Homesteading YouTube Videos</h3>
+                  <Link href="/">
+                    <h3 className="font-lora font-bold text-xl mb-4 hover:text-green-400 transition-colors cursor-pointer">
+                      Homesteading YouTube Videos
+                    </h3>
+                  </Link>
                   <p className="text-gray-300">
                     Your trusted source for curated homesteading videos and sustainable living education.
                   </p>
