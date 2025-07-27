@@ -146,14 +146,6 @@ export default function TopicPage() {
               Back to Topics
             </Link>
           </div>
-          <div className="mb-6">
-            <Link 
-              href="/"
-              className="text-2xl font-lora font-bold text-dark-blue hover:text-accent-red transition-colors"
-            >
-              Homesteading YouTube Videos
-            </Link>
-          </div>
           <h1 className="text-4xl md:text-5xl font-lora font-bold text-dark-blue mb-4">
             {getTopicHeading(topic.name)}
           </h1>
