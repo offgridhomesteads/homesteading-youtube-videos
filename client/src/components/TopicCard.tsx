@@ -186,7 +186,7 @@ export default function TopicCard({ topic }: TopicCardProps) {
       );
     }
     
-    if (topic.slug === 'soil-building-arid-climates') {
+    if (topic.slug === 'soil-building-in-arid-climates') {
       return (
         <img 
           src="/images/soil-building-videos.jpg"
