@@ -136,6 +136,26 @@ export default function TopicCard({ topic }: TopicCardProps) {
       );
     }
     
+    if (topic.slug === 'off-grid-water-systems') {
+      return (
+        <img 
+          src="/images/off-grid-water-systems-videos.jpg"
+          alt={`${topic.name} videos`}
+          className="video-thumbnail rounded-lg w-full md:w-80 h-48 md:h-45 cursor-pointer transition-opacity hover:opacity-80 object-cover"
+        />
+      );
+    }
+    
+    if (topic.slug === 'livestock-management') {
+      return (
+        <img 
+          src="/images/livestock-management-videos.jpg"
+          alt={`${topic.name} videos`}
+          className="video-thumbnail rounded-lg w-full md:w-80 h-48 md:h-45 cursor-pointer transition-opacity hover:opacity-80 object-cover"
+        />
+      );
+    }
+    
     const svgContent = getSvgContent(topic.slug);
     if (svgContent) {
       // Scale SVG to fill the entire container (320x180)
