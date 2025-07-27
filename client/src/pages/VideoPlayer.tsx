@@ -58,16 +58,6 @@ export default function VideoPlayer() {
   return (
     <main className="container mx-auto px-4 py-8 max-w-6xl">
       <div className="space-y-6">
-        {/* Site Title */}
-        <div className="text-center">
-          <Link 
-            href="/"
-            className="text-2xl font-lora font-bold text-dark-blue hover:text-accent-red transition-colors"
-          >
-            Homesteading YouTube Videos
-          </Link>
-        </div>
-        
         {/* Navigation */}
         <div className="flex items-center justify-between">
           <Link
