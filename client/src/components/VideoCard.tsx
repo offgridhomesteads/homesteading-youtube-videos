@@ -1,6 +1,7 @@
 import type { YoutubeVideo } from "@/lib/types";
 import { Link } from "wouter";
 import SocialShareButtons from "./SocialShareButtons";
+import { trackEvent } from "@/lib/analytics";
 // Updated to use Link component for internal routing
 
 interface VideoCardProps {
@@ -16,6 +17,10 @@ export default function VideoCard({ video, showRanking = true, topicName }: Vide
       month: "short",
       day: "numeric",
     });
+  };
+
+  const handleVideoClick = () => {
+    trackEvent('video_click', 'engagement', `${topicName}: ${video.title}`, video.ranking);
   };
 
   const truncateDescription = (description: string, maxLength = 150) => {
@@ -36,6 +41,7 @@ export default function VideoCard({ video, showRanking = true, topicName }: Vide
           <Link
             href={`/video/${video.id}`}
             className="block hover:opacity-90 transition-opacity"
+            onClick={handleVideoClick}
           >
             <img
               src={video.thumbnailUrl}
