@@ -166,6 +166,36 @@ export default function TopicCard({ topic }: TopicCardProps) {
       );
     }
     
+    if (topic.slug === 'permaculture-design') {
+      return (
+        <img 
+          src="/images/permaculture-design-videos.jpg"
+          alt={`${topic.name} videos`}
+          className="video-thumbnail rounded-lg w-full md:w-80 h-48 md:h-45 cursor-pointer transition-opacity hover:opacity-80 object-cover"
+        />
+      );
+    }
+    
+    if (topic.slug === 'raising-chickens') {
+      return (
+        <img 
+          src="/images/raising-chickens-videos.jpg"
+          alt={`${topic.name} videos`}
+          className="video-thumbnail rounded-lg w-full md:w-80 h-48 md:h-45 cursor-pointer transition-opacity hover:opacity-80 object-cover"
+        />
+      );
+    }
+    
+    if (topic.slug === 'soil-building-arid-climates') {
+      return (
+        <img 
+          src="/images/soil-building-videos.jpg"
+          alt={`${topic.name} videos`}
+          className="video-thumbnail rounded-lg w-full md:w-80 h-48 md:h-45 cursor-pointer transition-opacity hover:opacity-80 object-cover"
+        />
+      );
+    }
+    
     const svgContent = getSvgContent(topic.slug);
     if (svgContent) {
       // Scale SVG to fill the entire container (320x180)
