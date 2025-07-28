@@ -20,7 +20,7 @@ export default function VideoCard({ video, showRanking = true, topicName }: Vide
   };
 
   const handleVideoClick = () => {
-    trackEvent('video_click', 'engagement', `${topicName}: ${video.title}`, video.ranking);
+    trackEvent('video_click', 'engagement', `${topicName}: ${video.title}`, video.ranking || 0);
   };
 
   const truncateDescription = (description: string, maxLength = 150) => {
