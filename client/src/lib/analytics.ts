@@ -22,11 +22,18 @@ export const trackEvent = (
   label?: string, 
   value?: number
 ) => {
-  if (typeof window === 'undefined' || !window.gtag) return;
+  // Enhanced safety checks
+  if (typeof window === 'undefined') return;
+  if (!window.gtag) return;
+  if (!action) return;
   
-  window.gtag('event', action, {
-    event_category: category,
-    event_label: label,
-    value: value,
-  });
+  try {
+    window.gtag('event', action, {
+      event_category: category,
+      event_label: label,
+      value: value,
+    });
+  } catch (error) {
+    console.warn('Analytics tracking failed:', error);
+  }
 };
